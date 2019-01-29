@@ -4,6 +4,7 @@ Politico enables citizens give their mandate to politicians running for differen
 while building trust in the process through transparency.
 
 ### RequiredFeatures
+
 1. Userscansignup.
 2. Userscanlogin.
 3. Admin(electoralbody)cancreatepoliticalparties.
@@ -13,6 +14,7 @@ while building trust in the process through transparency.
 7. Users can see the results of election. 
 
 #### Optional Features
+
 1. User can reset password.
 2. A politician can create a petition against a concluded political office election.
 
