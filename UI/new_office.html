@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/main.css">
-    <title>Document</title>
+    <title>New Office</title>
 </head>
 
 <body>
@@ -25,40 +25,31 @@
     <div class="container">
         <div class="new-party">
             <form class="form" action="">
-                <h2>Register a new political party</h2>
+                <h2>Create a new public office position</h2>
                 <div class="group-control">
                     <div class="group-input">
-                        <label for="party-official">Party official: </label> <br>
-                        <input type="text" name="party_official" id="party-official" placeholder="Party Official">
+                        <label for="position">Office Postion: </label> <br>
+                        <input type="text" name="position" id="position" placeholder="Position to create">
                     </div>
                     <div class="group-input">
-                        <label for="party-name">Party Name: </label> <br>
-                        <input type="text" name="party_name" id="party-name" placeholder="Party Name">
+                        <label for="party-name">Jurisdiction: </label> <br>
+                        <input type="text" name="jurisdiction" id="jurisdiction" placeholder="Jurisdiction">
                     </div>
                 </div>
                 <div class="group-control">
                     <div class="group-input">
-                        <label for="party-logo">Party Logo: </label> <br>
-                        <input type="url" name="party_logo" id="party-logo" placeholder="Url for logo">
+                        <label for="date">Election Date: </label> <br>
+                        <input type="date" name="date" id="date" placeholder="Election dates">
                     </div>
-                    <div class="group-input">
-                        <label for="party-abbr">Party Abbreviation: </label> <br>
-                        <input type="text" name="party_abbr" id="party-abbr" placeholder="Party Abbreviation">
-                    </div>
-                </div>
-                <div class="group-control">
-                    <div class="group-input" id="ps">
-                        <label for="party-slogan">Party Slogan: </label><br>
-                        <input type="text" name="party_slogan" id="party-slogan" placeholder="Party Slogan">
-                    </div>
+
                 </div>
                 <div class="group-control">
                     <div class="group-input" id="pm">
-                        <label for="manifesto">Party Manifesto: </label>
-                        <textarea name="manifesto" id="manifesto" cols="81" rows="10"></textarea>
+                        <label for="job-description">Job Description: </label>
+                        <textarea name="job-description" id="job-description" cols="81" rows="10"></textarea>
                     </div>
                 </div>
-                <button type="submit" class="button">Create Party</button>
+                <button type="submit" class="button">Create Job</button>
             </form>
         </div>
     </div>
