@@ -255,13 +255,22 @@ input:focus , textarea:focus{
 .vote-sheet {
     background: #FFFFFF;
     width: 100%;
+    margin-bottom: 1%;
 }
 
-.vote-sheet h1 {
+.vote-sheet h2 {
     border-bottom: #DCE9E8 solid 1px;
     padding: 25px;
     background: #00694d;
     color: #FFFFFF;
+    cursor: pointer;
+}
+
+.vote-sheet h2 span {
+    float: right;
+    margin: 0;
+    padding: 8px;
+    border: #ffffff 1px solid;
 }
 
 .vote-sheet button {
@@ -270,15 +279,27 @@ input:focus , textarea:focus{
     font-size: 1.6em;
     background: #00D35C;
     font-weight: bold;
-    margin: 15px;
+    margin: 20px 20px 20px 58pc;
 }
 
 .choice {
-    border-bottom:1px solid #DCE9E8;
-    padding: 25px 15px;
     display: block;
-    position: relative;
-    width: 80%;
+    padding: 25px 50px;
+    font-weight: bold;
+    border-bottom: #00694D dashed 1px;    
+}
+
+.choice:last-child {
+    border-bottom: #ffffff dashed 1px;  
+}
+
+.choice:first-child {
+    border-bottom: #00694D dashed 1px;
+}
+
+.choice label span {
+    display: block;
+    width: 100%;
 }
 
 .choice:hover {
@@ -286,10 +307,16 @@ input:focus , textarea:focus{
     cursor: pointer;
 }
 
-.choice input {
-    position: absolute;
+.choice input[type='radio'] {
+    width: 30px;
+    height: 30px;
+    border: none;
+    float: right;
+    margin: 0;
+    outline: none;
+    cursor: pointer;
 }
-
-.candidate img{
-    width: 20%;
-}
+/* 
+#prefered {
+    display: none;
+} */
