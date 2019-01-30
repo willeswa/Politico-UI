@@ -1,6 +1,6 @@
 body, html {
     background: #DEE9E8;
-    font-size: 14px;
+    font-size: 13px;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     padding: 0;
     margin: 0 ;
@@ -41,7 +41,6 @@ footer {
     background: #202020;
     width: 100%;
     color: #FFFFFF;
-    font-size: 12px;
     padding-bottom: 25px;
     
 }
@@ -55,7 +54,6 @@ footer h3 {
 
 footer a {
     color: #FFFFFF;
-    font-size: 14px;
 }
     
 * {
@@ -65,14 +63,23 @@ footer a {
 }
     
 input {
+    width: 100%;
     margin: 5px 0;
-    font-size: 14px;
+    
     padding: 12px 15px;
     border: #deefe5 1px solid;
     background: #f5fcf8;
+    /* border-radius: 10px; */
 }
 
-
+textarea {
+    background: #F4FDF8;
+    border: #deefe5 1px solid; 
+    padding: 15px 20px;
+    margin-top: 5px;
+    border-radius: 5px;
+    width: 100%;
+}
 
 button:hover {
     background: #00BD57;
@@ -88,6 +95,18 @@ nav {
     border-bottom: #DCE9E8 5px solid;
 }
 
+input::placeholder {
+    opacity: 0.5;
+    font-size: 12px;
+}
+
+input:focus , textarea:focus{
+    outline: none;
+    box-shadow: -webkit-box-shadow: 0px 0px 5px -2px rgba(0,166,83,1);
+    -moz-box-shadow: 0px 0px 5px -2px rgba(0,166,83,1);
+    box-shadow: 0px 0px 5px -2px rgba(0,166,83,1);
+}
+
 .upper-div {
     display: flex;
     border-bottom: #DCE9E8 1px solid;
@@ -99,7 +118,7 @@ nav {
 
 .nav-item{
     display: inline-block;
-    font-size: 13px;
+    
     font-weight: bold;
     padding: 18px 25px;
 }
@@ -139,7 +158,6 @@ nav {
     background: #00694D;
     color: #FFFFFF;
     font-weight: bold;
-    font-size: inherit;
     /* float: right; */
     margin-top: 25px;
 }
@@ -157,7 +175,7 @@ nav {
 
 .nav-item{
     display: inline-block;
-    font-size: 13px;
+    
     font-weight: bold;
     padding: 18px 25px;
 }
@@ -187,13 +205,19 @@ nav {
     padding: 50px 50px;
 }
 
+.form h2 {
+    border-bottom: #DCE9E8 1px solid;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+}
+
 .button {
     padding: 12px 15px;
     border: none;
     background: #00694D;
     color: #FFFFFF;
     font-weight: bold;
-    font-size: inherit;
+it;
     /* float: right; */
     margin-top: 25px;
 }
@@ -212,5 +236,19 @@ nav {
 }
 .lower-div {
     padding: 25px 20px;
-    font-size: 13px;
+    
+}
+
+.group-control {
+    display: flex;
+    margin-bottom: 3%;
+}
+
+.group-input {
+    width: 48%;
+    margin: 0 1%;
+}
+
+#ps, #pm {
+    width: 100%;
 }
