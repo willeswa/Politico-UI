@@ -102,7 +102,7 @@ input::placeholder {
 
 input:focus , textarea:focus{
     outline: none;
-    box-shadow: -webkit-box-shadow: 0px 0px 5px -2px rgba(0,166,83,1);
+    box-shadow: 0px 0px 5px -2px rgba(0,166,83,1);
     -moz-box-shadow: 0px 0px 5px -2px rgba(0,166,83,1);
     box-shadow: 0px 0px 5px -2px rgba(0,166,83,1);
 }
@@ -251,3 +251,72 @@ input:focus , textarea:focus{
 #ps, #pm {
     width: 100%;
 }
+
+.vote-sheet {
+    background: #FFFFFF;
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+.vote-sheet h2 {
+    border-bottom: #DCE9E8 solid 1px;
+    padding: 25px;
+    background: #00694d;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.vote-sheet h2 span {
+    float: right;
+    margin: 0;
+    padding: 8px;
+    border: #ffffff 1px solid;
+}
+
+.vote-sheet button {
+    border: none;
+    padding: 15px 25px;
+    font-size: 1.6em;
+    background: #00D35C;
+    font-weight: bold;
+    margin: 20px 20px 20px 58pc;
+}
+
+.choice {
+    display: block;
+    padding: 25px 50px;
+    font-weight: bold;
+    border-bottom: #00694D dashed 1px;    
+}
+
+.choice:last-child {
+    border-bottom: #ffffff dashed 1px;  
+}
+
+.choice:first-child {
+    border-bottom: #00694D dashed 1px;
+}
+
+.choice label span {
+    display: block;
+    width: 100%;
+}
+
+.choice:hover {
+    background: #9bc4b7;
+    cursor: pointer;
+}
+
+.choice input[type='radio'] {
+    width: 30px;
+    height: 30px;
+    border: none;
+    float: right;
+    margin: 0;
+    outline: none;
+    cursor: pointer;
+}
+/* 
+#prefered {
+    display: none;
+} */
