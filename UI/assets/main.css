@@ -351,3 +351,12 @@ img {
 input[type='radio']:focus {
     outline: none;
 }
+
+.meta {
+    display: flex;
+}
+
+label, a, p{
+    font-weight: bold;
+}
+
