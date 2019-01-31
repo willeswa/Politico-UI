@@ -1,3 +1,5 @@
 function toglecontent(element) {
-    element.add
+    element.addListener('click', function(){
+        
+    })
 }
