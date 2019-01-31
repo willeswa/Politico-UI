@@ -106,6 +106,7 @@ input:focus , textarea:focus{
     padding: 18px 25px;
 }
 
+
 .nav-item:hover {
     background: #DEE9E8;
 
@@ -422,4 +423,66 @@ label, a, p{
 #personal-info a:hover {
     background: #00D35C;
     color: #00694D;
+}
+
+.header-img img{
+    border-radius: 0;
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.party-info {
+    padding: 15px 20px;
+    background: #c0d6d4;
+    border-radius: 10px;
+    margin-bottom: 1%;
+}
+
+.party-info p {
+    display: flex;
+    padding: 15px 0;   
+}
+
+.party-info p span{
+    width: 50%;
+}
+
+.update {
+    display: flex;
+    padding: 15px 0;
+}
+
+.update span {
+    width: 50%;
+}
+
+.update a {
+    padding: 15px 25px;
+    font-size: 1.3em;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.edit a:hover {
+    background: #f2bd8c;
+    color: #EE7D00;
+}
+
+.delete {
+    margin-left: 70%;
+    
+}
+.delete a {
+    color: red;
+    border: 1px #EA0000 solid;
+}
+
+.delete a:hover {
+    background: #f7a8a8;
+}
+
+.manifesto {
+    line-height: 20px;
 }
