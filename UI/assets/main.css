@@ -333,3 +333,21 @@ img {
     object-fit: cover;
     border-radius: 100%;
 }
+
+#auth{
+    width: 60%;
+}
+
+#radios {
+    display: flex;
+    padding: 15px 0;
+}
+
+#radios input[type='button'] {
+    margin: 0;
+    padding: 0;
+    outline: none !important;
+}
+input[type='radio']:focus {
+    outline: none;
+}
