@@ -281,6 +281,7 @@ input:focus , textarea:focus{
 #personal-info h2, #election-history h2 {
     border-bottom: #00694D 1px solid;
     padding: 25px 0;
+    display: flex;
 }
 
 .main-panel {
@@ -409,4 +410,16 @@ label, a, p{
     border-radius: 0px;
     border: none;
     height: 150px;
+}
+
+#personal-info a {
+    margin-left: 45%;
+    background: #00694D;
+    color: #FFFFFF;
+    padding: 10px 25px; 
+}
+
+#personal-info a:hover {
+    background: #00D35C;
+    color: #00694D;
 }
