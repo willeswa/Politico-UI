@@ -1,0 +1,49 @@
+#body {
+    height: 100%;
+    background: #FCFCFC;
+}
+
+li {
+    display: inline-block;
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    padding: 20px 25px;
+}
+
+.brand-name {
+    color: #009A7A;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.nav-right {
+    margin-left: 25%;
+    font-size: 18px;
+}
+
+.nav-right li {
+    border: #009A7A 2px solid;
+    padding: 10px 15px;
+    color: #009A7A;
+    font-weight: bold;
+}
+
+.mid-nav{
+    padding: 5px 15px;
+}
+
+.mid-nav a{
+    font-weight: 18px;
+    color: #90979D;
+    font-weight: bold;
+    margin-left: 65px;
+}
+
+.intro {
+    width: 40%;
+    color: #152A39;
+    margin: 0 auto;
+}
