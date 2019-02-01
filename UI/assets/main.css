@@ -267,11 +267,23 @@ input:focus , textarea:focus{
 .right-panel {
     width: 30%;
     background: #FFFFFF;
-    height: 130px;
+    height: 200px;
     padding: 0 20px;
     position: sticky;
     top: 56px;
     font-weight: bold;
+}
+
+.right-panel a {
+    border-bottom: #DCE9E8 1px solid;
+}
+
+.right-panel a:hover{
+    text-decoration: underline;
+}
+
+.reset {
+    color: #EA0000;
 }
 
 #personal-info, #election-history {
