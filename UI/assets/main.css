@@ -376,13 +376,13 @@ label, a, p{
     padding: 8px;
 }
 
-.main-panel2 a{
+.main-panel2 a, .main-panel1 a{
     box-shadow: 0px 0px 5px -2px rgba(0,166,83,1);
     -moz-box-shadow: 0px 0px 5px -2px rgba(0,166,83,1);
     box-shadow: 0px 0px 5px -2px rgba(0,166,83,1);
 }
 
-.main-panel2 a:hover {
+.main-panel2 a:hover, .main-panel1 a:hover {
     background: #DCE9E8;
 }
 
@@ -485,4 +485,15 @@ label, a, p{
 
 .manifesto {
     line-height: 20px;
+}
+
+.main-panel1 .candidate {
+    width: 22%;
+    display: inline-block;
+    margin: 1%;
+    border-radius: 5px;
+}
+
+.main-panel1 h2 {
+    padding: 25px 10px;
 }
