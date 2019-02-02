@@ -1,3 +1,5 @@
+""" Defines base test cases """
+
 # Third party imports
 import unittest
 

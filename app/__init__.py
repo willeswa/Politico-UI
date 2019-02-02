@@ -1,10 +1,14 @@
+""" Powers up the application
+Creates the application and loads configurations
+ """
+
 # Third party imports
 import os
 from flask import Flask
+from dotenv import load_dotenv
 
 # Local imports
-from app.config import app_config
-from dotenv import load_dotenv
+from app.config import APP_CONFIG
 
 
 def create_app(config_name='development'):
@@ -12,7 +16,7 @@ def create_app(config_name='development'):
 
     app = Flask(__name__)
 
-    app.config.from_object(app_config[config_name])
+    app.config.from_object(APP_CONFIG[config_name])
     app.config.from_pyfile('config.py')
 
     app_root = os.path.join(os.path.dirname(__file__), '..')

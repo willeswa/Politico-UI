@@ -1,12 +1,12 @@
-import os
+""" Defines runtime environment configurations """
 
-super_secret = os.getenv('SECRETE')
+import os
 
 
 class Config:
     """ Define common configurations for all environments """
 
-    SECRET = super_secret
+    SECRET = os.getenv('SECRET')
 
 
 class TestingConfig(Config):
@@ -24,10 +24,11 @@ class DevelopmentConfig(Config):
 class ProductionConfig(Config):
     """ Defines configurations for production """
 
-    pass
+    TESTING = False
+    DEBUG = False
 
 
-app_config = dict(
+APP_CONFIG = dict(
     testing=TestingConfig,
     development=DevelopmentConfig,
     production=ProductionConfig
