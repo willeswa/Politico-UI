@@ -1,28 +1,48 @@
-### Politico
+## Project Overview
+Politico is an application that enables citizens to give their mandate to politicians running for different government offices while building trust in the process through transparency.
 
-Politico enables citizens give their mandate to politicians running for different government offices
-while building trust in the process through transparency.
+## Required Features
+1. A user should be able to sign up to Politico 
+2. A user with an account should be able to log into Politico
+3. An administrator should be able to crete a political party in Politico
+4. A user with an account should be able to declare candidacy for specific post
+5. A user should be able to see election results
+6. A user should be able to get a specific politician profile
+7. A user should be able to get all parties record
+8. An admin should be able to delete a political party
+9. A user should be able to log out of Politico
+10. Admin should be able to edit a party information
 
-### RequiredFeatures
+# Installation and Setup
+Clone the repository.
+```
+https://github.com/willeswa/politico-app.git
+```
 
-1. Userscansignup.
-2. Userscanlogin.
-3. Admin(electoralbody)cancreatepoliticalparties.
-4. Admin(electoralbody)candeleteapoliticalparty.
-5. Admin(electoralbody)can create different political offices.
-6. Users can vote for only one politician per political office.
-7. Users can see the results of election. 
+## Create a virtual environment
 
-#### Optional Features
+```
+python3 -m venv venv;
+source venv/bin/activate
+```
+If you need to install virtualenv:
+```
+virtualenv venv
+```
 
-1. User can reset password.
-2. A politician can create a petition against a concluded political office election.
+## Activate the virtual environment
+Before you begin you will need to activate the corresponding environment
+```
+source venv/bin/activate
+```
+## Install requirements
+```
+pip install -r requirements.txt
+```
 
-### Built With
-
-- HTML5
-- CSS3
-- JavaScript
-
-### Author:
-Willies Wanjala
+## Running the application
+After the configuration, you will run the app 
+```
+export FLASK_APP=run.py
+flask run
+```
