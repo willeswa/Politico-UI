@@ -35,3 +35,9 @@ class PartyViews(Resource):
             party['party_name'], party['party_official'], party['party_hq'], party['logo_url'])
         response = party_model.create_party()
         return json.loads(response.data), response.status_code
+
+    @classmethod
+    def get(cls):
+        """ Passes request to retrieve parties to the models """
+        response = PartyModel.retrieve_all_parties()
+        return json.loads(response.data), response.status_code

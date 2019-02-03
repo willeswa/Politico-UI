@@ -44,3 +44,12 @@ class PartyModel:
 
         except Exception as error:
             raise Exception(error)
+
+    @classmethod
+    def retrieve_all_parties(cls):
+        """ Retrieves all parties  """
+
+        response = make_response(
+            jsonify({'status': 200, 'message': PARTY_DB}), 200
+        )
+        return response
