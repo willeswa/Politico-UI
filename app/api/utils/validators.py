@@ -28,7 +28,7 @@ class Validators:
         is_valid_url = urlparse(url)
         url_scheme = is_valid_url.scheme
 
-        if url_scheme == 'http' or url_scheme == 'https':
+        if url_scheme in ('http', 'https'):
             return url
 
         raise TypeError

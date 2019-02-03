@@ -14,6 +14,7 @@ class PartyModel:
 
     def __init__(self, party_name, party_official, party_hq, logo_url):
         """ Initializes instance variables """
+
         self.party_name = party_name
         self.party_official = party_official
         self.party_hq = party_hq
@@ -22,6 +23,7 @@ class PartyModel:
         self.created_on = datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
 
     def create_party(self):
+        """ Creates a political party """
 
         try:
             party = {}

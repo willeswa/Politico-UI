@@ -15,10 +15,12 @@ class PartyViews(Resource):
 
     def __init__(self):
         """ initializes instance variables """
+
         self.parser = reqparse.RequestParser()
 
     def post(self):
         """ Passes data to the models to create a party """
+
         self.parser.add_argument('party_name', required=True, type=Validators.validate_word,
                                  help='Provide a valid party name')
         self.parser.add_argument('party_official', required=True, type=Validators.validate_word,
