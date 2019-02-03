@@ -27,9 +27,17 @@ class OfficeModel:
             office['name'] = self.name
             office['office_type'] = self.office_type
             self.office_db.append(office)
-            message = make_response(
+            response = make_response(
                 jsonify({'status': 201, 'message': 'Successfuly created office'}), 201)
-            return message
+            return response
 
         except Exception as error:
             raise Exception({'error': error})
+
+    def retrieve_all_offices(self):
+        """ Retrieves all offices from the database """
+        response = make_response(
+            jsonify({'status': 200, 'message': self.office_db}), 200
+        )
+
+        return response

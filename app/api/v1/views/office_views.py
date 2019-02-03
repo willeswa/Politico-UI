@@ -13,15 +13,20 @@ class OfficeViews(Resource):
 
     def __init__(self):
         self.parser = reqparse.RequestParser()
-
-    def post(self):
-        """ Passes data to the models to create an office """
-
         self.parser.add_argument('office_type', required=True, type=Validators.validate_word,
                                  help='Provide a valid office type')
         self.parser.add_argument('name', required=True, type=Validators.validate_word,
                                  help='Provide a valid office name')
         office = self.parser.parse_args()
-        office_model = OfficeModel(office['office_type'], office['name'])
-        response = office_model.create_office()
+        self.office_model = OfficeModel(office['office_type'], office['name'])
+
+    def post(self):
+        """ Passes data to the models to create an office """
+
+        response = self.office_model.create_office()
+        return json.loads(response.data), response.status_code
+
+    def get(self):
+        """ Passes request to retrieve data to the models """
+        response = self.office_model.retrieve_all_offices()
         return json.loads(response.data), response.status_code
