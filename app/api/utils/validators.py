@@ -1,6 +1,7 @@
 """ Contains  classes that handle data validation """
-# Third party imports
+# Standard imports
 import re
+from urllib.parse import urlparse
 
 
 class Validators:
@@ -17,5 +18,17 @@ class Validators:
 
         if string_entry and entry_type and match:
             return string_entry
+
+        raise TypeError
+
+    @classmethod
+    def validate_url(cls, url):
+        """ Validates urls """
+
+        is_valid_url = urlparse(url)
+        url_scheme = is_valid_url.scheme
+
+        if url_scheme == 'http' or url_scheme == 'https':
+            return url
 
         raise TypeError
