@@ -25,3 +25,7 @@ class TestApiEndPoints(TestBaseClass):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 400)
+
+    def test_get_all(self):
+        response = self.client.get('api/v1/offices')
+        self.assertEqual(response.status_code, 200)

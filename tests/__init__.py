@@ -10,6 +10,12 @@ from app.api.v1.models.office_models import OfficeModel
 
 class TestBaseClass(unittest.TestCase):
     """ Creates a base test class """
+    test_office_db = [{
+        "created_on": "Sunday, 03. February 2019 05:23PM",
+        "name": "President of the Republic of Kenya",
+        "office_id": 1,
+        "office_type": "Valid Office Type"
+    }]
 
     def setUp(self):
         """ Sets up testing client """
@@ -23,4 +29,4 @@ class TestBaseClass(unittest.TestCase):
         self.demo_office = dict(office_type='County Government Leadership',
                                 name='The Governor, County Government of Bungoma')
         self.bad_request = dict(office_type="__",
-                                   name="Govornor Bungoma")
+                                name="Govornor Bungoma")
