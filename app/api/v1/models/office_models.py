@@ -1,5 +1,9 @@
 """ Defines political office models """
 
+# Standard imports
+import datetime
+
+# Third party imports
 from flask import make_response, jsonify
 
 
@@ -12,6 +16,8 @@ class OfficeModel:
 
         self.office_type = office_type
         self.name = name
+        self.office_id = len(self.office_db) + 1
+        self.created_on = datetime.datetime.now()
 
     def create_office(self):
         """ creates a political office """
