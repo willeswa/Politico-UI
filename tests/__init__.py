@@ -11,10 +11,10 @@ from app.api.v1.models.office_models import OfficeModel
 class TestBaseClass(unittest.TestCase):
     """ Creates a base test class """
     test_office_db = [{
+        "created_on": "Sunday, 03. February 2019 05:23PM",
+        "name": "President of the Republic of Kenya",
         "office_id": 1,
-        "office_type": "County Government Office",
-        "name": "Governor Bungoma County",
-        "created_on": '2019/2/1'
+        "office_type": "Valid Office Type"
     }]
 
     def setUp(self):
