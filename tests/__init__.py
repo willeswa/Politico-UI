@@ -31,7 +31,7 @@ class TestBaseClass(unittest.TestCase):
 
         self.bad_party = dict(party_name='The Catwalking Party',
                               party_official='A Human',
-                              party_hq='__',
+                              party_hq='Party',
                               logo_url=''
                               )
 
