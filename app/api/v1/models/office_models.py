@@ -6,7 +6,14 @@ import datetime
 # Third party imports
 from flask import make_response, jsonify
 
-DB = []
+DB = [
+    {
+        "created_on": "Sunday, 03. February 2019 06:52PM",
+        "name": "President of the Republic of Kenya",
+        "office_id": 1,
+        "office_type": "Valid Office Type"
+    }
+]
 
 
 class OfficeModel:
