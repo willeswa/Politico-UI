@@ -9,7 +9,7 @@ from app.api.utils.validators import Validators
 
 
 class OfficeViews(Resource):
-    """ Handles views related to bundled offices """
+    """ Handles views related to hundled offices """
 
     def __init__(self):
         self.parser = reqparse.RequestParser()

@@ -28,5 +28,17 @@ class TestBaseClass(unittest.TestCase):
 
         self.demo_office = dict(office_type='County Government Leadership',
                                 name='The Governor, County Government of Bungoma')
+
+        self.bad_party = dict(party_name='The Catwalking Party',
+                              party_official='A Human',
+                              party_hq='__',
+                              logo_url=''
+                              )
+
+        self.demo_party = dict(party_name='The Catwalking Party',
+                               party_official='A Human',
+                               party_hq='Nyeri',
+                               logo_url='https://images.unsplash.com/photo-1471874276752-65e2d717604a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')
+
         self.bad_request = dict(office_type="__",
                                 name="Govornor Bungoma")
