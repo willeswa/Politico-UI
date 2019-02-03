@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/willeswa/politico-app.svg?branch=develop)](https://travis-ci.com/willeswa/politico-app) [![Coverage Status](https://coveralls.io/repos/github/willeswa/politico-app/badge.svg?branch=develop)](https://coveralls.io/github/willeswa/politico-app?branch=develop) <a href="https://codeclimate.com/github/willeswa/politico-app/maintainability"><img src="https://api.codeclimate.com/v1/badges/840ff34fc071372d8a3f/maintainability" /></a>
 ## Project Overview
 Politico is an application that enables citizens to give their mandate to politicians running for different government offices while building trust in the process through transparency.
 
