@@ -31,3 +31,14 @@ class OfficeViews(Resource):
         """ Passes request to retrieve data to the models """
         response = OfficeModel.retrieve_all_offices()
         return json.loads(response.data), response.status_code
+
+
+class SpecificOfficeViews(Resource):
+    """ Handles requests on specific office opreations """
+
+    @classmethod
+    def get(cls, office_id):
+        """ Passes a get request to the models to retrieve a specific office """
+
+        response = OfficeModel.get_specific_office(office_id)
+        return json.loads(response.data), response.status_code

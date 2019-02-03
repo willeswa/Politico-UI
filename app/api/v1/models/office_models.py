@@ -6,7 +6,14 @@ import datetime
 # Third party imports
 from flask import make_response, jsonify
 
-DB = []
+DB = [
+    {
+        "created_on": "Sunday, 03. February 2019 06:52PM",
+        "name": "President of the Republic of Kenya",
+        "office_id": 1,
+        "office_type": "Valid Office Type"
+    }
+]
 
 
 class OfficeModel:
@@ -45,3 +52,22 @@ class OfficeModel:
             jsonify({'status': 200, 'message': DB}), 200
         )
         return response
+
+    @classmethod
+    def get_specific_office(cls, office_id):
+        """ returns a specific office given office id """
+
+        if OfficeModel.office_exists(office_id):
+            response = make_response(
+                jsonify({'status': 200, 'message': OfficeModel.office_exists(office_id)}), 200)
+            return response
+        return make_response(jsonify({'status': 404, 'message': 'Office not found'}), 404)
+
+    @classmethod
+    def office_exists(cls, office_id):
+        """ Checks if a specific office exists """
+
+        for office in DB:
+            if office['office_id'] == office_id:
+                return office
+        return None
