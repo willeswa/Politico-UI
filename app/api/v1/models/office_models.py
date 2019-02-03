@@ -1,5 +1,7 @@
 """ Defines political office models """
 
+from flask import make_response, jsonify
+
 
 class OfficeModel:
     """ Handles operations related to politicsl offices """
@@ -14,8 +16,14 @@ class OfficeModel:
     def create_office(self):
         """ creates a political office """
 
-        office = {}
-        office['name'] = self.name
-        office['office_type'] = self.office_type
-        self.office_db.append(office)
-        return 'Successfuly created office'
+        try:
+            office = {}
+            office['name'] = self.name
+            office['office_type'] = self.office_type
+            self.office_db.append(office)
+            message = make_response(
+                jsonify({'status': 201, 'message': 'Successfuly created office'}), 201)
+            return message
+
+        except Exception as error:
+            raise Exception({'error': error})
