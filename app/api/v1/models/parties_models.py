@@ -3,8 +3,9 @@
 # Standard imports
 import datetime
 
-# Local imports
+# Third party imports
 from flask import make_response, jsonify
+
 
 PARTY_DB = []
 
@@ -53,3 +54,22 @@ class PartyModel:
             jsonify({'status': 200, 'message': PARTY_DB}), 200
         )
         return response
+
+    @classmethod
+    def get_specific_party(cls, party_id):
+        """ returns a specific party given party id """
+
+        if PartyModel.party_exists(party_id):
+            response = make_response(
+                jsonify({'status': 200, 'message': PartyModel.party_exists(party_id)}), 200)
+            return response
+        return make_response(jsonify({'status': 404, 'message': 'Party not found'}), 404)
+
+    @classmethod
+    def party_exists(cls, party_id):
+        """ Checks if a specific party exists """
+
+        for party in PARTY_DB:
+            if party['party_id'] == party_id:
+                return party
+        return None

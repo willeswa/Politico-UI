@@ -11,7 +11,7 @@ from app.api.utils.validators import Validators
 
 
 class PartyViews(Resource):
-    """ Handles views related to hundled parties """
+    """ Handles requests related to bundled parties """
 
     def __init__(self):
         """ initializes instance variables """
@@ -39,5 +39,17 @@ class PartyViews(Resource):
     @classmethod
     def get(cls):
         """ Passes request to retrieve parties to the models """
+
         response = PartyModel.retrieve_all_parties()
+        return json.loads(response.data), response.status_code
+
+
+class SpecificPartyViews(Resource):
+    """ Handles requests related to specific parties """
+
+    @classmethod
+    def get(cls, party_id):
+        """ Passes reqest to ge a specific party """
+
+        response = PartyModel.get_specific_party(party_id)
         return json.loads(response.data), response.status_code
