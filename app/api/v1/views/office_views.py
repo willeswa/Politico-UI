@@ -1,44 +1,37 @@
 """ This module handles views related to office data """
+# Standard imports
+import json
+
 # Third party imports
-from flask_restful import Resource, reqparse
-from flask import json
+from flask import make_response, jsonify, request
+
 
 # Local imports
-from app.api.v1.models.office_models import OfficeModel
+from app.api.v1 import V1
+from app.api.v1.models.office_models import OfficeModel, DB
 from app.api.utils.validators import Validators
 
 
-class OfficeViews(Resource):
-    """ Handles views related to hundled offices """
+class OfficeViews:
+    """ Defines views for office """
 
-    def __init__(self):
-        self.parser = reqparse.RequestParser()
+    @V1.route('/offices', methods=['POST'])
+    def post_offices():
+        """ Passes request to either get or post data to office models """
+        office = request.get_json()
+        office_model = OfficeModel(
+            office['office_name'], office['office_type'])
 
-    def post(self):
-        """ Passes data to the models to create an office """
-        self.parser.add_argument('office_type', required=True, type=Validators.validate_word,
-                                 help='Provide a valid office type')
-        self.parser.add_argument('name', required=True, type=Validators.validate_word,
-                                 help='Provide a valid office name')
-        office = self.parser.parse_args()
-
-        office_model = OfficeModel(office['office_type'], office['name'])
         response = office_model.create_office()
-        return json.loads(response.data), response.status_code
+        result = make_response(
+            jsonify({'status': 'Created', 'message': response}), 201
+        )
+        return result
 
-    @classmethod
-    def get(cls):
-        """ Passes request to retrieve data to the models """
+    @V1.route('/offices', methods=['GET'])
+    def get_offices():
         response = OfficeModel.retrieve_all_offices()
-        return json.loads(response.data), response.status_code
-
-
-class SpecificOfficeViews(Resource):
-    """ Handles requests on specific office opreations """
-
-    @classmethod
-    def get(cls, office_id):
-        """ Passes a get request to the models to retrieve a specific office """
-
-        response = OfficeModel.get_specific_office(office_id)
-        return json.loads(response.data), response.status_code
+        result = make_response(
+            jsonify({'status': 'success', 'message': response}), 200
+        )
+        return result
