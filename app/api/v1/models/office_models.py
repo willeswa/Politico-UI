@@ -24,7 +24,6 @@ class OfficeModel:
         self.office_type = office_type
         self.office_id = len(DB) + 1
         self.created_on = datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
-        
 
     def create_office(self):
         """ creates a political office """
@@ -37,7 +36,7 @@ class OfficeModel:
             office['created_on'] = self.created_on
 
             DB.append(office)
-            
+
             return 'Successfuly created an office'
 
         except Exception as error:
@@ -51,11 +50,8 @@ class OfficeModel:
     @classmethod
     def get_specific_office(cls, office_id):
         """ returns a specific office given office id """
-
-        if OfficeModel.office_exists(office_id):
-            response = OfficeModel.office_exists(office_id)
-            return response
-        return 'Office not found'
+        response = OfficeModel.office_exists(office_id)
+        return response
 
     @classmethod
     def office_exists(cls, office_id):
