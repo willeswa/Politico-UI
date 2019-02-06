@@ -54,7 +54,13 @@ class PartyViews(MethodView):
         """ updates party information """
 
         updates = request.get_json()
-        
-        response = PartyModel.update_party(party_id, **updates)
-        result = Serializer.serialize(response, 200)
+
+        party = PartyModel.party_exists(party_id)
+
+        if party:        
+            response = PartyModel.update_party(party, party_id, **updates)
+            result = Serializer.serialize(response, 200)
+            return result
+        result = Serializer.serialize(
+                    'Office {} is not available'.format(party_id), 404, 'Not Found')
         return result
