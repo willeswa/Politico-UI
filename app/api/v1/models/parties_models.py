@@ -4,7 +4,14 @@
 import datetime
 
 
-PARTY_DB = []
+PARTY_DB = [{
+            "created_on": "Wednesday, 06. February 2019 10:39PM",
+            "logo_url": "link-2",
+            "party_hq": "Red Counter",
+            "party_id": 1,
+            "party_name": "Orange Democratic Movement",
+            "party_official": "Raila Odinga"
+            }]
 
 
 class PartyModel:
@@ -62,13 +69,9 @@ class PartyModel:
         return None
 
     @classmethod
-    def update_party(cls, party_id, **kwargs):
+    def update_party(cls, party, party_id, **kwargs):
         """ Updates party with user defined information """
-        
-        party = PartyModel.get_specific_party(party_id)
-        if party:
-            for k, v in kwargs.items():
-                party[k] = v
-            return PARTY_DB
-        else:
-            return 'No party number {}'.format(party_id)
+
+        for k, v in kwargs.items():
+            party[k] = v
+        return PARTY_DB
