@@ -1,9 +1,7 @@
 """ This module handles views related to office data """
-# Standard imports
-import json
 
 # Third party imports
-from flask import make_response, jsonify, request
+from flask import request, jsonify, make_response
 from flask.views import MethodView
 
 
@@ -15,7 +13,8 @@ from app.api.utils.serializer import Serializer
 class PartyViews(MethodView):
     """ Defines views for office """
 
-    def post(self):
+    @classmethod
+    def post(cls):
         """ Passes request to either get or post data to office models """
 
         party = request.get_json()
@@ -31,10 +30,11 @@ class PartyViews(MethodView):
         result = Serializer.serialize(response, 201, 'Created')
         return result
 
-    def get(self, party_id):
+    @classmethod
+    def get(cls, party_id):
         """ Sends a get request to the part models """
 
-        if party_id == None:
+        if party_id is None:
             response = PartyModel.retrieve_all_parties()
             result = Serializer.serialize(response, 200)
             return result

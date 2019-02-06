@@ -3,9 +3,6 @@
 # Standard imports
 import datetime
 
-# Third party imports
-from flask import make_response, jsonify
-
 
 PARTY_DB = [{
             "created_on": "Wednesday, 06. February 2019 10:39PM",
@@ -59,8 +56,8 @@ class PartyModel:
     def get_specific_party(cls, party_id):
         """ returns a specific party given party id """
 
-        response = PartyModel.party_exists(party_id)
-        return response
+        party = PartyModel.party_exists(party_id)
+        return party
 
     @classmethod
     def party_exists(cls, party_id):
