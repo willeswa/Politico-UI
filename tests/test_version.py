@@ -58,16 +58,6 @@ class TestApiEndPoints(TestBaseClass):
         )
         self.assertEqual(response.status_code, 201)
 
-    # def test_invalid_party_data(self):
-    #     """ Tests invalid party post """
-
-    #     response = self.client.post(
-    #         'api/v1/parties',
-    #         data=json.dumps(self.bad_party),
-    #         content_type='application/json'
-    #     )
-    #     self.assertEqual(response.status_code, 400)
-
     def test_get_all_parties(self):
         """ Tests retrieve all parties """
 
@@ -89,17 +79,17 @@ class TestApiEndPoints(TestBaseClass):
     def tests_test_edit_no_party(self):
         """ Tests the response on a non-existant resource  """
 
-        response = self.client.put('api/v1/parties/101/edit_party',
-                                   data=json.dumps(
-                                       {"party_name": "some name"}),
-                                   content_type='application/json')
+        response = self.client.put('api/v1/parties/101/edit_party')
         self.assertEqual(response.status_code, 404)
 
-    def tests_test_edit_party(self):
-        """ Tests the response on a non-existant resource  """
+    def tests_delete_party(self):
+        """ Tests the delete party route  """
 
-        response = self.client.put('api/v1/parties/1/edit_party',
-                                   data=json.dumps(
-                                       {"party_name": "some name"}),
-                                   content_type='application/json')
+        response = self.client.delete('api/v1/parties/1/delete')
         self.assertEqual(response.status_code, 200)
+
+    def tests_delete_no_party(self):
+        """ Tests the delete on a non-existant resource  """
+
+        response = self.client.delete('api/v1/parties/10/delete')
+        self.assertEqual(response.status_code, 404)

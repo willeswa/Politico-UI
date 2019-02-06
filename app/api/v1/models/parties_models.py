@@ -4,14 +4,16 @@
 import datetime
 
 
-PARTY_DB = [{
-            "created_on": "Wednesday, 06. February 2019 10:39PM",
-            "logo_url": "link-2",
-            "party_hq": "Red Counter",
-            "party_id": 1,
-            "party_name": "Orange Democratic Movement",
-            "party_official": "Raila Odinga"
-            }]
+PARTY_DB = [
+    {
+        "created_on": "Wednesday, 06. February 2019 10:39PM",
+        "logo_url": "link-2",
+        "party_hq": "Red Counter",
+        "party_id": 1,
+        "party_name": "Orange Democratic Movement",
+        "party_official": "Raila Odinga"
+    }
+]
 
 
 class PartyModel:
@@ -69,9 +71,16 @@ class PartyModel:
         return None
 
     @classmethod
-    def update_party(cls, party, party_id, **kwargs):
+    def update_party(cls, party, **kwargs):
         """ Updates party with user defined information """
 
-        for k, v in kwargs.items():
-            party[k] = v
+        for key, value in kwargs.items():
+            party[key] = value
         return PARTY_DB
+
+    @classmethod
+    def delete_party(cls, party):
+        """ Deletes party if exists """
+
+        PARTY_DB.remove(party)
+        return 'Successfuly deleted party'

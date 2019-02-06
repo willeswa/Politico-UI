@@ -1,11 +1,8 @@
 """ Defines runtime environment configurations """
 
-import os
-
 
 class Config:
     """ Define common configurations for all environments """
-    pass
 
 
 class TestingConfig(Config):
