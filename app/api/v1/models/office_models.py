@@ -3,7 +3,6 @@
 # Standard imports
 import datetime
 
-
 DB = [
     {
         "created_on": "Sunday, 03. February 2019 06:52PM",

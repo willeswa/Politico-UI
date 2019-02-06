@@ -9,7 +9,6 @@ from flask.views import MethodView
 
 # Local imports
 from app.api.v1.models.parties_models import PartyModel
-from app.api.utils.validators import Validators
 from app.api.utils.serializer import Serializer
 
 
