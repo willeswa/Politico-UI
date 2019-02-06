@@ -3,9 +3,6 @@
 # Standard imports
 import datetime
 
-# Third party imports
-from flask import make_response, jsonify
-
 
 PARTY_DB = []
 
@@ -52,14 +49,21 @@ class PartyModel:
     def get_specific_party(cls, party_id):
         """ returns a specific party given party id """
 
-        response = PartyModel.party_exists(party_id)
-        return response
+        party = PartyModel.party_exists(party_id)
+        return party
 
     @classmethod
     def party_exists(cls, party_id):
         """ Checks if a specific party exists """
-        
+
         for party in PARTY_DB:
             if party['party_id'] == party_id:
                 return party
         return None
+
+    @classmethod
+    def delete_party(cls, party):
+        """ Deletes party if exists """
+
+        PARTY_DB.remove(party)
+        return 'Successfuly deleted party'
