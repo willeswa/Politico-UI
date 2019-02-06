@@ -19,6 +19,11 @@ class PartyViews(MethodView):
         """ Passes request to either get or post data to office models """
 
         party = request.get_json()
+
+        if not party:
+            return make_response(jsonify({'message': 'You cannot submit an empty party',
+                                          'status': 'Bad Request'}), 400)
+
         party_model = PartyModel(
             party['party_name'], party['party_official'], party['party_hq'], party['logo_url'])
 
@@ -44,3 +49,12 @@ class PartyViews(MethodView):
                 result = Serializer.serialize(
                     'Office {} is not available'.format(party_id), 404, 'Not Found')
                 return result
+
+    def put(self, party_id):
+        """ updates party information """
+
+        updates = request.get_json()
+        
+        response = PartyModel.update_party(party_id, **updates)
+        result = Serializer.serialize(response, 200)
+        return result

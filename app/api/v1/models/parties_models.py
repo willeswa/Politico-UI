@@ -58,8 +58,20 @@ class PartyModel:
     @classmethod
     def party_exists(cls, party_id):
         """ Checks if a specific party exists """
-        
+
         for party in PARTY_DB:
             if party['party_id'] == party_id:
                 return party
         return None
+
+    @classmethod
+    def update_party(cls, party_id, **kwargs):
+        """ Updates party with user defined information """
+        
+        party = PartyModel.get_specific_party(party_id)
+        if party:
+            for k, v in kwargs.items():
+                party[k] = v
+            return PARTY_DB
+        else:
+            return 'No party number {}'.format(party_id)
