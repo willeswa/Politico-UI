@@ -77,3 +77,10 @@ class PartyModel:
         for key, value in kwargs.items():
             party[key] = value
         return PARTY_DB
+
+    @classmethod
+    def delete_party(cls, party):
+        """ Deletes party if exists """
+
+        PARTY_DB.remove(party)
+        return 'Successfuly deleted party'

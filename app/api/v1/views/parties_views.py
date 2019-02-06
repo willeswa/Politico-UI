@@ -61,6 +61,19 @@ class PartyViews(MethodView):
             response = PartyModel.update_party(party, **updates)
             result = Serializer.serialize(response, 200)
             return result
-        result = Serializer.serialize(
-            'Office {} is not available'.format(party_id), 404, 'Not Found')
-        return result
+
+        return make_response(jsonify({'message': 'Party Does not exist',
+                                      'status': 'Not Found'}), 404)
+
+    @classmethod
+    def delete(cls, party_id):
+        """ sendes a delete request to the party models """
+
+        party = PartyModel.party_exists(party_id)
+        if party:
+            response = PartyModel.delete_party(party)
+            result = Serializer.serialize(response, 200)
+            return result
+
+        return make_response(jsonify({'message': 'Party Does not exist',
+                                      'status': 'Not Found'}), 404)
