@@ -4,13 +4,6 @@ import re
 import json
 from urllib.parse import urlparse
 
-# Third party imports
-from marshmallow import Schema, fields, ValidationError, post_load
-
-# Local imports
-from app.api.v1.models.office_models import OfficeModel
-from app.api.utils.serializer import Serializer
-
 
 def is_valid_word(word_entity):
     """ validates strings """
@@ -33,15 +26,15 @@ def validate_url(url):
 
     if url_scheme in ('http', 'https'):
         return url
-
-    raise ValidationError
+    return 'Invalid url'
 
 
 def is_empty(json_dict, key):
+    """ Checks for an empty field """
+
     _dict = json.dumps(json_dict)
-    
+
     if key in _dict.keys():
         return True
-    else:
-        return 'You must provide {}'.format(key)
-    
+
+    return 'You must provide {}'.format(key)

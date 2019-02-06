@@ -39,28 +39,28 @@ class PartyViews(MethodView):
             result = Serializer.serialize(response, 200)
             return result
 
-        else:
-            exists = PartyModel.party_exists(party_id)
-            if exists:
-                response = PartyModel.get_specific_party(party_id)
-                result = Serializer.serialize(response, 200)
-                return result
-            else:
-                result = Serializer.serialize(
-                    'Office {} is not available'.format(party_id), 404, 'Not Found')
-                return result
+        exists = PartyModel.party_exists(party_id)
+        if exists:
+            response = PartyModel.get_specific_party(party_id)
+            result = Serializer.serialize(response, 200)
+            return result
 
-    def put(self, party_id):
+        result = Serializer.serialize(
+            'Office {} is not available'.format(party_id), 404, 'Not Found')
+        return result
+
+    @classmethod
+    def put(cls, party_id):
         """ updates party information """
 
         updates = request.get_json()
 
         party = PartyModel.party_exists(party_id)
 
-        if party:        
-            response = PartyModel.update_party(party, party_id, **updates)
+        if party:
+            response = PartyModel.update_party(party, **updates)
             result = Serializer.serialize(response, 200)
             return result
         result = Serializer.serialize(
-                    'Office {} is not available'.format(party_id), 404, 'Not Found')
+            'Office {} is not available'.format(party_id), 404, 'Not Found')
         return result
