@@ -85,3 +85,15 @@ class TestApiEndPoints(TestBaseClass):
 
         response = self.client.get('api/v1/parties/10')
         self.assertEqual(response.status_code, 404)
+
+    def tests_delete_party(self):
+        """ Tests the response on a non-existant resource  """
+
+        response = self.client.delete('api/v1/parties/1/delete')
+        self.assertEqual(response.status_code, 200)
+
+    def tests_delete_non_existant_party(self):
+        """ Tests the response on a non-existant resource  """
+
+        response = self.client.delete('api/v1/parties/10/delete')
+        self.assertEqual(response.status_code, 404)
