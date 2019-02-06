@@ -38,10 +38,7 @@ class PartyModel:
 
             PARTY_DB.append(party)
 
-            response = make_response(
-                jsonify({'status': 201, 'message': 'Successfuly created party'}), 201)
-
-            return response
+            return 'Successfuly created party'
 
         except Exception as error:
             raise Exception(error)
@@ -49,26 +46,19 @@ class PartyModel:
     @classmethod
     def retrieve_all_parties(cls):
         """ Retrieves all parties  """
-
-        response = make_response(
-            jsonify({'status': 200, 'message': PARTY_DB}), 200
-        )
-        return response
+        return PARTY_DB
 
     @classmethod
     def get_specific_party(cls, party_id):
         """ returns a specific party given party id """
 
-        if PartyModel.party_exists(party_id):
-            response = make_response(
-                jsonify({'status': 200, 'message': PartyModel.party_exists(party_id)}), 200)
-            return response
-        return make_response(jsonify({'status': 404, 'message': 'Party not found'}), 404)
+        response = PartyModel.party_exists(party_id)
+        return response
 
     @classmethod
     def party_exists(cls, party_id):
         """ Checks if a specific party exists """
-
+        
         for party in PARTY_DB:
             if party['party_id'] == party_id:
                 return party

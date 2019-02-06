@@ -21,6 +21,7 @@ def create_app(config_name='development'):
 
     # Register blueprints
     from app.api.v1 import V1
+
     app.register_blueprint(V1)
 
     app_root = os.path.join(os.path.dirname(__file__), '..')

@@ -5,8 +5,7 @@ import os
 
 class Config:
     """ Define common configurations for all environments """
-
-    SECRET = os.getenv('SECRET')
+    pass
 
 
 class TestingConfig(Config):

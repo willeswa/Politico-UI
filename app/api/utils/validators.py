@@ -1,34 +1,47 @@
 """ Contains  classes that handle data validation """
 # Standard imports
 import re
+import json
 from urllib.parse import urlparse
 
+# Third party imports
+from marshmallow import Schema, fields, ValidationError, post_load
 
-class Validators:
-    """ Handles validation """
+# Local imports
+from app.api.v1.models.office_models import OfficeModel
+from app.api.utils.serializer import Serializer
 
-    @classmethod
-    def validate_word(cls, string_entry):
-        """ validates strings """
 
-        pattern = r'[a-zA-Z]'
-        match = re.match(pattern, string_entry)
+def is_valid_word(word_entity):
+    """ validates strings """
 
-        entry_type = isinstance(string_entry, str)
+    pattern = r'[a-zA-Z]'
+    match = re.match(pattern, word_entity)
 
-        if string_entry and entry_type and match:
-            return string_entry
+    entry_type = isinstance(word_entity, str)
 
-        raise TypeError
+    if word_entity and entry_type and match:
+        return True
+    return 'Not a valid {}'.format(word_entity)
 
-    @classmethod
-    def validate_url(cls, url):
-        """ Validates urls """
 
-        is_valid_url = urlparse(url)
-        url_scheme = is_valid_url.scheme
+def validate_url(url):
+    """ Validates urls """
 
-        if url_scheme in ('http', 'https'):
-            return url
+    is_valid_url = urlparse(url)
+    url_scheme = is_valid_url.scheme
 
-        raise TypeError
+    if url_scheme in ('http', 'https'):
+        return url
+
+    raise ValidationError
+
+
+def is_empty(json_dict, key):
+    _dict = json.dumps(json_dict)
+    
+    if key in _dict.keys():
+        return True
+    else:
+        return 'You must provide {}'.format(key)
+    

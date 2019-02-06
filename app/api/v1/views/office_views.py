@@ -1,44 +1,48 @@
 """ This module handles views related to office data """
+# Standard imports
+import json
+
 # Third party imports
-from flask_restful import Resource, reqparse
-from flask import json
+from flask import make_response, jsonify, request
+from flask.views import MethodView
 
 # Local imports
 from app.api.v1.models.office_models import OfficeModel
-from app.api.utils.validators import Validators
+from app.api.utils.validators import is_valid_word, is_empty
+from app.api.utils.serializer import Serializer
 
 
-class OfficeViews(Resource):
-    """ Handles views related to hundled offices """
-
-    def __init__(self):
-        self.parser = reqparse.RequestParser()
+class OfficeViews(MethodView):
+    """ Defines views for office """
 
     def post(self):
-        """ Passes data to the models to create an office """
-        self.parser.add_argument('office_type', required=True, type=Validators.validate_word,
-                                 help='Provide a valid office type')
-        self.parser.add_argument('name', required=True, type=Validators.validate_word,
-                                 help='Provide a valid office name')
-        office = self.parser.parse_args()
+        """ Sends a post request to the office models """
+        office = request.get_json()
+        if not office:
+            return make_response(jsonify({'message': 'You cannot submit an empty json', 'status': 'Bad Request'}), 400)
+        else:
+            office_name = office['office_name']
+            office_type = office['office_type']
 
-        office_model = OfficeModel(office['office_type'], office['name'])
-        response = office_model.create_office()
-        return json.loads(response.data), response.status_code
+            office_model = OfficeModel(office_name, office_type)
+            response = office_model.create_office()
+            result = Serializer.serialize(response, 201, 'Created')
+            return result
 
-    @classmethod
-    def get(cls):
-        """ Passes request to retrieve data to the models """
-        response = OfficeModel.retrieve_all_offices()
-        return json.loads(response.data), response.status_code
-
-
-class SpecificOfficeViews(Resource):
-    """ Handles requests on specific office opreations """
-
-    @classmethod
-    def get(cls, office_id):
-        """ Passes a get request to the models to retrieve a specific office """
-
-        response = OfficeModel.get_specific_office(office_id)
-        return json.loads(response.data), response.status_code
+    def get(self, office_id):
+        """ Sends get requests to the office models """
+        if office_id == None:
+            response = OfficeModel.retrieve_all_offices()
+            result = Serializer.serialize(response, 200)
+            return result
+        else:
+            exists = OfficeModel.office_exists(office_id)
+            if exists:
+                response = OfficeModel.get_specific_office(office_id)
+                result = Serializer.serialize(response, 200)
+                return result
+            else:
+                # response = {'message': 'Office not found'}
+                result = Serializer.serialize(
+                    'Office {} is not available'.format(office_id), 404, 'Not Found')
+                return result
