@@ -1,3 +1,7 @@
+[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
+
 ### Politico
 
 Politico enables citizens give their mandate to politicians running for different government offices
@@ -25,4 +29,4 @@ while building trust in the process through transparency.
 - JavaScript
 
 ### Author:
-Willies Wanjala
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) by Willies Wanjala
