@@ -18,7 +18,7 @@ class OfficeViews(MethodView):
         office = request.get_json()
         if not office:
             return make_response(jsonify({'message': 'You cannot submit an empty json',
-                                          'status': 'Bad Request'}), 400)
+                                          'status': 400}), 400)
 
         office_name = office['office_name']
         office_type = office['office_type']
