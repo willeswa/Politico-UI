@@ -2,6 +2,7 @@
 
 # Third party imports
 import json
+import unittest
 
 # Local imports
 from tests import TestBaseClass

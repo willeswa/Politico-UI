@@ -1,8 +1,20 @@
-# """ Contains  classes that handle data validation """
-# # Standard imports
-# import re
-# import json
-# from urllib.parse import urlparse
+""" Contains  classes that handle data validation """
+
+# Third party imports
+from marshmallow import Schema, fields
+
+
+class Validator(Schema):
+    class Meta:
+        strict = True
+
+    party_name = fields.String(required=True)
+    party_official = fields.String(required=True)
+    party_hq = fields.String(required=True)
+    logo_url = fields.Url(required=True)
+
+
+schema = Validator()
 
 
 # def is_valid_word(word_entity):
