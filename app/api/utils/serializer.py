@@ -8,10 +8,10 @@ class Serializer:
     """ Contains method that serializes data """
 
     @classmethod
-    def serialize(cls, response, status_code, message='Success'):
+    def serialize(cls, response, status_code, message=200):
         """ Serializes output to json format """
 
         result = make_response(
-            jsonify({'status': message, 'message': response}), status_code
+            jsonify({'status': status_code, 'data': response}), status_code
         )
         return result
