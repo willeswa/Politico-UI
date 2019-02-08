@@ -9,6 +9,9 @@ from dotenv import load_dotenv
 
 # Local imports
 from app.config import APP_CONFIG
+from app.api.v2.dbconfig import Database
+
+db = Database()
 
 
 def create_app(config_name='development'):
@@ -18,6 +21,10 @@ def create_app(config_name='development'):
 
     app.config.from_object(APP_CONFIG[config_name])
     app.config.from_pyfile('config.py')
+
+    # Create and destroy tables
+    db.drop_tables()
+    print(db.create_tables())
 
     # Register blueprints and errors
     from app.api.v1 import V1
