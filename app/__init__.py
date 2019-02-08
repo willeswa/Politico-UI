@@ -19,10 +19,15 @@ def create_app(config_name='development'):
     app.config.from_object(APP_CONFIG[config_name])
     app.config.from_pyfile('config.py')
 
-    # Register blueprints
+    # Register blueprints and errors
     from app.api.v1 import V1
+    from app.api.utils.validators import Validator
 
     app.register_blueprint(V1)
+    app.register_error_handler(404, Validator.wrong_url)
+    app.register_error_handler(500, Validator.internal_server_error)
+    app.register_error_handler(405, Validator.method_not_allowed)
+    app.register_error_handler(400, Validator.bad_request)
 
     app_root = os.path.join(os.path.dirname(__file__), '..')
     dotenv_path = os.path.join(app_root, '.env')

@@ -7,6 +7,7 @@ from flask.views import MethodView
 # Local imports
 from app.api.v1.models.office_models import OfficeModel
 from app.api.utils.serializer import Serializer
+from app.api.utils.validators import Validator
 
 
 class OfficeViews(MethodView):
@@ -15,18 +16,23 @@ class OfficeViews(MethodView):
     @classmethod
     def post(cls):
         """ Sends a post request to the office models """
-        office = request.get_json()
-        if not office:
-            return make_response(jsonify({'message': 'You cannot submit an empty json',
-                                          'status': 400}), 400)
 
-        office_name = office['office_name']
-        office_type = office['office_type']
+        raw_office = request.get_json()
+        r_office = Validator.json_has_data(raw_office)
 
-        office_model = OfficeModel(office_name, office_type)
-        response = office_model.create_office()
-        result = Serializer.serialize(response, 201, 'Created')
-        return result
+        try:
+            office = Validator.field_exists('office', **r_office)
+            office_name = office['office_name']
+            office_type = office['office_type']
+
+            office_model = OfficeModel(office_name, office_type)
+            response = office_model.create_office()
+            result = Serializer.serialize(response, 201, 'Created')
+            return result
+
+        except Exception as error:
+            return Serializer.serialize(
+                "Missing {} field".format(error.args[0]), 400)
 
     @classmethod
     def get(cls, office_id):
