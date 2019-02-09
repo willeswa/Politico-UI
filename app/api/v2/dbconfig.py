@@ -6,7 +6,10 @@ import os
 # Third party imports
 import psycopg2
 
-URL = os.getenv('DATABASE_URL')
+if os.getenv('FLASK_ENV'):
+    URL = os.getenv('DATABASE_URL')
+else:
+    URL = DATABASE_URL = 'postgresql://postgres:star2030@localhost/politico'
 
 
 class Database:
@@ -88,3 +91,6 @@ class Database:
                 for query in queries:
                     curr.execute(query)
                     conn.commit()
+
+
+DB = Database()
