@@ -16,7 +16,7 @@ services:
 
 before_script:
   - psql -c 'create database politico;' -U postgres
-  - psql -c 'create databse test_politico;' -U postgres
+  - psql -c 'create database test_politico;' -U postgres
 
 script:
   - pytest --cov=app
