@@ -22,6 +22,7 @@ class PartyViews(MethodView):
 
         raw_party = request.get_json()
         party = Validator.json_has_data(raw_party)
+        
         try:
             valid_party = Validator.field_exists('party', **party)
             party_model = PartyModel(

@@ -3,13 +3,17 @@ language: python
 python:
   - 3.6.7
 
-env:
-  - FLASK_ENV='testing'
-
 install:
   - pip install -r requirements.txt
   - pip install coveralls codecov
   - pip install pytest
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database politico;' -U postgres
+  - psql -c 'create database test_politico;' -U postgres
 
 script:
   - pytest --cov=app
