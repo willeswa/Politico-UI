@@ -54,7 +54,15 @@ class Database:
                 officeId integer REFERENCES offices (officeId) ON DELETE CASCADE,
                 partyId integer REFERENCES parties (partyId) ON DELETE CASCADE,
                 userId integer REFERENCES users (userId) ON DELETE CASCADE
-            ); """,)
+            ); """,
+            """ 
+            CREATE TABLE IF NOT EXISTS votes (
+                vote_id SERIAL UNIQUE,
+                office integer REFERENCES offices (officeId) ON DELETE CASCADE,
+                candidate integer REFERENCES politicians (politicianId) ON DELETE CASCADE,
+                createdOn DATE DEFAULT CURRENT_TIMESTAMP,
+                createdBy integer REFERENCES users (userId) ON DELETE SET NULL
+            );""",)
 
         with Database() as conn:
             curr = conn.cursor()
@@ -71,7 +79,8 @@ class Database:
             queries = (""" DROP TABLE IF EXISTS users CASCADE;  """,
                        """  DROP TABLE IF EXISTS parties CASCADE; """,
                        """ DROP TABLE IF EXISTS offices CASCADE; """,
-                       """ DROP TABLE IF EXISTS politicians; """,)
+                       """ DROP TABLE IF EXISTS politicians CASCADE; """,
+                       """ DROP TABLE IF EXISTS votes; """,)
             with Database() as conn:
                 curr = conn.cursor()
 

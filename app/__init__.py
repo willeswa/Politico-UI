@@ -22,10 +22,6 @@ def create_app(config_name='development'):
     app.config.from_object(APP_CONFIG[config_name])
     app.config.from_pyfile('config.py')
 
-    # Create and destroy tables
-    db.drop_tables()
-    print(db.create_tables())
-
     # Register blueprints and errors
     from app.api.v1 import V1
     from app.api.v2 import v2
@@ -37,6 +33,10 @@ def create_app(config_name='development'):
     app.register_error_handler(500, Validator.internal_server_error)
     app.register_error_handler(405, Validator.method_not_allowed)
     app.register_error_handler(400, Validator.bad_request)
+
+    # Create and destroy tables
+    db.drop_tables()
+    print(db.create_tables())
 
     app_root = os.path.join(os.path.dirname(__file__), '..')
     dotenv_path = os.path.join(app_root, '.env')
