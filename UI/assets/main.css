@@ -101,8 +101,10 @@ input:focus , textarea:focus{
 
 .nav-item{
     display: inline-block;
-    
     font-weight: bold;
+}
+
+.nav-item a {
     padding: 18px 25px;
 }
 
@@ -274,12 +276,9 @@ input:focus , textarea:focus{
     font-weight: bold;
 }
 
-.right-panel a {
-    border-bottom: #DCE9E8 1px solid;
-}
 
 .right-panel a:hover{
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .reset {
@@ -303,9 +302,13 @@ input:focus , textarea:focus{
     background: #FFFFFF;
 }
 .link-item {
-    padding: 25px 0;
+    padding: 25px 20px;
     border-bottom: #DCE9E8 solid 1px;
     display: flex;
+}
+
+.link-item a {
+    padding: 25px 20px;
 }
 
 .link-item:last-child {
@@ -508,4 +511,38 @@ label, a, p{
 
 .main-panel1 h2 {
     padding: 25px 10px;
+}
+
+.header-imgr {
+    display: flex;
+}
+
+.header-imgr img {
+    width: 30%;
+}
+
+.header-imgr p {
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+.politician-bio {
+    padding: 15px 30px;
+}
+
+.main-panel-0 {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.p-manifesto {
+    padding: 25px 0;
+}
+
+.p-manifesto p {
+    line-height: 30px;
+}
+
+.s-link {
+    padding: 0px;
 }
