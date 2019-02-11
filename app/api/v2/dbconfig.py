@@ -52,7 +52,8 @@ class Database:
                 partyId SERIAL UNIQUE,
                 partyName VARCHAR NOT NULL,
                 hqAddress VARCHAR NOT NULL,
-                logoUrl TEXT NOT NULL
+                logoUrl TEXT NOT NULL,
+                created_on DATE DEFAULT CURRENT_TIMESTAMP
             ); """,
                    """ CREATE TABLE IF NOT EXISTS offices (
                 officeId SERIAL UNIQUE,
