@@ -48,3 +48,25 @@ After the configuration, you will run the app
 export FLASK_APP=run.py
 flask run
 ```
+You can now tests the following endpoints via postman to experience how the application works:
+### Endpoints
+
+|   ENDPOINT                            | METHOD                    | STATUS                               |
+|---------------------------------------|:-------------------------:|:------------------------------------:|
+|         /offices                      |  GET                      |  Retrieves all offices               |
+| /offices                              |  POST                     |  Creates an office                   |
+| /parties                              |  GET                      |  REtrieves all parties               |
+| /parties                              |  POST                     |  Creates a party                     |
+| /parties/<party_id>                   |  GET                      |  Retrieves a party given an id       |
+| /parties/<party_id>/name              |  PUT                      |  Changes the name of a party give id |
+| /parties/<party_id>                   |  DELETE                   |  Deletes a party given an id         |
+| /offices/<offices_id>                 |  GET                      |  Gets a specific office              |
+
+
+## Running tests
+The API has automated endpoints running on unnitests and powered by pytest.
+To run the tests locally,
+CD into the root of the app and use:
+```
+pytest --cov=app
+```
