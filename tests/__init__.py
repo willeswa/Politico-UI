@@ -38,19 +38,18 @@ class TestBaseClass(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
 
-        self.demo_office = dict(office_type='County Government Leadership',
-                                office_name='The Governor, County Government of Bungoma')
+        self.demo_office = dict(office_type='Legislative',
+                                office_name='Office of the Governor')
 
         self.bad_party = dict(party_name='The Catwalking Party',
-                              party_official='A Human',
-                              party_hq='Party',
-                              logo_url=''
-                              )
+                              hq_address='Party HeadQuaters',
+                              logo_url='some')
+        self.missing_key_party = dict(party_name='The Catwalking Party',
+                                      hq_address='Party HeadQuaters')
 
         self.demo_party = dict(party_name='The Catwalking Party',
-                               party_official='A Human',
-                               party_hq='Nyeri',
-                               logo_url='https://images.unsplash.com/photo-1471874276752-65e2d717604a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')
+                               hq_address='Nyeri Headquaters',
+                               logo_url='https://images.unsplash.com0')
 
         self.bad_request = dict(office_type="__",
                                 office_name="Govornor Bungoma")

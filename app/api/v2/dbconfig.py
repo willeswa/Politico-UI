@@ -61,7 +61,7 @@ class Database:
             ); """,
                    """ CREATE TABLE IF NOT EXISTS votes (
                 vote_id SERIAL UNIQUE,
-                office integer REFERENCES offices (officeId) ON DELETE CASCADE,
+                officeId integer REFERENCES offices (officeId) ON DELETE CASCADE,
                 candidate integer REFERENCES politicians (politicianId) ON DELETE CASCADE,
                 createdOn DATE DEFAULT CURRENT_TIMESTAMP,
                 createdBy integer REFERENCES users (userId) ON DELETE SET NULL

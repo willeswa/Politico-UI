@@ -22,9 +22,9 @@ def define_routes(view, endpoint, url, identifier='id', identifier_type='int'):
     V1.add_url_rule(url, view_func=view_func, methods=['POST', ])
     V1.add_url_rule('%s/<%s:%s>' % (url, identifier_type, identifier),
                     view_func=view_func, methods=['GET'])
-    V1.add_url_rule('%s/<%s:%s>/edit_party' % (url, identifier_type, identifier),
+    V1.add_url_rule('%s/<%s:%s>/name' % (url, identifier_type, identifier),
                     view_func=view_func, methods=['PUT'])
-    V1.add_url_rule('%s/<%s:%s>/delete' % (url, identifier_type,
+    V1.add_url_rule('%s/<%s:%s>' % (url, identifier_type,
                                            identifier), view_func=view_func, methods=['DELETE'])
 
 
