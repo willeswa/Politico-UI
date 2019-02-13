@@ -24,8 +24,7 @@ https://github.com/willeswa/politico-app.git
 ## Create a virtual environment
 
 ```
-python3 -m venv venv;
-source venv/bin/activate
+python3 -p python3 venv;
 ```
 If you need to install virtualenv:
 ```
@@ -45,6 +44,7 @@ pip install -r requirements.txt
 ## Running the application
 After the configuration, you will run the app 
 ```
+export FLASK_ENV=development
 export FLASK_APP=run.py
 flask run
 ```
