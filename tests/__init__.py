@@ -1,6 +1,7 @@
 """ Defines base test cases """
 
 # Third party imports
+import json
 import unittest
 
 # Local imports
@@ -51,6 +52,21 @@ class TestBaseClass(unittest.TestCase):
     bad_request = dict(office_type="__",
                        office_name="Govornor Bungoma")
 
+    login_data = dict(email='gwiliez@gmail.com',
+                      password='password')
+
+    vote_data = dict(user_id=1,
+                     office_id=1,
+                     vote=1)
+
+    new_user = dict(firstname='Godfrey',
+                    lastname='Wanajala',
+                    othername='Willies',
+                    email='gwiliez@gmail.com',
+                    password='password',
+                    phoneNumber='0725171175',
+                    passportUrl='http://logo.com')
+
     def setUp(self):
         """ Sets up testing client """
 
@@ -61,3 +77,18 @@ class TestBaseClass(unittest.TestCase):
 
         self.app_context = self.app.app_context()
         self.app_context.push()
+
+    def signup(self, url):
+        return self.client.post('/api/v2/auth/signup',
+                                data=json.dumps(self.new_user),
+                                content_type='application/json')
+
+    def signin(self, url):
+        return self.client.post('/api/v2/auth/signin',
+                                data=json.dumps(self.login_data),
+                                content_type='application/json')
+
+    def vote(self, url):
+        return self.client.post('/api/v2/votes',
+                                data=json.dumps(self.vote_data),
+                                content_type='application/json')
