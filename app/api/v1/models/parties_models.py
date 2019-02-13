@@ -4,27 +4,17 @@
 import datetime
 
 
-PARTY_DB = [
-    {
-        "created_on": "Wednesday, 06. February 2019 10:39PM",
-        "logo_url": "link-2",
-        "party_hq": "Red Counter",
-        "party_id": 1,
-        "party_name": "Orange Democratic Movement",
-        "party_official": "Raila Odinga"
-    }
-]
+PARTY_DB = []
 
 
 class PartyModel:
     """ Defines methods that handle operations regarding parties """
 
-    def __init__(self, party_name, party_official, party_hq, logo_url):
+    def __init__(self, party_name, hq_address, logo_url):
         """ Initializes instance variables """
 
         self.party_name = party_name
-        self.party_official = party_official
-        self.party_hq = party_hq
+        self.hq_address = hq_address
         self.logo_url = logo_url
         self.party_id = len(PARTY_DB) + 1
         self.created_on = datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
@@ -37,8 +27,7 @@ class PartyModel:
 
             party['party_id'] = self.party_id
             party['party_name'] = self.party_name
-            party['party_official'] = self.party_official
-            party['party_hq'] = self.party_hq
+            party['hq_address'] = self.hq_address
             party['logo_url'] = self.logo_url
             party['created_on'] = self.created_on
 
@@ -71,16 +60,21 @@ class PartyModel:
         return None
 
     @classmethod
-    def update_party(cls, party, **kwargs):
+    def update_party(cls, party_id, new_name):
         """ Updates party with user defined information """
 
-        for key, value in kwargs.items():
-            party[key] = value
-        return PARTY_DB
+        party = PartyModel.party_exists(party_id)
+        if party:
+            party['party_name'] = new_name['new_name']
+            return 'Successfully Updated the name of the party'
+        raise Exception('Party does not exists')
 
     @classmethod
-    def delete_party(cls, party):
+    def delete_party(cls, party_id):
         """ Deletes party if exists """
 
-        PARTY_DB.remove(party)
-        return 'Successfuly deleted party'
+        party = PartyModel.party_exists(party_id)
+        if party:
+            PARTY_DB.remove(party)
+            return 'Successfuly deleted party'
+        raise Exception('Party does not exist')

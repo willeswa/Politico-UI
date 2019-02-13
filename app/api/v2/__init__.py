@@ -5,4 +5,4 @@ from flask import Blueprint
 
 
 # Create blueprint
-v2 = Blueprint('version2', __name__, url_prefix='/api/v2')
+V2 = Blueprint('version2', __name__, url_prefix='/api/v2')
