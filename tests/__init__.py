@@ -6,6 +6,7 @@ import unittest
 # Local imports
 from app import create_app
 from app.api.v1.models.office_models import OfficeModel
+from app.api.v2.dbconfig import DB
 
 PARTY_DB_TEST = [
     {
@@ -53,6 +54,8 @@ class TestBaseClass(unittest.TestCase):
     def setUp(self):
         """ Sets up testing client """
 
+        DB.drop_tables()
+        DB.create_tables()
         self.app = create_app('testing')
         self.client = self.app.test_client()
 

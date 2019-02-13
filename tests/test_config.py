@@ -11,7 +11,5 @@ class TestVersion2(TestBaseClass):
     def test_db_connection(self):
         """ tests_db connection """
         with DB as conn:
-            self.assertEqual(conn.get_dsn_parameters()['dbname'], 'politico')
-
-    def test_testing_config(self):
-        pass
+            self.assertEqual(
+                conn.get_dsn_parameters()['dbname'], 'test_politico')
