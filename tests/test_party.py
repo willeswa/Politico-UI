@@ -86,4 +86,14 @@ class TestPartyApiEndPoints(TestBaseClass):
         )
 
         self.assertEqual(response.status_code, 400)
-     
+
+    def test_no_values(self):
+        """ Tests the response on a non-existant resource  """
+
+        response = self.client.post(
+            'api/v1/parties',
+            data=json.dumps(self.missing_value_party),
+            content_type='application/json'
+        )
+
+        self.assertEqual(response.status_code, 400)

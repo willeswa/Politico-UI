@@ -7,6 +7,17 @@ import unittest
 from app import create_app
 from app.api.v1.models.office_models import OfficeModel
 
+PARTY_DB_TEST = [
+    {
+        "created_on": "Wednesday, 06. February 2019 10:39PM",
+        "logo_url": "link-2",
+        "party_hq": "Red Counter",
+        "party_id": 1,
+        "party_name": "Orange Democratic Movement",
+        "party_official": "Raila Odinga"
+    }
+]
+
 
 class TestBaseClass(unittest.TestCase):
     """ Creates a base test class """
@@ -18,16 +29,26 @@ class TestBaseClass(unittest.TestCase):
         "office_type": "Valid Office Type"
     }]
 
-    PARTY_DB_TEST = [
-        {
-            "created_on": "Wednesday, 06. February 2019 10:39PM",
-            "logo_url": "link-2",
-            "party_hq": "Red Counter",
-            "party_id": 1,
-            "party_name": "Orange Democratic Movement",
-            "party_official": "Raila Odinga"
-        }
-    ]
+    demo_office = dict(office_type='Legislative',
+                       office_name='Office of the Governor')
+
+    bad_party = dict(party_name='The Catwalking Party',
+                     hq_address='Party HeadQuaters',
+                     logo_url='some')
+
+    missing_key_party = dict(party_name='The Catwalking Party',
+                             hq_address='Party HeadQuaters')
+
+    missing_value_party = dict(party_name='The Catwalking Party',
+                               hq_address='Party HeadQuaters',
+                               logo_url="")
+
+    demo_party = dict(party_name='The Catwalking Party',
+                      hq_address='Nyeri Headquaters',
+                      logo_url='https://images.unsplash.com0')
+
+    bad_request = dict(office_type="__",
+                       office_name="Govornor Bungoma")
 
     def setUp(self):
         """ Sets up testing client """
@@ -37,19 +58,3 @@ class TestBaseClass(unittest.TestCase):
 
         self.app_context = self.app.app_context()
         self.app_context.push()
-
-        self.demo_office = dict(office_type='Legislative',
-                                office_name='Office of the Governor')
-
-        self.bad_party = dict(party_name='The Catwalking Party',
-                              hq_address='Party HeadQuaters',
-                              logo_url='some')
-        self.missing_key_party = dict(party_name='The Catwalking Party',
-                                      hq_address='Party HeadQuaters')
-
-        self.demo_party = dict(party_name='The Catwalking Party',
-                               hq_address='Nyeri Headquaters',
-                               logo_url='https://images.unsplash.com0')
-
-        self.bad_request = dict(office_type="__",
-                                office_name="Govornor Bungoma")

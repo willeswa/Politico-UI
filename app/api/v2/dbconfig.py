@@ -1,15 +1,12 @@
 """ Configures the database and manages database connection """
 
-# Standard imports
-import os
-
 # Third party imports
 import psycopg2
 
-if os.getenv('FLASK_ENV'):
-    URL = os.getenv('DATABASE_URL')
-else:
-    URL = DATABASE_URL = 'postgresql://postgres:star2030@localhost/politico'
+# Local imports
+from app.config import Config
+
+URL = Config.DATABASE_URL
 
 
 class Database:
