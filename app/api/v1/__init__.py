@@ -25,7 +25,7 @@ def define_routes(view, endpoint, url, identifier='id', identifier_type='int'):
     V1.add_url_rule('%s/<%s:%s>/name' % (url, identifier_type, identifier),
                     view_func=view_func, methods=['PUT'])
     V1.add_url_rule('%s/<%s:%s>' % (url, identifier_type,
-                                           identifier), view_func=view_func, methods=['DELETE'])
+                                    identifier), view_func=view_func, methods=['DELETE'])
 
 
 define_routes(PartyViews, 'parties', '/parties', identifier='party_id')

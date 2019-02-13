@@ -1,10 +1,7 @@
 """ This module handles views related to office data """
-# starndard imports
-import json
-import re
 
 # Third party imports
-from flask import request, jsonify, make_response
+from flask import request
 from flask.views import MethodView
 
 

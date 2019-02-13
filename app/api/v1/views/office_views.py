@@ -1,7 +1,7 @@
 """ This module handles views related to office data """
 
 # Third office imports
-from flask import make_response, jsonify, request
+from flask import request
 from flask.views import MethodView
 
 # Local imports

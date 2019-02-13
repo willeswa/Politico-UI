@@ -11,6 +11,7 @@ class Validators:
 
     @classmethod
     def checks_for_keys(cls, entity, entity_data):
+        """ Validates the fields/keys and the values of the json object """
 
         if entity == 'party':
             if {'party_name', 'hq_address', 'logo_url'} <= set(entity_data):
@@ -45,19 +46,27 @@ class Validators:
                 raise Exception(
                     "Enter office name in the formart of 'Office of the president'")
             raise Exception('Missing field in the Json Object')
+        else:
+            raise Exception('Invalid entity')
 
     @classmethod
     def wrong_url(cls, error=404):
-        return Serializer.serialize('Your url seems to be foreign. Are you sure it is a valid url?', 404, 404)
+        """ Handles attempts to visit wrong urls """
+        return Serializer.serialize(
+            'Your url seems to be foreign. Are you sure it is a valid url?', 404, error)
 
     @classmethod
     def bad_request(cls, error=400):
-        return Serializer.serialize('Invalid submission. Your submission has no body', 400, 400)
+        """ Handles non custom bad requests """
+        return Serializer.serialize('Invalid submission. Your submission has no body', 400, error)
 
     @classmethod
     def internal_server_error(cls, error=500):
-        return Serializer.serialize('The system broke down', 500, 500)
+        """ Handles errors related to internal error servers """
+        return Serializer.serialize('The system broke down', 500, error)
 
     @classmethod
     def method_not_allowed(cls, error=405):
-        return Serializer.serialize('Method not allowed. Make sure you are sending the right HTTP request', 405, 405)
+        """ Handles request sent to the wrong routes """
+        return Serializer.serialize(
+            'Method not allowed. Make sure you are sending the right HTTP request', 405, error)
