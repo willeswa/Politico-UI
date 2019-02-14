@@ -8,6 +8,7 @@ import unittest
 from app import create_app
 from app.api.v1.models.office_models import OfficeModel
 from app.api.v2.dbconfig import DB
+from app.api.utils.validators import Validators
 
 PARTY_DB_TEST = [
     {
@@ -64,8 +65,22 @@ class TestBaseClass(unittest.TestCase):
                     othername='Willies',
                     email='gwiliez@gmail.com',
                     password='password',
-                    phoneNumber='0725171175',
-                    passportUrl='http://logo.com')
+                    phone_number='0725171175',
+                    passport_url='http://logo.com')
+
+    bad_user = dict(firstname='Godfrey',
+                    lastname='Wanajala',
+                    othername='Willies',
+                    email='gwiliez@gmail.com',
+                    password='password',
+                    phone_number='0725171175',
+                    passport_url='logo')
+
+    missing_keys = dict(firstname='Godfrey',
+                        lastname='Wanajala',
+                        othername='Willies',
+                        email='gwiliez@gmail.com',
+                        password='password')
 
     def setUp(self):
         """ Sets up testing client """
@@ -92,3 +107,13 @@ class TestBaseClass(unittest.TestCase):
         return self.client.post('/api/v2/votes',
                                 data=json.dumps(self.vote_data),
                                 content_type='application/json')
+
+    def test_empty_json(self):
+        response = self.client.post('/api/v2/auth/signup',
+                                    data=json.dumps({}),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+    
+    def test_validations(self):
+        no_json = Validators.checks_for_keys('party', {})
+        self.assertEqual(no_json, 'Missing party field')
