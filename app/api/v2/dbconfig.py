@@ -37,15 +37,15 @@ class Database:
         """ Creates Tables in the database """
 
         queries = (""" CREATE TABLE IF NOT EXISTS users (
-                userId SERIAL UNIQUE,
+                user_id SERIAL UNIQUE,
                 firstname VARCHAR NOT NULL,
-                secondname VARCHAR NOT NULL,
+                lastname VARCHAR NOT NULL,
                 othername VARCHAR NOT NULL,
                 email VARCHAR NOT NULL,
-                phoneNumber VARCHAR NOT NULL,
-                passportUrl TEXT NOT NULL,
-                nationalId NUMERIC NOT NULL,
-                isAdmin BOOLEAN DEFAULT False
+                password VARCHAR NOT NULL,
+                phone_number VARCHAR(15) NOT NULL,
+                passport_url TEXT NOT NULL,
+                is_admin BOOLEAN DEFAULT False
             ); """,
                    """
             CREATE TABLE IF NOT EXISTS parties (
@@ -61,16 +61,16 @@ class Database:
             ); """,
                    """ CREATE TABLE IF NOT EXISTS politicians (
                 politicianId SERIAL UNIQUE,
-                officeId integer REFERENCES offices (officeId) ON DELETE CASCADE,
-                partyId integer REFERENCES parties (partyId) ON DELETE CASCADE,
-                userId integer REFERENCES users (userId) ON DELETE CASCADE
+                office integer REFERENCES offices (officeId) ON DELETE CASCADE,
+                party integer REFERENCES parties (partyId) ON DELETE CASCADE,
+                candidate integer REFERENCES users (user_id) ON DELETE CASCADE
             ); """,
                    """ CREATE TABLE IF NOT EXISTS votes (
-                vote_id SERIAL UNIQUE,
-                officeId integer REFERENCES offices (officeId) ON DELETE CASCADE,
+                voteId SERIAL UNIQUE,
+                office integer REFERENCES offices (officeId) ON DELETE CASCADE,
                 candidate integer REFERENCES politicians (politicianId) ON DELETE CASCADE,
                 createdOn DATE DEFAULT CURRENT_TIMESTAMP,
-                createdBy integer REFERENCES users (userId) ON DELETE SET NULL
+                createdBy integer REFERENCES users (user_id) ON DELETE SET NULL
             );""",)
 
         with Database() as conn:

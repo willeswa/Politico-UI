@@ -19,6 +19,27 @@ class TestsAuthCases(TestBaseClass):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 201)
+    
+    def test_missing_keys(self):
+        """ Tests if signup works as expected """
+
+        response = self.client.post(
+            'api/v2/auth/signup',
+            data=json.dumps(self.missing_keys),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
+
+    def test_bad_user(self):
+        """ Test posting a party with a missing key """
+
+        response = self.client.post(
+            'api/v1/offices',
+            data=json.dumps(self.bad_user),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
+    
 
     def test_sign_in(self):
         """Test if signin works as expected """

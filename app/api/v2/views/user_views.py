@@ -11,20 +11,20 @@ from app.api.utils.validators import Validators
 
 
 class SignupViews(MethodView):
-    """ Defines views for office """
+    """ Defines views for user signup """
 
     @classmethod
     def post(cls):
         """ Sends a post request to the office models """
 
-        user = request.get_json()
+        raw_user = request.get_json()
         try:
-            user_models = UserModel(user['firstname'], user['lastname'], user['othername'],
-                                    user['email'], user['phoneNumber'], user['passportUrl'], user['nationalId'])
-            if user_models.user_exists(user['email']):
-                return Serializer.serialize('Email is already registered', 409)
-            else:
-                response = user_models.create_user()
-                return Serializer.serialize(response, 201)
+            user = Validators.checks_for_keys('user', raw_user)
+            print(type(user))
+            user_models = UserModel(user['firstname'], user['lastname'], user['email'], user['password'], user['phone_number'],
+                                    user['passport_url'], user['othername'])
+            response = user_models.create_user()
+            return Serializer.serialize(response, 201)
         except Exception as error:
-            return Serializer.serialize(error.args[0], 400)
+            print(error)
+            return Serializer.serialize(error.args[0], 400, 400)
