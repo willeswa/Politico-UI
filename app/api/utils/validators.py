@@ -10,7 +10,7 @@ class Validators:
     """ Validates user inputs """
 
     @classmethod
-    def checks_for_keys(cls, entity, entity_data):
+    def validate_json(cls, entity, entity_data):
         """ Validates the fields/keys and the values of the json object """
 
         if entity_data:
@@ -49,7 +49,7 @@ class Validators:
                         "Enter office name in the formart of 'Office of the president'")
                 raise Exception('Missing field in the office json')
             elif entity is 'user':
-                if {'firstname', 'lastname', 'othername', 'email', 'password', 'phone_number', 'passport_url'} <= set(entity_data):
+                if {'firstname', 'lastname', 'othername', 'email', 'password', 'phone_number', 'passport_url'} <= set(entity_data) or {'email', 'password'} <= set(entity_data):
 
                     passport_url = re.match(
                         r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', entity_data['passport_url'])
