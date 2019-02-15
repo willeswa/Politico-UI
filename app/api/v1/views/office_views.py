@@ -19,7 +19,7 @@ class OfficeViews(MethodView):
 
         raw_office = request.get_json()
         try:
-            office = Validators.checks_for_keys('office', raw_office)
+            office = Validators.validate_json('office', raw_office)
             office_models = OfficeModel(office['office_name'], office['office_type'])
             response = office_models.create_office()
             return Serializer.serialize(response, 201)

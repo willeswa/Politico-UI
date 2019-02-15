@@ -36,15 +36,28 @@ class UserModel:
         return 'Successfuly created account'
 
     @classmethod
+    def sigin_user(cls, email, password):
+        """ Approves user sign in given the email and password are correct """
+
+        with Database() as conn:
+            query = """ SELECT  email, password FROM users where email = %s """
+            curr = conn.cursor()
+            curr.execute(query, (email,),)
+            record = curr.fetchone()
+        
+        if check_password_hash(record[1], password):
+            return 'Success'
+        raise Exception('wrong password')
+
+
+    @classmethod
     def user_exists(cls, email):
         """ This class method checks if user exists """
 
-        query = """ SELECT * FROM users WHERE email=%s """
+        query = """ SELECT EXISTS (SELECT * FROM users WHERE email = %s) """
 
         with Database() as conn:
             curr = conn.cursor()
-            curr.execute(query, (email))
+            curr.execute(query, (email,),)
             record = curr.fetchone()
-            print(record)
-            if record:
-                raise Exception('None')
+        return record[0]

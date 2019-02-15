@@ -55,6 +55,9 @@ class TestBaseClass(unittest.TestCase):
 
     login_data = dict(email='gwiliez@gmail.com',
                       password='password')
+                    
+    wrong_pass = dict(email='gwiliez@gmail.com',
+                      password='pass')
 
     vote_data = dict(user_id=1,
                      office_id=1,
@@ -93,12 +96,12 @@ class TestBaseClass(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
 
-    def signup(self, url):
+    def signup(self):
         return self.client.post('/api/v2/auth/signup',
                                 data=json.dumps(self.new_user),
                                 content_type='application/json')
 
-    def signin(self, url):
+    def signin(self):
         return self.client.post('/api/v2/auth/signin',
                                 data=json.dumps(self.login_data),
                                 content_type='application/json')
@@ -114,6 +117,3 @@ class TestBaseClass(unittest.TestCase):
                                     content_type='application/json')
         self.assertEqual(response.status_code, 400)
     
-    def test_validations(self):
-        no_json = Validators.checks_for_keys('party', {})
-        self.assertEqual(no_json, 'Missing party field')

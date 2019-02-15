@@ -19,7 +19,7 @@ class TestsAuthCases(TestBaseClass):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 201)
-    
+
     def test_missing_keys(self):
         """ Tests if signup works as expected """
 
@@ -39,9 +39,15 @@ class TestsAuthCases(TestBaseClass):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 400)
-    
 
     def test_sign_in(self):
+        """Test if signin works as expected """
+
+        self.signup()
+        response = self.signin()
+        self.assertEqual(response.status_code, 200)
+
+    def test_wrong_password(self):
         """Test if signin works as expected """
 
         self.client.post('/api/v2/auth/signup',
@@ -49,27 +55,32 @@ class TestsAuthCases(TestBaseClass):
                          content_type='application/json')
 
         response = self.client.post('/api/v2/auth/signin',
+                                    data=json.dumps(self.wrong_pass),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+
+    def test_login_unregistered_user(self):
+        """ Tests the response when an unregistered user tries to login """
+
+        response = self.client.post('/api/v2/auth/signin',
                                     data=json.dumps(self.login_data),
                                     content_type='application/json')
-
-        data = json.loads(response.data.decode())
-        self.assertTrue(data['access_token'])
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
 
     def test_register_candidate(self):
         """ Tests if creating politician works as expected """
 
-        self.signup('/api/v2/auth/signup')
+        self.signup()
 
-        self.signin('/api/v2/auth/signin')
+        self.signin()
 
         response = self.client.post('/api/v2/office/1/register')
         self.assertEqual(response.status_code, 201)
 
     def test_register_more_than_one_office(self):
-        self.signup('/api/v2/auth/signup')
+        self.signup()
 
-        self.signin('/api/v2/auth/signin')
+        self.signin()
 
         self.client.post('/api/v2/office/1/register')
         response = self.client.post('/api/v2/office/2/register')
@@ -77,7 +88,7 @@ class TestsAuthCases(TestBaseClass):
 
     def test_double_registration(self):
         """ Tests if signup works as expected """
-        self.signup('api/v2/auth/signup')
+        self.signup()
 
         response = self.client.post(
             'api/v2/auth/signup',
