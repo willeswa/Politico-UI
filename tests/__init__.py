@@ -46,16 +46,18 @@ class TestBaseClass(unittest.TestCase):
                                hq_address='Party HeadQuaters',
                                logo_url="")
 
-    demo_party = dict(party_name='The Catwalking Party',
-                      hq_address='Nyeri Headquaters',
-                      logo_url='https://images.unsplash.com0')
+    demo_party = {
+        "party_name": "The Catwalking Party",
+        "hq_address": "Nyeri Headquaters",
+        "logo_url": "https://images.unsplash.com"
+    }
 
     bad_request = dict(office_type="__",
                        office_name="Govornor Bungoma")
 
     login_data = dict(email='gwiliez@gmail.com',
                       password='password')
-                    
+
     wrong_pass = dict(email='gwiliez@gmail.com',
                       password='pass')
 
@@ -101,6 +103,11 @@ class TestBaseClass(unittest.TestCase):
                                 data=json.dumps(self.new_user),
                                 content_type='application/json')
 
+    def create_party(self):
+        return self.client.post('api/v1/parties',
+                                data=json.dumps(self.demo_party),
+                                content_type='application/json')
+
     def signin(self):
         return self.client.post('/api/v2/auth/signin',
                                 data=json.dumps(self.login_data),
@@ -116,4 +123,3 @@ class TestBaseClass(unittest.TestCase):
                                     data=json.dumps({}),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 400)
-    
