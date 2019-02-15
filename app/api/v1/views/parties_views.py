@@ -21,7 +21,7 @@ class PartyViews(MethodView):
         raw_party = request.get_json()
 
         try:
-            party = Validators.checks_for_keys('party', raw_party)
+            party = Validators.validate_json('party', raw_party)
             party_models = PartyModel(
                 party['party_name'], party['hq_address'], party['logo_url'])
             response = party_models.create_party()
