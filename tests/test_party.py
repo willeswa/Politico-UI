@@ -137,7 +137,7 @@ class TestPartiesVersionOne(TestBaseClass):
 
         response = self.client.put('api/v1/parties/101/name',
                                    data=json.dumps(
-                                       {"new_name": "newest name"}),
+                                       {"party_name": "newest name"}),
                                    content_type='application/json')
         self.assertEqual(response.status_code, 404)
 
@@ -153,17 +153,14 @@ class TestPartiesVersionOne(TestBaseClass):
         response = self.client.delete('api/v1/parties/10/delete')
         self.assertEqual(response.status_code, 404)
 
-    def tests_test_edit_party(self):
+    def test_edit_party(self):
         """ Tests the response on a non-existant resource  """
+        
+        self.create_party()
 
-        self.client.post(
-            'api/v1/parties',
-            data=json.dumps(self.demo_party),
-            content_type='application/json'
-        )
         response = self.client.put('api/v1/parties/1/name',
                                    data=json.dumps(
-                                       {"new_name": "newest name"}),
+                                       {"party_name": "newest name"}),
                                    content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
