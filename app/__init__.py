@@ -6,6 +6,7 @@ Creates the application and loads configurations
 import os
 from flask import Flask
 from dotenv import load_dotenv
+from flask_jwt_extended import JWTManager
 
 # Local imports
 from app.config import APP_CONFIG
@@ -19,6 +20,7 @@ def create_app(config_name='development'):
 
     app.config.from_object(APP_CONFIG[config_name])
     app.config.from_pyfile('config.py')
+    JWTManager(app)
 
     # Create and destroy tables
     database = Database()

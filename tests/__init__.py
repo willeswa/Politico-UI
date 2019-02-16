@@ -9,6 +9,7 @@ from app import create_app
 from app.api.v1.models.office_models import OfficeModel
 from app.api.v2.dbconfig import DB
 from app.api.utils.validators import Validators
+from app.config import APP_CONFIG
 
 PARTY_DB_TEST = [
     {
@@ -94,7 +95,7 @@ class TestBaseClass(unittest.TestCase):
         DB.create_tables()
         self.app = create_app('testing')
         self.client = self.app.test_client()
-
+        self.app.config['JWT_SECRET_KEY'] = 'super secret'
         self.app_context = self.app.app_context()
         self.app_context.push()
 

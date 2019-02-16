@@ -19,7 +19,7 @@ class SignupViews(MethodView):
 
         raw_user = request.get_json()
         try:
-            user = Validators.validate_json('user', raw_user)
+            user = Validators.validate_json('user_signup', raw_user)
             if UserModel.user_exists(user['email']):
                 return Serializer.serialize('Email: {} is already registered. Login instead! '.format(user['email']), 409)
             user_models = UserModel(user['firstname'], user['lastname'], user['email'], user['password'], user['phone_number'],
@@ -39,7 +39,7 @@ class LoginViews(MethodView):
 
         login_data = request.get_json()
         try:
-            current_user = Validators.validate_json('user', login_data)
+            current_user = Validators.validate_json('user_login', login_data)
 
             if UserModel.user_exists(current_user['email']):
                 response = UserModel.sigin_user(

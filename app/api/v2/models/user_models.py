@@ -1,9 +1,8 @@
 """ This module defines classes for Usres, both normal and politcians """
-import pdb
 
 # Third party imports
 from psycopg2 import Error
-import jwt
+from flask_jwt_extended import create_access_token
 
 # Local imports
 from app.api.v2.dbconfig import Database
@@ -33,7 +32,7 @@ class UserModel:
             curr.execute(query, (self.firstname, self.lastname, self.othername,
                                  self.email, self.password, self.phoneNumber, self.passportUrl))
             conn.commit()
-
+        
         return 'Successfuly created account'
 
     @classmethod
@@ -41,13 +40,21 @@ class UserModel:
         """ Approves user sign in given the email and password are correct """
 
         with Database() as conn:
-            query = """ SELECT  email, password, user_id FROM users where email = %s """
+            query = """ SELECT  user_id, password, is_admin FROM users where email = %s """
             curr = conn.cursor()
             curr.execute(query, (email,),)
             record = curr.fetchone()
-        
+
         if check_password_hash(record[1], password):
-            return record[2]
+            token = create_access_token(
+                {'user_id': record[0], 'is_admin': record[2]})
+            result = [
+                {
+                    "token": token,
+                     "user": {'user_id': record[0], 'is_admin': record[2]}
+                }
+                ]
+            return result
         raise Exception('wrong password')
 
 
@@ -62,7 +69,3 @@ class UserModel:
             curr.execute(query, (email,),)
             record = curr.fetchone()
         return record[0]
-
-    @classmethod
-    def encode_token(cls, user_id):
-        """ Generates an auth token """
