@@ -22,6 +22,7 @@ class SignupViews(MethodView):
             user = Validators.validate_json('user_signup', raw_user)
             if UserModel.user_exists(user['email']):
                 return Serializer.serialize('Email: {} is already registered. Login instead! '.format(user['email']), 409)
+                
             user_models = UserModel(user['firstname'], user['lastname'], user['email'], user['password'], user['phone_number'],
                                     user['passport_url'], user['othername'])
             response = user_models.create_user()

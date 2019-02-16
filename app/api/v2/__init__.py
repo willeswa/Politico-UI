@@ -5,6 +5,7 @@ from flask import Blueprint
 
 # Local imports
 from app.api.v2.views.user_views import SignupViews, LoginViews
+from app.api.v2.views.parties_views import PartyViews
 
 # Create blueprint
 V2 = Blueprint('version2', __name__, url_prefix='/api/v2')
@@ -26,3 +27,4 @@ def define_routes(view, endpoint, url, identifier='id', identifier_type='int'):
 
 define_routes(SignupViews, 'signup', '/auth/signup', identifier='user_id')
 define_routes(LoginViews, 'login', '/auth/signin', identifier='user_id')
+define_routes(PartyViews, 'parties', '/parties', identifier='party_id')

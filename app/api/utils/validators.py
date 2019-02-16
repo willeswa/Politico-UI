@@ -48,8 +48,8 @@ class Validators:
                     raise Exception(
                         "Enter office name in the formart of 'Office of the president'")
                 raise Exception('Missing field in the office json')
-            elif entity is 'user':
-                if {'firstname', 'lastname', 'othername', 'email', 'password', 'phone_number', 'passport_url'} <= set(entity_data) or {'email', 'password'} <= set(entity_data):
+            elif entity is 'user_signup':
+                if {'firstname', 'lastname', 'othername', 'email', 'password', 'phone_number', 'passport_url'} <= set(entity_data):
 
                     passport_url = re.match(
                         r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', entity_data['passport_url'])
@@ -66,6 +66,25 @@ class Validators:
 
                 raise Exception('Missing field in the json object')
 
+            elif entity is 'user_login':
+                if {'email', 'password'} <= set(entity_data):
+                    if entity_data['password'].isalnum():
+                        valid_email = re.match(
+                            r'^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$', entity_data['email'])
+                        if valid_email is not None:
+                            return entity_data
+                        raise Exception('Invalid email')
+                    raise Exception('Password must be atleast 6 characters')
+                raise Exception('Missing field in the json object')
+            
+            elif entity is 'update_party':
+                if {'party_name'} <= set(entity_data):
+                    name = re.match(r'\w+ \w+ \bParty\b',
+                                    entity_data['party_name'])
+                    if name is not None:
+                        return entity_data
+                    raise Exception("Party name must be a three phrased name and ends with 'Party'")
+                raise Exception("Missing the 'Party Name' field in your json")
         raise Exception('Your json object is empty.')
 
     @classmethod

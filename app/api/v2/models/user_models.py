@@ -30,10 +30,10 @@ class UserModel:
             query = """ INSERT INTO users (firstname, lastname, othername, email, password, phone_number, passport_url) VALUES (%s, %s, %s, %s, %s, %s, %s); """
             curr = conn.cursor()
             curr.execute(query, (self.firstname, self.lastname, self.othername,
-                                 self.email, self.password, self.phoneNumber, self.passportUrl))
+                                 self.email, self.password, self.phoneNumber, self.passportUrl,))
             conn.commit()
         
-        return 'Successfuly created account'
+        return 'Successfully created account'
 
     @classmethod
     def sigin_user(cls, email, password):

@@ -5,15 +5,16 @@ import os
 
 # Third party imports
 import psycopg2
+from werkzeug.security import generate_password_hash
 
 
 # Local imports
-from app.config import Config
+from app.config import APP_CONFIG
 
-ENV = os.getenv('FLASK_ENV')
+CONFIG_NAME = os.getenv('FLASK_ENV')
 
-if ENV:
-    URL = Config.DATABASE_URL
+if CONFIG_NAME:
+    URL = APP_CONFIG[CONFIG_NAME].DATABASE_URL
 else:
     URL = 'postgresql://postgres:star2030@localhost/test_politico'
 
@@ -49,29 +50,29 @@ class Database:
             ); """,
                    """
             CREATE TABLE IF NOT EXISTS parties (
-                partyId SERIAL UNIQUE,
-                partyName VARCHAR NOT NULL,
-                hqAddress VARCHAR NOT NULL,
-                logoUrl TEXT NOT NULL,
+                party_id SERIAL UNIQUE,
+                party_name VARCHAR NOT NULL,
+                hq_address VARCHAR NOT NULL,
+                logo_url TEXT NOT NULL,
                 created_on DATE DEFAULT CURRENT_TIMESTAMP
             ); """,
                    """ CREATE TABLE IF NOT EXISTS offices (
-                officeId SERIAL UNIQUE,
-                officeType VARCHAR NOT NULL,
-                officeName VARCHAR NOT NULL
+                office_id SERIAL UNIQUE,
+                office_type VARCHAR NOT NULL,
+                office_name VARCHAR NOT NULL
             ); """,
                    """ CREATE TABLE IF NOT EXISTS politicians (
-                politicianId SERIAL UNIQUE,
-                office integer REFERENCES offices (officeId) ON DELETE CASCADE,
-                party integer REFERENCES parties (partyId) ON DELETE CASCADE,
+                politician_id SERIAL UNIQUE,
+                office integer REFERENCES offices (office_id) ON DELETE CASCADE,
+                party integer REFERENCES parties (party_id) ON DELETE CASCADE,
                 candidate integer REFERENCES users (user_id) ON DELETE CASCADE
             ); """,
                    """ CREATE TABLE IF NOT EXISTS votes (
-                voteId SERIAL UNIQUE,
-                office integer REFERENCES offices (officeId) ON DELETE CASCADE,
-                candidate integer REFERENCES politicians (politicianId) ON DELETE CASCADE,
-                createdOn DATE DEFAULT CURRENT_TIMESTAMP,
-                createdBy integer REFERENCES users (user_id) ON DELETE SET NULL
+                vote_id SERIAL UNIQUE,
+                office integer REFERENCES offices (office_id) ON DELETE CASCADE,
+                candidate integer REFERENCES politicians (politician_id) ON DELETE CASCADE,
+                created_on DATE DEFAULT CURRENT_TIMESTAMP,
+                created_by integer REFERENCES users (user_id) ON DELETE SET NULL
             );""",)
 
         with Database() as conn:
@@ -81,6 +82,17 @@ class Database:
             conn.commit()
 
         return 'Successfuly created tables'
+    
+    @classmethod
+    def create_admin(cls):
+        """ Creates an admin the system """
+        adminpass = generate_password_hash('admin')
+        query = """ INSERT INTO users (firstname, lastname, othername, email, password, phone_number, passport_url, is_admin) VALUES ('Godfrey', 'Willies', 'Wanjala', 'gwiliez@ymail.com', %s, '0721175171', 'http://@wanjala', True); """
+        with Database() as conn:
+            curr = conn.cursor()
+            curr.execute(query, (adminpass,),)
+            conn.commit()
+        return 'Admin created'
 
     @classmethod
     def drop_tables(cls):
