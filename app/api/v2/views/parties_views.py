@@ -18,7 +18,7 @@ class PartyViews(MethodView):
     @classmethod
     @jwt_required
     def post(cls):
-        """ Passes request to either get or post data to office models """
+        """ Passes post request to the party models """
 
         current_user = get_jwt_identity()
 
@@ -48,8 +48,7 @@ class PartyViews(MethodView):
             response = PartyModel.retrieve_all_parties()
             return Serializer.serialize(response, 200)
 
-        exists = PartyModel.party_exists(party_id)
-        if exists:
+        if PartyModel.party_exists(party_id):
             response = PartyModel.get_specific_party(party_id)
             result = Serializer.serialize(response, 200)
             return result

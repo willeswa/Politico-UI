@@ -59,7 +59,8 @@ class Database:
                    """ CREATE TABLE IF NOT EXISTS offices (
                 office_id SERIAL UNIQUE,
                 office_type VARCHAR NOT NULL,
-                office_name VARCHAR NOT NULL
+                office_name VARCHAR NOT NULL,
+                created_on DATE DEFAULT CURRENT_TIMESTAMP
             ); """,
                    """ CREATE TABLE IF NOT EXISTS politicians (
                 politician_id SERIAL UNIQUE,
