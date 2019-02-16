@@ -15,13 +15,11 @@ class TestPartiesVersionTwo(TestBaseClass):
         """ Tests create party"""
 
         response = self.client.post(
-            'api/v2/parties',
+            '/api/v2/parties',
             data=json.dumps(self.demo_party),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(json.loads(response.data.decode())['data'],
-                         'Successfuly created party')
 
     def test_get_all_parties(self):
         """ Tests retrieve all parties """

@@ -24,9 +24,10 @@ def create_app(config_name='development'):
 
     # Create and destroy tables
     database = Database()
-    database.drop_tables()
     print(database.drop_tables())
     print(database.create_tables())
+    print(database.create_admin())
+
 
     # Register blueprints and errors
     from app.api.v1 import V1
