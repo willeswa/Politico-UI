@@ -65,21 +65,19 @@ class TestVersionTwoEndPoints(TestBaseClass):
     def test_post_to_office(self):
         """ Tests create an office """
 
-        response = self.client.post(
-            'api/v2/offices',
-            data=json.dumps(self.demo_office),
-            content_type='application/json'
-        )
+        response = self.client.post('api/v2/offices',
+                                    data=json.dumps(self.demo_office),
+                                    content_type='application/json',
+                                    headers=self.super_headers)
         self.assertEqual(response.status_code, 201)
 
     def test_invalid_office(self):
         """ Tests invalid office post """
 
-        response = self.client.post(
-            'api/v2/offices',
-            data=json.dumps(self.bad_request),
-            content_type='application/json'
-        )
+        response = self.client.post('api/v2/offices',
+                                    data=json.dumps(self.bad_request),
+                                    content_type='application/json',
+                                    headers=self.super_headers)
         self.assertEqual(response.status_code, 400)
 
     def test_get_all_offices(self):
@@ -103,9 +101,8 @@ class TestVersionTwoEndPoints(TestBaseClass):
     def test_missing_keys(self):
         """ Test posting a party with a missing key """
 
-        response = self.client.post(
-            'api/v2/offices',
-            data=json.dumps(self.missing_key_party),
-            content_type='application/json'
-        )
+        response = self.client.post('api/v2/offices',
+                                    data=json.dumps(self.missing_key_party),
+                                    content_type='application/json',
+                                    headers=self.super_headers)
         self.assertEqual(response.status_code, 400)

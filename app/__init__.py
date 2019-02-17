@@ -20,6 +20,7 @@ def create_app(config_name='development'):
 
     app.config.from_object(APP_CONFIG[config_name])
     app.config.from_pyfile('config.py')
+
     JWTManager(app)
 
     # Create and destroy tables

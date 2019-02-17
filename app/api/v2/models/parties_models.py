@@ -86,7 +86,7 @@ class PartyModel:
         return party
 
     @classmethod
-    def update_party(self, party_id, new_name):
+    def update_party(cls, party_id, new_name):
         """ Updates the name of a party """
 
         query = """ UPDATE parties SET  party_name = %s WHERE party_id = %s """
@@ -95,7 +95,7 @@ class PartyModel:
             curr = conn.cursor()
             curr.execute(query, (new_name, party_id,),)
             conn.commit()
-        
+
         return 'Successfully updated the name of the party'
 
     @classmethod

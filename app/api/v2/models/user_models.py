@@ -32,7 +32,7 @@ class UserModel:
             curr.execute(query, (self.firstname, self.lastname, self.othername,
                                  self.email, self.password, self.phoneNumber, self.passportUrl,))
             conn.commit()
-        
+
         return 'Successfully created account'
 
     @classmethod
@@ -51,12 +51,11 @@ class UserModel:
             result = [
                 {
                     "token": token,
-                     "user": {'user_id': record[0], 'is_admin': record[2]}
+                    "user": {'user_id': record[0], 'is_admin': record[2]}
                 }
-                ]
+            ]
             return result
         raise Exception('wrong password')
-
 
     @classmethod
     def user_exists(cls, email):
