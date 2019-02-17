@@ -38,7 +38,7 @@ class Database:
         """ Creates Tables in the database """
 
         queries = (""" CREATE TABLE IF NOT EXISTS users (
-                user_id SERIAL UNIQUE,
+                user_id SERIAL NOT NULL,
                 firstname VARCHAR NOT NULL,
                 lastname VARCHAR NOT NULL,
                 othername VARCHAR NOT NULL,
@@ -50,39 +50,44 @@ class Database:
             ); """,
                    """
             CREATE TABLE IF NOT EXISTS parties (
-                party_id SERIAL UNIQUE,
+                party_id SERIAL NOT NULL,
                 party_name VARCHAR NOT NULL,
                 hq_address VARCHAR NOT NULL,
                 logo_url TEXT NOT NULL,
                 created_on DATE DEFAULT CURRENT_TIMESTAMP
             ); """,
                    """ CREATE TABLE IF NOT EXISTS offices (
-                office_id SERIAL UNIQUE,
+                office_id SERIAL NOT NULL,
                 office_type VARCHAR NOT NULL,
                 office_name VARCHAR NOT NULL,
                 created_on DATE DEFAULT CURRENT_TIMESTAMP
             ); """,
                    """ CREATE TABLE IF NOT EXISTS politicians (
-                politician_id SERIAL UNIQUE,
-                office integer REFERENCES offices (office_id) ON DELETE CASCADE,
-                party integer REFERENCES parties (party_id) ON DELETE CASCADE,
-                candidate integer REFERENCES users (user_id) ON DELETE CASCADE
+                politician_id SERIAL NOT NULL,
+                office integer NOT NULL,
+                party integer NOT NULL,
+                PRIMARY KEY (politician_id, office, party),
+                UNIQUE (politician_id)
             ); """,
                    """ CREATE TABLE IF NOT EXISTS votes (
-                vote_id SERIAL UNIQUE,
-                office integer REFERENCES offices (office_id) ON DELETE CASCADE,
-                candidate integer REFERENCES politicians (politician_id) ON DELETE CASCADE,
+                vote_id SERIAL NOT NULL,
+                office integer NOT NULL,
+                created_by integer NOT NULL,
+                candidate integer NOT NULL,
                 created_on DATE DEFAULT CURRENT_TIMESTAMP,
-                created_by integer REFERENCES users (user_id) ON DELETE SET NULL
+                PRIMARY KEY (created_by, office)
+                
             );""",)
+        try:
+            with Database() as conn:
+                curr = conn.cursor()
+                for query in queries:
+                    curr.execute(query)
+                conn.commit()
 
-        with Database() as conn:
-            curr = conn.cursor()
-            for query in queries:
-                curr.execute(query)
-            conn.commit()
-
-        return 'Successfuly created tables'
+            return 'Successfuly created tables'
+        except Exception as e:
+            print(e)
 
     @classmethod
     def create_admin(cls):

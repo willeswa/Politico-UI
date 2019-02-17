@@ -61,7 +61,7 @@ class OfficeModel:
             records = curr.fetchall()
         offices = []
         if records:
-            column = ('office_type', 'office_name', 'created_on')
+            column = ('office_id', 'office_type', 'office_name', 'created_on')
             for record in records:
                 office = dict(zip(column, record))
                 offices.append(office)
@@ -78,7 +78,7 @@ class OfficeModel:
             curr = conn.cursor()
             curr.execute(query, (office_id,),)
             record = curr.fetchone()
-            column = ('office_type', 'office_name', 'created_on')
+            column = ('office_id', 'office_type', 'office_name', 'created_on')
             office = dict(zip(column, record))
 
         return office
