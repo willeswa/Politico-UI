@@ -93,6 +93,13 @@ class Validators:
                         return entity_data
                     raise Exception('Entry must be integers only')
                 raise Exception('Missing fields in your candidate json')
+            elif entity is 'vote':
+                if {'office_id', 'candidate_id'} <= set(entity_data):
+                    if isinstance(entity_data['office_id'], int) and isinstance(entity_data['candidate_id'], int):
+                        return entity_data
+                    raise Exception(
+                        'office_id and candidate_id should be integer')
+                raise Exception('Missing fields in your vote json')
         raise Exception('Your json object is empty.')
 
     @classmethod

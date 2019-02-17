@@ -2,7 +2,9 @@
 
 # Local imports
 from tests import TestBaseClass
-from app.api.v2.dbconfig import DB
+from app.api.v2.dbconfig import Database
+
+DB = Database()
 
 
 class TestVersion2(TestBaseClass):
