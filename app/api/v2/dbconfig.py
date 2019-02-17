@@ -83,7 +83,7 @@ class Database:
             conn.commit()
 
         return 'Successfuly created tables'
-    
+
     @classmethod
     def create_admin(cls):
         """ Creates an admin the system """

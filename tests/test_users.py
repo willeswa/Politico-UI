@@ -15,7 +15,7 @@ class TestsAuthCases(TestBaseClass):
 
         response = self.client.post(
             '/api/v2/auth/signup',
-            data=json.dumps(self.new_user),
+            data=json.dumps(self.new_user2),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 201)
@@ -33,9 +33,8 @@ class TestsAuthCases(TestBaseClass):
     def test_sign_in(self):
         """Test if signin works as expected. """
 
-        self.signup()
         response = self.client.post('/api/v2/auth/signin',
-                                    data=json.dumps(self.login_data),
+                                    data=json.dumps(self.admin_data),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
@@ -43,21 +42,19 @@ class TestsAuthCases(TestBaseClass):
         """ Tests the response when an unregistered user tries to login. """
 
         response = self.client.post('/api/v2/auth/signin',
-                                    data=json.dumps(self.login_data),
+                                    data=json.dumps({"email": "jim@kama.com", "password": "passowrd"}),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 404)
 
     def test_register_candidate(self):
         """ Tests if creating politician works as expected. """
 
-        self.signin()
-
-        response = self.client.post('/api/v2/register')
+        response = self.client.post('/api/v2/register',
+                                    data=json.dumps(self.new_user))
         self.assertEqual(response.status_code, 201)
 
     def test_double_registration(self):
         """ Tests if signup works as expected. """
-        self.signup()
 
         response = self.client.post(
             'api/v2/auth/signup',
@@ -69,7 +66,6 @@ class TestsAuthCases(TestBaseClass):
     def test_bad_password(self):
         """ Tests response when the password is an empty string """
 
-        self.signup()
         response = self.client.post(
             'api/v2/auth/signup',
             data=json.dumps({"email": "gwiliez@gmail.com", "password": " "}),

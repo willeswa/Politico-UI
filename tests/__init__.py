@@ -9,22 +9,54 @@ from app import create_app
 from app.api.v1.models.office_models import OfficeModel
 from app.api.v2.dbconfig import DB
 from app.api.utils.validators import Validators
-from app.config import APP_CONFIG
-
-PARTY_DB_TEST = [
-    {
-        "created_on": "Wednesday, 06. February 2019 10:39PM",
-        "logo_url": "link-2",
-        "party_hq": "Red Counter",
-        "party_id": 1,
-        "party_name": "Orange Democratic Movement",
-        "party_official": "Raila Odinga"
-    }
-]
 
 
 class TestBaseClass(unittest.TestCase):
     """ Creates a base test class """
+
+    def setUp(self):
+        """ Sets up testing client """
+
+        self.app = create_app('testing')
+        self.app.config['JWT_SECRET_KEY'] = 'super secret'
+        self.client = self.app.test_client()
+        self.app_context = self.app.app_context()
+        with self.app.app_context():
+            self.db = DB
+            self.db.drop_tables()
+            self.db.create_tables()
+            self.db.create_admin()
+
+        response = self.client.post('/api/v2/auth/signin',
+                                    data=json.dumps(self.admin_data),
+                                    content_type='application/json')
+
+        super_token = response.get_json()['data'][0]['token']
+
+        self.super_headers = {"Authorization": "Bearer {}".format(super_token)}
+
+        self.client.post('/api/v2/auth/signup',
+                         data=json.dumps(self.new_user),
+                         content_type='application/json')
+
+        user_response = self.client.post('/api/v2/auth/signin',
+                                         data=json.dumps(self.login_data),
+                                         content_type='application/json')
+
+        user_token = user_response.get_json()['data'][0]['token']
+
+        self.normal_headers = {"Authorization": "Bearer {}".format(user_token)}
+
+        self.client.post('/api/v2/parties',
+                         data=json.dumps(self.demo_party),
+                         content_type='application/json',
+                         headers=self.super_headers)
+
+        self.client.post('/api/v2/offices',
+                         data=json.dumps(self.demo_office2),
+                         content_type='application/json',
+                         headers=self.super_headers
+                         )
 
     test_office_db = [{
         "created_on": "Sunday, 03. February 2019 05:23PM",
@@ -33,8 +65,22 @@ class TestBaseClass(unittest.TestCase):
         "office_type": "Valid Office Type"
     }]
 
+    party_test = [
+        {
+            "created_on": "Wednesday, 06. February 2019 10:39PM",
+            "logo_url": "link-2",
+            "party_hq": "Red Counter",
+            "party_id": 1,
+            "party_name": "Orange Democratic Movement",
+            "party_official": "Raila Odinga"
+        }
+    ]
+
     demo_office = dict(office_type='Legislative',
                        office_name='Office of the Governor')
+    
+    demo_office2 = dict(office_type='Federal',
+                       office_name='Office of the Senator')
 
     bad_party = dict(party_name='The Catwalking Party',
                      hq_address='Party HeadQuaters',
@@ -53,11 +99,20 @@ class TestBaseClass(unittest.TestCase):
         "logo_url": "https://images.unsplash.com"
     }
 
+    demo_party2 = {
+        "party_name": "The Datwalking Party",
+        "hq_address": "Nyeri Headquaters",
+        "logo_url": "https://images.unsplash.com"
+    }
+
     bad_request = dict(office_type="__",
                        office_name="Govornor Bungoma")
 
     login_data = dict(email='gwiliez@gmail.com',
                       password='password')
+
+    admin_data = dict(email='gwiliez@ymail.com',
+                      password='admin')
 
     wrong_pass = dict(email='gwiliez@gmail.com',
                       password='pass')
@@ -70,6 +125,14 @@ class TestBaseClass(unittest.TestCase):
                     lastname='Wanajala',
                     othername='Willies',
                     email='gwiliez@gmail.com',
+                    password='password',
+                    phone_number='0725171175',
+                    passport_url='http://logo.com')
+
+    new_user2 = dict(firstname='Godfrey',
+                    lastname='Wanajala',
+                    othername='Willies',
+                    email='gwiliez@mail.com',
                     password='password',
                     phone_number='0725171175',
                     passport_url='http://logo.com')
@@ -87,32 +150,6 @@ class TestBaseClass(unittest.TestCase):
                         othername='Willies',
                         email='gwiliez@gmail.com',
                         password='password')
-
-    def setUp(self):
-        """ Sets up testing client """
-
-        DB.drop_tables()
-        DB.create_tables()
-        self.app = create_app('testing')
-        self.client = self.app.test_client()
-        self.app.config['JWT_SECRET_KEY'] = 'super secret'
-        self.app_context = self.app.app_context()
-        self.app_context.push()
-
-    def signup(self):
-        return self.client.post('/api/v2/auth/signup',
-                                data=json.dumps(self.new_user),
-                                content_type='application/json')
-
-    def create_party(self):
-        return self.client.post('api/v1/parties',
-                                data=json.dumps(self.demo_party),
-                                content_type='application/json')
-
-    def signin(self):
-        return self.client.post('/api/v2/auth/signin',
-                                data=json.dumps(self.login_data),
-                                content_type='application/json')
 
     def vote(self, url):
         return self.client.post('/api/v2/votes',

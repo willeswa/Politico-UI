@@ -11,9 +11,10 @@ from app.api.v2.views.office_views import OfficeViews
 # Create blueprint
 V2 = Blueprint('version2', __name__, url_prefix='/api/v2')
 
+
 def define_routes(view, endpoint, url, identifier='id', identifier_type='int'):
     """ Creates an api endpoint and assigns route"""
-    
+
     view_func = view.as_view(endpoint)
     V2.add_url_rule(url, view_func=view_func,
                     defaults={identifier: None}, methods=['GET', ])

@@ -16,10 +16,24 @@ class TestPartiesVersionTwo(TestBaseClass):
 
         response = self.client.post(
             '/api/v2/parties',
-            data=json.dumps(self.demo_party),
-            content_type='application/json'
+            data=json.dumps(self.demo_party2),
+            content_type='application/json',
+            headers=self.super_headers
         )
         self.assertEqual(response.status_code, 201)
+        self.assertEqual(json.loads(response.data.decode())[
+                         'data'], 'Successfully created party')
+
+    def test_create_similar_names_party(self):
+        """ Tests create party"""
+
+        response = self.client.post(
+            '/api/v2/parties',
+            data=json.dumps(self.demo_party),
+            content_type='application/json',
+            headers=self.super_headers
+        )
+        self.assertEqual(response.status_code, 409)
 
     def test_get_all_parties(self):
         """ Tests retrieve all parties """
@@ -44,34 +58,34 @@ class TestPartiesVersionTwo(TestBaseClass):
 
         response = self.client.put('api/v2/parties/101/name',
                                    data=json.dumps(
-                                       {"new_name": "newest name"}),
-                                   content_type='application/json')
+                                       {"party_name": "newest name"}),
+                                   content_type='application/json',
+                                   headers=self.super_headers)
         self.assertEqual(response.status_code, 404)
-
-    def tests_delete_party(self):
-        """ Tests the delete party route  """
-
-        response = self.client.delete('api/v2/parties/1')
-        self.assertEqual(response.status_code, 200)
 
     def tests_delete_no_party(self):
         """ Tests the delete on a non-existant resource  """
 
-        response = self.client.delete('api/v2/parties/10/delete')
+        response = self.client.delete('api/v2/parties/10/delete',
+                                      headers=self.super_headers)
         self.assertEqual(response.status_code, 404)
 
-    def tests_test_edit_party(self):
+    def tests_edit_party(self):
         """ Tests the response on a non-existant resource  """
 
-        self.client.post(
-            'api/v2/parties',
-            data=json.dumps(self.demo_party),
-            content_type='application/json'
-        )
-        response = self.client.put('api/v2/parties/1/name',
+        response = self.client.put('/api/v2/parties/1/name',
                                    data=json.dumps(
-                                       {"new_name": "newest name"}),
-                                   content_type='application/json')
+                                       {"party_name": "New Democratic Party"}),
+                                   content_type='application/json',
+                                   headers=self.super_headers)
+        self.assertEqual(json.loads(response.data.decode())[
+                         'data'], 'Successfully updated the name of the party')
+
+    def tests_delete_party(self):
+        """ Tests the delete party route  """
+
+        response = self.client.delete('api/v2/parties/1',
+                                      headers=self.super_headers)
         self.assertEqual(response.status_code, 200)
 
     def test_no_keys(self):
@@ -80,7 +94,8 @@ class TestPartiesVersionTwo(TestBaseClass):
         response = self.client.post(
             'api/v2/parties',
             data=json.dumps(self.missing_key_party),
-            content_type='application/json'
+            content_type='application/json',
+            headers=self.super_headers
         )
 
         self.assertEqual(response.status_code, 400)
@@ -88,17 +103,16 @@ class TestPartiesVersionTwo(TestBaseClass):
     def test_no_values(self):
         """ Tests the response on a non-existant resource  """
 
-        response = self.client.post(
-            'api/v2/parties',
-            data=json.dumps(self.missing_value_party),
-            content_type='application/json'
-        )
+        response = self.client.post('api/v2/parties',
+                                    data=json.dumps(self.missing_value_party),
+                                    content_type='application/json',
+                                    headers=self.super_headers)
 
         self.assertEqual(response.status_code, 400)
 
 
 class TestPartiesVersionOne(TestBaseClass):
-    """ Tests cases for version two of the application """
+    """ Tests cases for version one of the application """
 
     def test_create_party(self):
         """ Tests create party"""
@@ -106,8 +120,7 @@ class TestPartiesVersionOne(TestBaseClass):
         response = self.client.post(
             'api/v1/parties',
             data=json.dumps(self.demo_party),
-            content_type='application/json'
-        )
+            content_type='application/json')
         self.assertEqual(response.status_code, 201)
         self.assertEqual(json.loads(response.data.decode())['data'],
                          'Successfuly created party')
@@ -153,8 +166,6 @@ class TestPartiesVersionOne(TestBaseClass):
 
     def test_edit_party(self):
         """ Tests the response on a non-existant resource  """
-        
-        self.create_party()
 
         response = self.client.put('api/v1/parties/1/name',
                                    data=json.dumps(

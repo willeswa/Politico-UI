@@ -67,7 +67,7 @@ class PartyModel:
         if party:
             if party['party_name'] != new_name:
                 party['party_name'] = new_name
-                return 'Successfully Updated the name of the party'
+                return 'Successfully updated the name of the party'
             else:
                 raise Exception('New name must be different from current party name')
         raise Exception('Party does not exists')

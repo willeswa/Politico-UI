@@ -54,7 +54,7 @@ class PartyViews(MethodView):
             return result
 
         result = Serializer.serialize(
-            'Party {} is not found'.format(party_id), 404, 404)
+            'Party {} is not found'.format(party_id), 404)
         return result
 
     @classmethod
@@ -77,9 +77,9 @@ class PartyViews(MethodView):
                     return Serializer.serialize(response, 200)
 
                 except Exception as error:
-                    return Serializer.serialize(error.args[0], 404, 404)
+                    return Serializer.serialize(error.args[0], 400)
 
-            return Serializer.serialize('Party {} not found'.format(party_id), 404, 404)
+            return Serializer.serialize('Party {} not found'.format(party_id), 404)
         return Serializer.serialize('You are not authorized to perform this action.', 401)
 
     @classmethod
@@ -97,7 +97,7 @@ class PartyViews(MethodView):
                     result = Serializer.serialize(response, 200)
                     return result
                 except Exception as error:
-                    return Serializer.serialize(error.args[0], 404, 404)
-            return Serializer.serialize('Party {} not found'.format(party_id), 404, 404)
+                    return Serializer.serialize(error.args[0], 404)
+            return Serializer.serialize('Party {} not found'.format(party_id), 404)
 
         return Serializer.serialize('You are not authorized to perform this action.', 401)
