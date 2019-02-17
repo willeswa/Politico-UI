@@ -7,6 +7,8 @@ from flask import Blueprint
 from app.api.v2.views.user_views import SignupViews, LoginViews, CandidateViews
 from app.api.v2.views.parties_views import PartyViews
 from app.api.v2.views.office_views import OfficeViews
+from app.api.v2.views.vote_views import VoteViews
+
 
 # Create blueprint
 V2 = Blueprint('version2', __name__, url_prefix='/api/v2')
@@ -34,3 +36,4 @@ define_routes(LoginViews, 'login', '/auth/signin', identifier='user_id')
 define_routes(PartyViews, 'parties', '/parties', identifier='party_id')
 define_routes(OfficeViews, 'offices', '/offices', identifier='office_id')
 define_routes(CandidateViews, 'candidates', '/office/', identifier='office_id')
+define_routes(VoteViews, 'votes', '/votes', identifier='vote_id')

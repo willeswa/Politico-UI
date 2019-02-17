@@ -7,9 +7,10 @@ import unittest
 # Local imports
 from app import create_app
 from app.api.v1.models.office_models import OfficeModel
-from app.api.v2.dbconfig import DB
+from app.api.v2.dbconfig import Database
 from app.api.utils.validators import Validators
 
+DB = Database()
 
 class TestBaseClass(unittest.TestCase):
     """ Creates a base test class """
