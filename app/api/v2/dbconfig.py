@@ -38,7 +38,7 @@ class Database:
         """ Creates Tables in the database """
 
         queries = (""" CREATE TABLE IF NOT EXISTS users (
-                user_id SERIAL NOT NULL,
+                user_id SERIAL PRIMARY KEY,
                 firstname VARCHAR NOT NULL,
                 lastname VARCHAR NOT NULL,
                 othername VARCHAR NOT NULL,
@@ -66,8 +66,8 @@ class Database:
                 politician_id SERIAL NOT NULL,
                 office integer NOT NULL,
                 party integer NOT NULL,
-                PRIMARY KEY (politician_id, office, party),
-                UNIQUE (politician_id)
+                politician integer NOT NULL, 
+                PRIMARY KEY (politician, office)
             ); """,
                    """ CREATE TABLE IF NOT EXISTS votes (
                 vote_id SERIAL NOT NULL,
@@ -105,10 +105,10 @@ class Database:
         """ Deletes all the tables from the database """
 
         with Database() as conn:
-            queries = (""" DROP TABLE IF EXISTS users CASCADE;  """,
-                       """  DROP TABLE IF EXISTS parties CASCADE; """,
-                       """ DROP TABLE IF EXISTS offices CASCADE; """,
-                       """ DROP TABLE IF EXISTS politicians CASCADE; """,
+            queries = (""" DROP TABLE IF EXISTS users; """,
+                       """  DROP TABLE IF EXISTS parties; """,
+                       """ DROP TABLE IF EXISTS offices""",
+                       """ DROP TABLE IF EXISTS politicians; """,
                        """ DROP TABLE IF EXISTS votes; """,)
             with Database() as conn:
                 curr = conn.cursor()
@@ -116,6 +116,3 @@ class Database:
                 for query in queries:
                     curr.execute(query)
                     conn.commit()
-
-
-DB = Database()

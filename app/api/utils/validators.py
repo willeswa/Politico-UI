@@ -87,6 +87,12 @@ class Validators:
                     raise Exception(
                         "Party name must be a three phrased name and ends with 'Party'")
                 raise Exception("Missing the 'Party Name' field in your json")
+            elif entity is 'candidate':
+                if {'party_id', 'candidate_id'} <= set(entity_data):
+                    if isinstance(entity_data['party_id'], int) and isinstance(entity_data['candidate_id'], int):
+                        return entity_data
+                    raise Exception('Entry must be integers only')
+                raise Exception('Missing fields in your candidate json')
         raise Exception('Your json object is empty.')
 
     @classmethod
