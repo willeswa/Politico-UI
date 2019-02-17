@@ -42,16 +42,21 @@ class TestsAuthCases(TestBaseClass):
         """ Tests the response when an unregistered user tries to login. """
 
         response = self.client.post('/api/v2/auth/signin',
-                                    data=json.dumps({"email": "jim@kama.com", "password": "passowrd"}),
+                                    data=json.dumps(
+                                        {"email": "jim@kama.com", "password": "passowrd"}),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 404)
 
     def test_register_candidate(self):
         """ Tests if creating politician works as expected. """
 
-        response = self.client.post('/api/v2/register',
-                                    data=json.dumps(self.new_user))
+        response = self.client.post('/api/v2/offices/1/register',
+                                    data=json.dumps({"party_id": 1,
+                                                     "candidate_id": 1}),
+                                    headers=self.super_headers)
         self.assertEqual(response.status_code, 201)
+        self.assertEqual(json.loads(response.data.decode())[
+                         'error'], 'Successfully updated the name of the party')
 
     def test_double_registration(self):
         """ Tests if signup works as expected. """

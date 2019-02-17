@@ -68,3 +68,69 @@ class UserModel:
             curr.execute(query, (email,),)
             record = curr.fetchone()
         return record[0]
+
+    @classmethod
+    def get_specific_user(cls, user_id):
+        """ returns a specific office given office id """
+
+        query = """ SELECT * FROM offices WHERE user_id = %s """
+
+        with Database() as conn:
+            curr = conn.cursor()
+            curr.execute(query, (user_id,),)
+            record = curr.fetchone()
+            column = ('firstname', 'lastname', 'email', 'password',
+                      'phoneNumber', 'passportUrl', 'othername')
+            user = dict(zip(column, record))
+
+        return user
+
+    @classmethod
+    def user_exists_id(cls, candidate_id):
+        """ Checks if a candidate exists """
+
+        query = """ SELECT EXISTS (SELECT * FROM users WHERE user_id = %s) """
+
+        with Database() as conn:
+            curr = conn.cursor()
+            curr.execute(query, (candidate_id,),)
+            record = curr.fetchone()
+        return record[0]
+
+
+class PolitcianModel(UserModel):
+    """ Defines a model for politcians """
+
+    def __init__(self, candidate_id, office_id, party_id):
+        self.office_id = office_id
+        self.party_id = party_id
+        self.candidate_id = candidate_id
+
+    def create_politician(self):
+        """ Creates a new instance of a politician in the database """
+
+        if UserModel.user_exists_id(self.candidate_id):
+            try:
+                with Database() as conn:
+                    query = """ INSERT INTO politicians (office, party, politician) VALUES (%s, %s, %s) """
+                    curr = conn.cursor()
+                    curr.execute(
+                        query, (self.office_id, self.party_id, self.candidate_id),)
+                    conn.commit()
+                return 'Successfully registered candidate'
+            except Exception as error:
+                print(error)
+
+        raise Exception('Political candidates must be registered users')
+
+    @classmethod
+    def candidate_exists(cls, candidate_id):
+        """ Checks if a candidate exists """
+
+        query = """ SELECT EXISTS (SELECT * FROM politicians WHERE politician = %s) """
+
+        with Database() as conn:
+            curr = conn.cursor()
+            curr.execute(query, (candidate_id,),)
+            record = curr.fetchone()
+        return record[0]

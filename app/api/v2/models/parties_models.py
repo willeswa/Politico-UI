@@ -63,7 +63,7 @@ class PartyModel:
             records = curr.fetchall()
         parties = []
         if records:
-            column = ('party_name', 'hq_address', 'logo_url', 'created_on')
+            column = ('party_id', 'party_name', 'hq_address', 'logo_url', 'created_on')
             for record in records:
                 party = dict(zip(column, record))
                 parties.append(party)
@@ -80,7 +80,7 @@ class PartyModel:
             curr = conn.cursor()
             curr.execute(query, (party_id,),)
             record = curr.fetchone()
-            column = ('party_name', 'hq_address', 'logo_url', 'created_on')
+            column = ('party_id', 'party_name', 'hq_address', 'logo_url', 'created_on')
             party = dict(zip(column, record))
 
         return party

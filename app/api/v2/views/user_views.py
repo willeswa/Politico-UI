@@ -3,9 +3,12 @@
 # Third office imports
 from flask import request
 from flask.views import MethodView
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 # Local imports
-from app.api.v2.models.user_models import UserModel
+from app.api.v2.models.user_models import UserModel, PolitcianModel
+from app.api.v2.models.parties_models import PartyModel
+from app.api.v2.models.office_models import OfficeModel
 from app.api.utils.serializer import Serializer
 from app.api.utils.validators import Validators
 
@@ -22,7 +25,7 @@ class SignupViews(MethodView):
             user = Validators.validate_json('user_signup', raw_user)
             if UserModel.user_exists(user['email']):
                 return Serializer.serialize('Email: {} is already registered. Login instead! '.format(user['email']), 409)
-                
+
             user_models = UserModel(user['firstname'], user['lastname'], user['email'], user['password'], user['phone_number'],
                                     user['passport_url'], user['othername'])
             response = user_models.create_user()
@@ -51,3 +54,35 @@ class LoginViews(MethodView):
             return Serializer.serialize('Email: {} is not registered'.format(current_user['email']), 404)
         except Exception as error:
             return Serializer.serialize(error.args[0], 400, 400)
+
+
+class CandidateViews(MethodView):
+    """ Handles views related to candidate """
+
+    @jwt_required
+    def post(self, office_id):
+        """ Passes data to the views to create a new candidate """
+
+        current_user = get_jwt_identity()
+
+        if current_user['is_admin']:
+
+            candidate = request.get_json()
+            try:
+                if PolitcianModel.candidate_exists(candidate['candidate_id']):
+                    return Serializer.serialize('Politician already registered', 409)
+
+                candidate_data = Validators.validate_json('candidate', candidate)
+                if OfficeModel.office_exists(office_id):
+                    if PartyModel.party_exists(candidate_data['party_id']):
+                        politician = PolitcianModel(
+                            candidate_data['candidate_id'], office_id, candidate_data['party_id'])
+                        return Serializer.serialize(politician.create_politician(), 201)
+
+                    return Serializer.serialize('Party does not exists', 404)
+                return Serializer.serialize('Non-existant office', 404)
+
+            except Exception as error:
+                return Serializer.serialize(error.args[0], 400)
+
+        return Serializer.serialize('You are not authorized to perfom this action', 401)
