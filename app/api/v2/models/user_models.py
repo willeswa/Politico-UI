@@ -134,3 +134,4 @@ class PolitcianModel(UserModel):
             curr.execute(query, (candidate_id,),)
             record = curr.fetchone()
         return record[0]
+

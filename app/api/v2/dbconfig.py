@@ -10,6 +10,7 @@ from werkzeug.security import generate_password_hash
 
 # Local imports
 from app.config import APP_CONFIG
+from app.api.v2.models.user_models import UserModel
 
 CONFIG_NAME = os.getenv('FLASK_ENV')
 
@@ -88,17 +89,6 @@ class Database:
             return 'Successfuly created tables'
         except Exception as e:
             print(e)
-
-    @classmethod
-    def create_admin(cls):
-        """ Creates an admin the system """
-        adminpass = generate_password_hash('admin')
-        query = """ INSERT INTO users (firstname, lastname, othername, email, password, phone_number, passport_url, is_admin) VALUES ('Godfrey', 'Willies', 'Wanjala', 'gwiliez@ymail.com', %s, '0721175171', 'http://@wanjala', True); """
-        with Database() as conn:
-            curr = conn.cursor()
-            curr.execute(query, (adminpass,),)
-            conn.commit()
-        return 'Admin created'
 
     @classmethod
     def drop_tables(cls):
