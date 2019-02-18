@@ -2,6 +2,7 @@
 
 from app.api.v2.dbconfig import Database
 
+
 class VoteModel:
     """ Contain methods that handle voting """
 
@@ -17,25 +18,48 @@ class VoteModel:
 
         with Database() as conn:
             curr = conn.cursor()
-            curr.execute(query, (self.office_id, self.candidate_id, self.voter,),)
+            curr.execute(
+                query, (self.office_id, self.candidate_id, self.voter,),)
             conn.commit()
             record = curr.fetchone()
-        
-        column = ('office', 'candidate', 'voter')
+
+        column = ('candidate', 'voter')
 
         vote = dict(zip(column, record))
 
         return vote
-    
+
     @classmethod
-    def voted_for(cls, candidate_id):
+    def voted_for(cls, candidate_id, created_by):
         """ Checks if a candidate has been voted for """
 
-        query = """ SELECT EXISTS (SELECT * FROM votes WHERE candidate = %s) """
+        query = """ SELECT EXISTS (SELECT * FROM votes WHERE candidate = %s and created_by = %s ) """
 
         with Database() as conn:
             curr = conn.cursor()
-            curr.execute(query, (candidate_id,),)
+            curr.execute(query, (candidate_id, created_by,),)
             record = curr.fetchone()
 
         return record[0]
+
+    @classmethod
+    def get_votes_for_office(cls, office_id):
+        """ Retrieves all votes for a specific office """
+
+        query = """ SELECT candidate, COUNT (vote_id) FROM votes WHERE office = %s GROUP BY candidate """
+
+        with Database() as conn:
+            curr = conn.cursor()
+            curr.execute(query, (office_id,),)
+            records = curr.fetchall()
+
+        results = []
+        column = ('office', 'candidate', 'result')
+
+        if records:
+            for row in records:
+                record = (office_id,) + row
+                result = dict(zip(column, record))
+                results.append(result)
+
+        return results

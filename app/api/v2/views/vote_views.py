@@ -15,9 +15,10 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 class VoteViews(MethodView):
     """ This class defines methods handlind vote related request """
 
+    @classmethod
     @jwt_required
-    def post(self):
-        """ Sends a post request for creating a vote """
+    def post(cls):
+        """ Sends a post requests for creating a vote """
 
         current_user = get_jwt_identity()
         raw_vote = request.get_json()
@@ -26,7 +27,7 @@ class VoteViews(MethodView):
             candidate_exists = PolitcianModel.candidate_exists(
                 vote['candidate_id'])
             if candidate_exists:
-                if VoteModel.voted_for(vote['candidate_id']):
+                if VoteModel.voted_for(vote['candidate_id'], current_user['user_id']):
                     return Serializer.serialize('You have already voted for this candidate', 409)
                 vote_model = VoteModel(
                     vote['office_id'], vote['candidate_id'], current_user['user_id'])
@@ -35,3 +36,14 @@ class VoteViews(MethodView):
             return Serializer.serialize('Politician not found', 404)
         except Exception as error:
             return Serializer.serialize(error.args[0], 400)
+
+
+class ResultsViews(MethodView):
+    """ Contains methods that manipulate vote results """
+
+    @classmethod
+    def get(cls, office_id):
+        """ Sends get requests to the models to get results """
+
+        response = VoteModel.get_votes_for_office(office_id)
+        return Serializer.serialize(response, 200)
