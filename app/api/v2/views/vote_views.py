@@ -24,11 +24,10 @@ class VoteViews(MethodView):
         raw_vote = request.get_json()
         try:
             vote = Validators.validate_json('vote', raw_vote)
-            candidate_exists = PolitcianModel.candidate_exists(
-                vote['candidate_id'])
+            candidate_exists = PolitcianModel.candidate_exists(vote['candidate_id'], vote['office_id'])
             if candidate_exists:
-                if VoteModel.voted_for(vote['candidate_id'], current_user['user_id']):
-                    return Serializer.serialize('You have already voted for this candidate', 409)
+                if VoteModel.voted_for(vote['office_id'], current_user['user_id']):
+                    return Serializer.serialize('You have already voted in this office category', 409)
                 vote_model = VoteModel(
                     vote['office_id'], vote['candidate_id'], current_user['user_id'])
                 response = vote_model.cast_vote()

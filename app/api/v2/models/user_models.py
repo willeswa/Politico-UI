@@ -124,14 +124,13 @@ class PolitcianModel(UserModel):
         raise Exception('Political candidates must be registered users')
 
     @classmethod
-    def candidate_exists(cls, candidate_id):
+    def candidate_exists(cls, candidate_id, office_id):
         """ Checks if a candidate exists """
 
-        query = """ SELECT EXISTS (SELECT * FROM politicians WHERE politician = %s) """
+        query = """ SELECT EXISTS (SELECT * FROM politicians WHERE politician = %s and office = %s) """
 
         with Database() as conn:
             curr = conn.cursor()
-            curr.execute(query, (candidate_id,),)
+            curr.execute(query, (candidate_id, office_id),)
             record = curr.fetchone()
         return record[0]
-
