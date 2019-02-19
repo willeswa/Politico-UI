@@ -1,5 +1,9 @@
 language: python
 
+env:
+  - export TEST_DATABASE_URL='postgresql://postgres:star2030@localhost/test_politico'
+  - FLASK_ENV=testing
+
 python:
   - 3.6.7
 
