@@ -2,12 +2,12 @@ language: python
 
 env:
   global:
-    - export TEST_DATABASE_URL='postgresql://postgres:star2030@localhost/test_politico'
-    - export FLASK_ENV=testing
-    - export JWT_SECRET_KEY
-    - export ADMIN=('Godfrey', 'Wanjala', 'Willies', %s, %s, '0721175171', 'http://@wanjala', True)
-    - export ADMIN_EMAIL='gwiliez@ymail.com'
-    - export ADMIN_PASS='admin'
+    - TEST_DATABASE_URL='postgresql://postgres:star2030@localhost/test_politico'
+    - FLASK_ENV=testing
+    - JWT_SECRET_KEY
+    - ADMIN=('Godfrey', 'Wanjala', 'Willies', %s, %s, '0721175171', 'http://@wanjala', True)
+    - ADMIN_EMAIL='gwiliez@ymail.com'
+    - ADMIN_PASS='admin'
 
 python:
   - 3.6.7
