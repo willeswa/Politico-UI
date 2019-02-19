@@ -10,7 +10,6 @@ from werkzeug.security import generate_password_hash
 
 # Local imports
 from app.config import APP_CONFIG
-from app.api.v2.models.user_models import UserModel
 
 CONFIG_NAME = os.getenv('FLASK_ENV')
 
@@ -67,7 +66,7 @@ class Database:
                 politician_id SERIAL NOT NULL,
                 office integer NOT NULL,
                 party integer NOT NULL,
-                politician integer NOT NULL, 
+                politician integer NOT NULL,
                 PRIMARY KEY (politician, office)
             ); """,
                    """ CREATE TABLE IF NOT EXISTS votes (
@@ -77,7 +76,7 @@ class Database:
                 candidate integer NOT NULL,
                 created_on DATE DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY (created_by, office)
-                
+
             );""",)
         try:
             with Database() as conn:
@@ -91,18 +90,37 @@ class Database:
             print(e)
 
     @classmethod
+    def create_admin(cls):
+        """ Creates an admin the system """
+        adminpass = generate_password_hash(os.getenv('ADMIN_PASS'))
+        admin_email = os.getenv('ADMIN_EMAIL')
+        admin = os.getenv('ADMIN')
+
+        query = """ INSERT INTO users (firstname, lastname, othername, email, password, phone_number, passport_url, is_admin) VALUES {}; """.format(
+            admin)
+        
+        with Database() as conn:
+            curr = conn.cursor()
+            exists = """ SELECT * FROM users WHERE email = %s """
+            curr.execute(exists, (admin_email,),)
+            record = curr.fetchone()
+            if record is None:
+                curr.execute(query, (admin_email, adminpass),)
+                conn.commit()
+                return 'Admin created'
+
+    @classmethod
     def drop_tables(cls):
         """ Deletes all the tables from the database """
 
+        queries = (""" DROP TABLE IF EXISTS users; """,
+                   """ DROP TABLE IF EXISTS parties; """,
+                   """ DROP TABLE IF EXISTS offices; """,
+                   """ DROP TABLE IF EXISTS politicians; """,
+                   """ DROP TABLE IF EXISTS votes; """)
         with Database() as conn:
-            queries = (""" DROP TABLE IF EXISTS users; """,
-                       """  DROP TABLE IF EXISTS parties; """,
-                       """ DROP TABLE IF EXISTS offices""",
-                       """ DROP TABLE IF EXISTS politicians; """,
-                       """ DROP TABLE IF EXISTS votes; """,)
-            with Database() as conn:
-                curr = conn.cursor()
+            curr = conn.cursor()
 
-                for query in queries:
-                    curr.execute(query)
-                    conn.commit()
+            for query in queries:
+                curr.execute(query)
+                conn.commit()
