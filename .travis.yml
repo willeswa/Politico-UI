@@ -3,6 +3,14 @@ language: python
 python:
   - 3.6.7
 
+env:
+  - FLASK_ENV=testing
+  - ADMIN=('Godfrey', 'Wanjala', 'Willies', %s, %s, '0721175171', 'http://@wanjala', True)
+  - ADMIN_EMAIL='gwiliez@ymail.com'
+  - ADMIN_PASS='admin'
+  - JWT_SECRET_KEY='my super secret about aliens'
+  - DATABASE_URL='postgresql://postgres:star2030@localhost/test_politico'
+
 install:
   - pip install -r requirements.txt
   - pip install coveralls codecov
