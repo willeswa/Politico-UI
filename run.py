@@ -4,10 +4,18 @@
 import os
 
 # local imports
+from app.api.utils.serializer import Serializer
 from app import create_app
 
 
-APP = create_app(os.getenv('FLASK_ENV'))
+app = create_app(os.getenv('FLASK_ENV'))
 
 if __name__ == "__main__":
-    APP.run()
+    app.run()
+
+
+@app.route('/')
+def home():
+    return Serializer.serialize({
+        "message": "Welcome to Politiko"
+    }, 200)
