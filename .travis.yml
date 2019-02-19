@@ -4,12 +4,12 @@ python:
   - 3.6.7
 
 env:
-  - FLASK_ENV=testing
-  - ADMIN=('Godfrey', 'Wanjala', 'Willies', %s, %s, '0721175171', 'http://@wanjala', True)
-  - ADMIN_EMAIL='gwiliez@ymail.com'
-  - ADMIN_PASS='admin'
-  - JWT_SECRET_KEY='my super secret about aliens'
-  - TEST_DATABASE_URL='postgresql://postgres:star2030@localhost/test_politico'
+  - export FLASK_ENV=testing
+  - export ADMIN=('Godfrey', 'Wanjala', 'Willies', %s, %s, '0721175171', 'http://@wanjala', True)
+  - export ADMIN_EMAIL='gwiliez@ymail.com'
+  - export ADMIN_PASS='admin'
+  - export JWT_SECRET_KEY='my super secret about aliens'
+  - export TEST_DATABASE_URL='postgresql://postgres:star2030@localhost/test_politico'
 
 install:
   - pip install -r requirements.txt
