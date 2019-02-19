@@ -9,7 +9,7 @@ env:
   - ADMIN_EMAIL='gwiliez@ymail.com'
   - ADMIN_PASS='admin'
   - JWT_SECRET_KEY='my super secret about aliens'
-  - DATABASE_URL='postgresql://postgres:star2030@localhost/test_politico'
+  - TEST_DATABASE_URL='postgresql://postgres:star2030@localhost/test_politico'
 
 install:
   - pip install -r requirements.txt

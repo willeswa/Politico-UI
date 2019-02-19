@@ -13,10 +13,7 @@ from app.config import APP_CONFIG
 
 CONFIG_NAME = os.getenv('FLASK_ENV')
 
-if CONFIG_NAME:
-    URL = APP_CONFIG[CONFIG_NAME].DATABASE_URL
-else:
-    URL = 'postgresql://postgres:star2030@localhost/test_politico'
+URL = APP_CONFIG[CONFIG_NAME].DATABASE_URL
 
 
 class Database:
@@ -98,7 +95,7 @@ class Database:
 
         query = """ INSERT INTO users (firstname, lastname, othername, email, password, phone_number, passport_url, is_admin) VALUES {}; """.format(
             admin)
-        
+
         with Database() as conn:
             curr = conn.cursor()
             exists = """ SELECT * FROM users WHERE email = %s """
