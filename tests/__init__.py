@@ -12,6 +12,7 @@ from app.api.utils.validators import Validators
 
 DB = Database()
 
+
 class TestBaseClass(unittest.TestCase):
     """ Creates a base test class """
 
@@ -59,6 +60,12 @@ class TestBaseClass(unittest.TestCase):
                          headers=self.super_headers
                          )
 
+        self.client.post('/api/v2/office/1/register',
+                         data=json.dumps(self.demo_candidate),
+                         content_type='application/json',
+                         headers=self.super_headers
+                         )
+
     test_office_db = [{
         "created_on": "Sunday, 03. February 2019 05:23PM",
         "name": "President of the Republic of Kenya",
@@ -79,9 +86,9 @@ class TestBaseClass(unittest.TestCase):
 
     demo_office = dict(office_type='Legislative',
                        office_name='Office of the Governor')
-    
+
     demo_office2 = dict(office_type='Federal',
-                       office_name='Office of the Senator')
+                        office_name='Office of the Senator')
 
     bad_party = dict(party_name='The Catwalking Party',
                      hq_address='Party HeadQuaters',
@@ -93,6 +100,15 @@ class TestBaseClass(unittest.TestCase):
     missing_value_party = dict(party_name='The Catwalking Party',
                                hq_address='Party HeadQuaters',
                                logo_url="")
+
+    demo_candidate = {"office_id": 1,
+                      "party_id": 1,
+                      "candidate_id": 2
+                      }
+    demo_candidate2 = {"office_id": 1,
+                       "party_id": 1,
+                       "candidate_id": 1
+                       }
 
     demo_party = {
         "party_name": "The Catwalking Party",
@@ -118,9 +134,9 @@ class TestBaseClass(unittest.TestCase):
     wrong_pass = dict(email='gwiliez@gmail.com',
                       password='pass')
 
-    vote_data = dict(user_id=1,
-                     office_id=1,
-                     vote=1)
+    vote_data = {"candidate_id": 2,
+                 "office_id": 1,
+                 "party_id": 1}
 
     new_user = dict(firstname='Godfrey',
                     lastname='Wanajala',
@@ -131,12 +147,12 @@ class TestBaseClass(unittest.TestCase):
                     passport_url='http://logo.com')
 
     new_user2 = dict(firstname='Godfrey',
-                    lastname='Wanajala',
-                    othername='Willies',
-                    email='gwiliez@mail.com',
-                    password='password',
-                    phone_number='0725171175',
-                    passport_url='http://logo.com')
+                     lastname='Wanajala',
+                     othername='Willies',
+                     email='gwiliez@mail.com',
+                     password='password',
+                     phone_number='0725171175',
+                     passport_url='http://logo.com')
 
     bad_user = dict(firstname='Godfrey',
                     lastname='Wanajala',

@@ -56,7 +56,8 @@ class PartyViews(MethodView):
         update_name = request.get_json()
 
         try:
-            response = PartyModel.update_party(party_id, update_name['party_name'])
+            response = PartyModel.update_party(
+                party_id, update_name['party_name'])
             result = Serializer.serialize(response, 200)
             return result
         except Exception as error:
