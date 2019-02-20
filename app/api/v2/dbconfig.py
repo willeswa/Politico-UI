@@ -93,7 +93,7 @@ class Database:
         admin_email = os.getenv('ADMIN_EMAIL')
         admin = os.getenv('ADMIN')
 
-        query = """ INSERT INTO users (firstname, lastname, othername, email, password, phone_number, passport_url, is_admin) VALUES {}; """.format(admin)
+        query = """ INSERT INTO users (firstname, lastname, othername, email, password, phone_number, passport_url, is_admin) VALUES ({}); """.format(admin)
 
         with Database() as conn:
             curr=conn.cursor()
