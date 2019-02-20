@@ -81,14 +81,23 @@ class TestPartiesVersionTwo(TestBaseClass):
                                    content_type='application/json',
                                    headers=self.super_headers)
         self.assertEqual(response.status_code, 404)
-    
+
     def test_bad_edit(self):
+
+        self.client.post('api/v2/parties',
+                         data=json.dumps(
+                             {"party_name": "The King Party",
+                              "logo_url": "http://link",
+                              "hq_address": "Upper Hill"}),
+                         content_type='application/json',
+                         headers=self.super_headers)
+
         response = self.client.put('api/v2/parties/1/name',
                                    data=json.dumps(
-                                       {"party_name": "The Catwalking Party"}),
+                                       {"party_name": "The King Party"}),
                                    content_type='application/json',
                                    headers=self.super_headers)
-        self.assertEqual(response.status_code, 409)        
+        self.assertEqual(response.status_code, 409)
 
     def tests_delete_no_party(self):
         """ Tests the delete on a non-existant resource  """
@@ -99,12 +108,18 @@ class TestPartiesVersionTwo(TestBaseClass):
 
     def tests_edit_party(self):
         """ Tests the response on a non-existant resource  """
+        self.client.post('api/v2/parties',
+                         data=json.dumps(
+                             {"party_name": "The Why Party"}),
+                         content_type='application/json',
+                         headers=self.super_headers)
 
         response = self.client.put('api/v2/parties/1/name',
-                         data=json.dumps({"party_name": "The Blue Party"}),
-                         content_type='application/json',
-                         headers=self.super_headers
-                         )
+                                   data=json.dumps(
+                                       {"party_name": "The Glue Party"}),
+                                   content_type='application/json',
+                                   headers=self.super_headers
+                                   )
         self.assertEqual(response.status_code, 200)
 
     def tests_delete_party(self):

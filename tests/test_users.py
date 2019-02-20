@@ -38,6 +38,14 @@ class TestsAuthCases(TestBaseClass):
                                     content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
+    def wrong_pass(self):
+        """Test if signin works as expected. """
+
+        response = self.client.post('/api/v2/auth/signin',
+                                    data=json.dumps({"email": "gwiliez@ymail.com", "password": "pass"}),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+
     def test_login_unregistered_user(self):
         """ Tests the response when an unregistered user tries to login. """
 
@@ -56,6 +64,16 @@ class TestsAuthCases(TestBaseClass):
                                     headers=self.super_headers
                                     )
         self.assertEqual(response.status_code, 201)
+
+    
+    def test_non_auth_candidate(self):
+        """ Tests if creating politician works as expected. """
+
+        response = self.client.post('/api/v2/office/1/register',
+                                    data=json.dumps(self.demo_candidate2),
+                                    content_type='application/json'
+                                    )
+        self.assertEqual(response.status_code, 401)
 
     def test_double_registration(self):
         """ Tests if signup works as expected. """
