@@ -20,15 +20,14 @@ def create_app(config_name='development'):
 
     app.config.from_object(APP_CONFIG[config_name])
     app.config.from_pyfile('config.py')
-
     JWTManager(app)
 
-    # Create and destroy tables
+    # Create tables and super user
+    
     database = Database()
-    print(database.drop_tables())
-    print(database.create_tables())
-    print(database.create_admin())
-
+    database.drop_tables()
+    database.create_tables()
+    database.create_admin()
 
     # Register blueprints and errors
     from app.api.v1 import V1

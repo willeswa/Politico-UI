@@ -93,14 +93,13 @@ class Database:
         admin_email = os.getenv('ADMIN_EMAIL')
         admin = os.getenv('ADMIN')
 
-        query = """ INSERT INTO users (firstname, lastname, othername, email, password, phone_number, passport_url, is_admin) VALUES {}; """.format(
-            admin)
+        query = """ INSERT INTO users (firstname, lastname, othername, email, password, phone_number, passport_url, is_admin) VALUES ({}); """.format(admin)
 
         with Database() as conn:
-            curr = conn.cursor()
-            exists = """ SELECT * FROM users WHERE email = %s """
+            curr=conn.cursor()
+            exists=""" SELECT * FROM users WHERE email = %s """
             curr.execute(exists, (admin_email,),)
-            record = curr.fetchone()
+            record=curr.fetchone()
             if record is None:
                 curr.execute(query, (admin_email, adminpass),)
                 conn.commit()
@@ -110,13 +109,13 @@ class Database:
     def drop_tables(cls):
         """ Deletes all the tables from the database """
 
-        queries = (""" DROP TABLE IF EXISTS users; """,
+        queries=(""" DROP TABLE IF EXISTS users; """,
                    """ DROP TABLE IF EXISTS parties; """,
                    """ DROP TABLE IF EXISTS offices; """,
                    """ DROP TABLE IF EXISTS politicians; """,
                    """ DROP TABLE IF EXISTS votes; """)
         with Database() as conn:
-            curr = conn.cursor()
+            curr=conn.cursor()
 
             for query in queries:
                 curr.execute(query)

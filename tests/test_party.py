@@ -34,12 +34,31 @@ class TestPartiesVersionTwo(TestBaseClass):
             headers=self.super_headers
         )
         self.assertEqual(response.status_code, 409)
+        self.assertEqual(json.loads(response.data.decode())[
+                         'error'], "'The Catwalking Party' is taken. Choose another name!")
+
+    def test_invalid_party_party(self):
+        """ Tests create party"""
+
+        response = self.client.post(
+            '/api/v2/parties',
+            data=json.dumps(self.bad_party),
+            content_type='application/json',
+            headers=self.super_headers
+        )
+        self.assertEqual(response.status_code, 400)
 
     def test_get_all_parties(self):
         """ Tests retrieve all parties """
 
         response = self.client.get('api/v2/parties')
         self.assertEqual(response.status_code, 200)
+
+    def test_unauthorized_party_action(self):
+        """ Tests retrieve all parties """
+
+        response = self.client.post('api/v2/parties')
+        self.assertEqual(response.status_code, 401)
 
     def test_get_specific_party(self):
         """ Tests retrieve a specific party """
@@ -73,13 +92,11 @@ class TestPartiesVersionTwo(TestBaseClass):
     def tests_edit_party(self):
         """ Tests the response on a non-existant resource  """
 
-        response = self.client.put('/api/v2/parties/1/name',
-                                   data=json.dumps(
-                                       {"party_name": "New Democratic Party"}),
-                                   content_type='application/json',
-                                   headers=self.super_headers)
-        self.assertEqual(json.loads(response.data.decode())[
-                         'data'], 'Successfully updated the name of the party')
+        self.client.post('api/v2/parties/1/name',
+                         data=json.dumps({"party_name": "The Blue Party"}),
+                         content_type='application/json',
+                         headers=self.super_headers
+                         )
 
     def tests_delete_party(self):
         """ Tests the delete party route  """
