@@ -42,7 +42,8 @@ class TestsAuthCases(TestBaseClass):
         """Test if signin works as expected. """
 
         response = self.client.post('/api/v2/auth/signin',
-                                    data=json.dumps({"email": "gwiliez@ymail.com", "password": "pass"}),
+                                    data=json.dumps(
+                                        {"email": "gwiliez@ymail.com", "password": "pass"}),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 400)
 
@@ -65,7 +66,6 @@ class TestsAuthCases(TestBaseClass):
                                     )
         self.assertEqual(response.status_code, 201)
 
-    
     def test_non_auth_candidate(self):
         """ Tests if creating politician works as expected. """
 

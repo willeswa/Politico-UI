@@ -66,6 +66,12 @@ class TestBaseClass(unittest.TestCase):
                          headers=self.super_headers
                          )
 
+    def tearDown(self):
+        with self.app.app_context():
+            self.db = DB
+            self.db.drop_tables
+        self.app = None
+
     test_office_db = [{
         "created_on": "Sunday, 03. February 2019 05:23PM",
         "name": "President of the Republic of Kenya",

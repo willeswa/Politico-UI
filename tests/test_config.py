@@ -26,7 +26,7 @@ class TestVersion2(TestBaseClass):
                                    content_type='application/json',
                                    headers=self.super_headers)
         self.assertEqual(response.status_code, 405)
-    
+
     def test_wrong_url(self):
         response = self.client.put('api/v2/partieszz')
         self.assertEqual(response.status_code, 404)
