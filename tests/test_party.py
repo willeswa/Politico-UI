@@ -82,6 +82,8 @@ class TestPartiesVersionTwo(TestBaseClass):
                                    headers=self.super_headers)
         self.assertEqual(response.status_code, 404)
 
+
+
     def tests_delete_no_party(self):
         """ Tests the delete on a non-existant resource  """
 
@@ -89,14 +91,6 @@ class TestPartiesVersionTwo(TestBaseClass):
                                       headers=self.super_headers)
         self.assertEqual(response.status_code, 404)
 
-    def tests_edit_party(self):
-        """ Tests the response on a non-existant resource  """
-
-        self.client.post('api/v2/parties/1/name',
-                         data=json.dumps({"party_name": "The Blue Party"}),
-                         content_type='application/json',
-                         headers=self.super_headers
-                         )
 
     def tests_delete_party(self):
         """ Tests the delete party route  """
