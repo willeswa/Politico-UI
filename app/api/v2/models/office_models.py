@@ -82,3 +82,17 @@ class OfficeModel:
             office = dict(zip(column, record))
 
         return office
+
+    @classmethod
+    def delete_office(cls, office_id):
+        """ Deletes a office from the offices table """
+
+        query = """ DELETE FROM offices WHERE office_id = %s """
+
+        with Database() as conn:
+            curr = conn.cursor()
+            curr.execute(query, (office_id,),)
+            conn.commit()
+        return 'Successfully deleted office {}'.format(office_id)
+
+    
