@@ -20,7 +20,7 @@ class TestVersion2(TestBaseClass):
                 conn.get_dsn_parameters()['dbname'], 'test_politico')
 
     def test_wrong_method(self):
-        response = self.client.get('api/v2/parties/1/name',
+        response = self.client.post('api/v2/parties/1',
                                    data=json.dumps(
                                        {"party_name": "The Glue Party"}),
                                    content_type='application/json',
