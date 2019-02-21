@@ -81,6 +81,16 @@ class TestPartiesVersionTwo(TestBaseClass):
                                    content_type='application/json',
                                    headers=self.super_headers)
         self.assertEqual(response.status_code, 404)
+    
+    def tests_test_edit_party(self):
+        """ Tests the response on a non-existant resource  """
+
+        response = self.client.put('api/v2/parties/1/name',
+                                   data=json.dumps(
+                                       {"party_name": "New Political Party"}),
+                                   content_type='application/json',
+                                   headers=self.super_headers)
+        self.assertEqual(response.status_code, 200)
 
 
 

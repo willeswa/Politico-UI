@@ -47,11 +47,14 @@ class VoteModel:
     def get_votes_for_office(cls, office_id):
         """ Retrieves all votes for a specific office """
 
-        query = """ SELECT candidate, COUNT (vote_id) FROM votes WHERE office = %s GROUP BY candidate """
+        query = """ SELECT concat_ws(' ', firstname, lastname) AS candidate
+                    FROM users  
+                    INNER JOIN votes
+                    ON users.user_id = votes.candidate"""
 
         with Database() as conn:
             curr = conn.cursor()
-            curr.execute(query, (office_id,),)
+            curr.execute(query)
             records = curr.fetchall()
 
         results = []

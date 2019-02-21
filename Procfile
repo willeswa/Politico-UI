@@ -1,1 +1,1 @@
-web: gunicorn apidocs:app
+web: gunicorn run:app
