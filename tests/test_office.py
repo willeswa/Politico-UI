@@ -106,3 +106,19 @@ class TestVersionTwoEndPoints(TestBaseClass):
                                     content_type='application/json',
                                     headers=self.super_headers)
         self.assertEqual(response.status_code, 400)
+
+    def tests_delete_no_office(self):
+        """ Tests the delete on a non-existant resource  """
+
+        response = self.client.delete('api/v2/offices/10/delete',
+                                      headers=self.super_headers)
+        self.assertEqual(response.status_code, 404)
+
+
+    def tests_delete_office(self):
+        """ Tests the delete party route  """
+
+        response = self.client.delete('api/v2/offices/1',
+                                      headers=self.super_headers)
+        self.assertEqual(response.status_code, 200)
+

@@ -56,3 +56,23 @@ class OfficeViews(MethodView):
         result = Serializer.serialize(
             'Office {} is not available'.format(office_id), 404, 'Not Found')
         return result
+
+    @classmethod
+    @jwt_required
+    def delete(cls, office_id):
+        """ sendes a delete request to the office models """
+
+        current_user = get_jwt_identity()
+        if current_user['is_admin']:
+
+            if OfficeModel.office_exists(office_id):
+
+                try:
+                    response = OfficeModel.delete_office(office_id)
+                    result = Serializer.serialize(response, 200)
+                    return result
+                except Exception as error:
+                    return Serializer.serialize(error.args[0], 404)
+            return Serializer.serialize('office {} not found'.format(office_id), 404)
+
+        return Serializer.serialize('You are not authorized to perform this action.', 401)
