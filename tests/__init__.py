@@ -32,7 +32,7 @@ class TestBaseClass(unittest.TestCase):
         response = self.client.post('/api/v2/auth/signin',
                                     data=json.dumps(self.admin_data),
                                     content_type='application/json')
-
+                      
         super_token = response.get_json()['data'][0]['token']
 
         self.super_headers = {"Authorization": "Bearer {}".format(super_token)}
@@ -132,10 +132,10 @@ class TestBaseClass(unittest.TestCase):
                        office_name="Govornor Bungoma")
 
     login_data = dict(email='gwiliez@gmail.com',
-                      password='password')
+                      password='Pass1')
 
     admin_data = dict(email='gwiliez@ymail.com',
-                      password='admin')
+                      password='Qwerty1')
 
     wrong_pass = dict(email='gwiliez@gmail.com',
                       password='pass')
@@ -148,7 +148,7 @@ class TestBaseClass(unittest.TestCase):
                     lastname='Wanajala',
                     othername='Willies',
                     email='gwiliez@gmail.com',
-                    password='password',
+                    password='Pass1',
                     phone_number='0725171175',
                     passport_url='http://logo.com')
 
@@ -156,7 +156,7 @@ class TestBaseClass(unittest.TestCase):
                      lastname='Wanajala',
                      othername='Willies',
                      email='gwiliez@mail.com',
-                     password='password',
+                     password='Pass1',
                      phone_number='0725171175',
                      passport_url='http://logo.com')
 

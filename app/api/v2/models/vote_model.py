@@ -57,7 +57,6 @@ class VoteModel:
             curr.execute(query)
             records = curr.fetchall()
 
-        import pdb; pdb.set_trace()
         results = []
         column = ('office', 'candidate', 'result')
 
