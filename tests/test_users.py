@@ -52,7 +52,7 @@ class TestsAuthCases(TestBaseClass):
 
         response = self.client.post('/api/v2/auth/signin',
                                     data=json.dumps(
-                                        {"email": "jim@kama.com", "password": "passowrd"}),
+                                        {"email": "jim@kama.com", "password": "Pass1"}),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 404)
 

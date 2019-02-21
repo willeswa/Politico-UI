@@ -12,9 +12,10 @@ from werkzeug.security import generate_password_hash
 from app.config import APP_CONFIG
 
 CONFIG_NAME = os.getenv('FLASK_ENV')
-
-URL = APP_CONFIG[CONFIG_NAME].DATABASE_URL
-
+if CONFIG_NAME is not None:
+    URL = APP_CONFIG[CONFIG_NAME].DATABASE_URL
+else:
+    URL = 'postgresql://postgres:star2030@localhost/test_politico'
 
 class Database:
     """ Returns an instance of the database connection """
