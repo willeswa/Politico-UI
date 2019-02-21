@@ -17,6 +17,7 @@ class Validators:
 
             if entity is 'party':
                 if {'party_name', 'hq_address', 'logo_url'} <= set(entity_data):
+
                     name = re.match(r'\w+ \w+ \bParty\b',
                                     entity_data['party_name'])
                     if name is not None:
@@ -32,7 +33,7 @@ class Validators:
                             'Your party head quaters address is invalid')
                     raise Exception(
                         "Your party name must be three phrased and end with 'Party'")
-                raise Exception('Missing party field')
+                raise Exception('Missing {} field(s)'.format({'party_name', 'hq_address', 'logo_url'}.difference(set(entity_data))))
 
             elif entity is 'office':
                 if {'office_name', 'office_type'} <= set(entity_data):
@@ -47,38 +48,54 @@ class Validators:
 
                     raise Exception(
                         "Enter office name in the formart of 'Office of the president'")
-                raise Exception('Missing field in the office json')
+                raise Exception('Missing {} field(s)'.format({'office_name', 'office_type'}.difference(set(entity_data))))
             elif entity is 'user_signup':
                 if {'firstname', 'lastname', 'othername', 'email', 'password',
                         'phone_number', 'passport_url'} <= set(entity_data):
 
-                    passport_url = re.match(
-                        r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', entity_data['passport_url'])
+                    phone_pattern = r'^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$'
+                    phone = re.match(
+                        phone_pattern, entity_data['phone_number'])
 
-                    if passport_url is not None:
-                        if entity_data['firstname'].isalpha() and entity_data['othername'].isalpha() and entity_data['lastname'].isalpha():
-                            valid_email = re.match(
-                                r'^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$', entity_data['email'])
-                            if valid_email is not None:
-                                if entity_data['password'].isalnum() and len(entity_data['password']) >= 8:
-                                    return entity_data
-                                raise Exception('Valid password must be atleast 8 characters and alphanumeric')
-                            raise Exception('Invalid email')
-                        raise Exception('Names can only be alphabets')
-                    raise Exception('Invalid passport url')
+                    if phone is not None:
 
-                raise Exception('Missing field in the json object')
+                        passport_url = re.match(
+                            r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', entity_data['passport_url'])
+
+                        if passport_url is not None:
+                            if entity_data['firstname'].isalpha() and entity_data['othername'].isalpha() and entity_data['lastname'].isalpha():
+                                pattern = r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$'
+                                password = re.match(
+                                    pattern, entity_data['password'])
+                                if password is not None:
+                                    valid_email = re.match(
+                                        r'^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$', entity_data['email'])
+                                    if valid_email is not None:
+                                        return entity_data
+                                    raise Exception('Invalid email')
+                                raise Exception(
+                                    'Password must be at least 4 characters, no more than 8 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit.')
+                            raise Exception('Names can only be alphabets')
+                        raise Exception('Invalid passport url')
+                    raise Exception(
+                        'Your phone number must be in the following format (111) 222-3333 | 1112223333 | 111-222-3333')
+
+                raise Exception('Missing {} field(s)'.format({'firstname', 'lastname', 'othername', 'email', 'password',
+                        'phone_number', 'passport_url'}.difference(set(entity_data))))
 
             elif entity is 'user_login':
                 if {'email', 'password'} <= set(entity_data):
-                    if entity_data['password'].isalnum() and len(entity_data['password']) >= 8:
+                    pattern = r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$'
+                    password = re.match(pattern, entity_data['password'])
+                    if password is not None:
                         valid_email = re.match(
                             r'^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$', entity_data['email'])
                         if valid_email is not None:
                             return entity_data
                         raise Exception('Invalid email')
-                    raise Exception('Password must be atleast 6 characters')
-                raise Exception('Missing field in the json object')
+                    raise Exception(
+                        'Password must be at least 4 characters, no more than 8 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit.')
+                raise Exception('Missing {} field(s)'.format({'email', 'password'}.difference(set(entity_data))))
 
             elif entity is 'update_party':
                 if {'party_name'} <= set(entity_data):
@@ -88,20 +105,20 @@ class Validators:
                         return entity_data
                     raise Exception(
                         "Party name must be a three phrased name and ends with 'Party'")
-                raise Exception("Missing the 'Party Name' field in your json")
+                raise Exception('Missing {} field(s)'.format({'party_name'}.difference(set(entity_data))))
             elif entity is 'candidate':
                 if {'party_id', 'candidate_id'} <= set(entity_data):
                     if isinstance(entity_data['party_id'], int) and isinstance(entity_data['candidate_id'], int):
                         return entity_data
                     raise Exception('Entry must be integers only')
-                raise Exception('Missing fields in your candidate json')
+                raise Exception('Missing {} field(s)'.format({'party_id', 'candidate_id'}.difference(set(entity_data))))
             elif entity is 'vote':
                 if {'office_id', 'candidate_id'} <= set(entity_data):
                     if isinstance(entity_data['office_id'], int) and isinstance(entity_data['candidate_id'], int):
                         return entity_data
                     raise Exception(
                         'office_id and candidate_id should be integer')
-                raise Exception('Missing fields in your vote json')
+                raise Exception('Missing {} field(s)'.format({'office_id', 'candidate_id'}.difference(set(entity_data))))
         raise Exception('Your json object is empty.')
 
     @classmethod
