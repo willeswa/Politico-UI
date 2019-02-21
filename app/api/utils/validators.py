@@ -60,7 +60,9 @@ class Validators:
                             valid_email = re.match(
                                 r'^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$', entity_data['email'])
                             if valid_email is not None:
-                                return entity_data
+                                if entity_data['password'].isalnum() and len(entity_data['password']) >= 8:
+                                    return entity_data
+                                raise Exception('Valid password must be atleast 8 characters and alphanumeric')
                             raise Exception('Invalid email')
                         raise Exception('Names can only be alphabets')
                     raise Exception('Invalid passport url')
@@ -69,7 +71,7 @@ class Validators:
 
             elif entity is 'user_login':
                 if {'email', 'password'} <= set(entity_data):
-                    if entity_data['password'].isalnum():
+                    if entity_data['password'].isalnum() and len(entity_data['password']) >= 8:
                         valid_email = re.match(
                             r'^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$', entity_data['email'])
                         if valid_email is not None:

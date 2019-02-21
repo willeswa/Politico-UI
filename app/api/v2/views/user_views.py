@@ -71,7 +71,7 @@ class CandidateViews(MethodView):
             try:
                 candidate_data = Validators.validate_json(
                     'candidate', candidate)
-                if PolitcianModel.candidate_exists(candidate_data['candidate_id'], office_id):
+                if PolitcianModel.candidate_exists(candidate_data['candidate_id']):
                     return Serializer.serialize('Politician already registered', 409)
 
                 if OfficeModel.office_exists(office_id):
