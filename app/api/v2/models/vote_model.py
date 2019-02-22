@@ -50,17 +50,7 @@ class VoteModel:
 
         if OfficeModel.office_exists(office_id):
 
-            query = """ SELECT 
-                        candidate, 
-                        office_name, 
-                        COUNT (*) 
-                        FROM 
-                        (SELECT concat_ws(' ', firstname, lastname) AS candidate, offices.office_name, votes.created_on, votes.vote_id
-                        FROM users  
-                        INNER JOIN votes ON users.user_id = votes.candidate
-                        INNER JOIN offices ON offices.office_id = votes.office) AS results
-                        GROUP BY candidate, office_name 
-                        """
+            query = """ SELECT candidate, office_name, COUNT (*) FROM (SELECT concat_ws(' ', firstname, lastname) AS candidate, offices.office_name, votes.created_on, votes.vote_id FROM users  INNER JOIN votes ON users.user_id = votes.candidate INNER JOIN offices ON offices.office_id = votes.office) AS results GROUP BY candidate, office_name """
             with Database() as conn:
                 curr = conn.cursor()
                 curr.execute(query,)
