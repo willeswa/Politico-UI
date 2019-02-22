@@ -23,9 +23,7 @@ def create_app(config_name='development'):
     JWTManager(app)
 
     # Create tables and super user
-
     database = Database()
-    # database.drop_tables()
     database.create_tables()
     database.create_admin()
 
@@ -40,6 +38,7 @@ def create_app(config_name='development'):
     app.register_error_handler(500, Validators.internal_server_error)
     app.register_error_handler(405, Validators.method_not_allowed)
     app.register_error_handler(400, Validators.bad_request)
+    app.register_error_handler(422, Validators.uproccessable_entity)
 
     app_root = os.path.join(os.path.dirname(__file__), '..')
     dotenv_path = os.path.join(app_root, '.env')

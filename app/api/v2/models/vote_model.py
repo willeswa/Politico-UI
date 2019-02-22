@@ -1,6 +1,7 @@
 """ This module defines model methods to handle vote requests """
 
 from app.api.v2.dbconfig import Database
+from app.api.v2.models.office_models import OfficeModel
 
 
 class VoteModel:
@@ -47,23 +48,20 @@ class VoteModel:
     def get_votes_for_office(cls, office_id):
         """ Retrieves all votes for a specific office """
 
-        query = """ SELECT concat_ws(' ', firstname, lastname) AS candidate
-                    FROM users  
-                    INNER JOIN votes
-                    ON users.user_id = votes.candidate"""
+        if OfficeModel.office_exists(office_id):
 
-        with Database() as conn:
-            curr = conn.cursor()
-            curr.execute(query)
-            records = curr.fetchall()
+            query = """ SELECT candidate, office_name, COUNT (*) FROM (SELECT concat_ws(' ', firstname, lastname) AS candidate, offices.office_name, votes.created_on, votes.vote_id FROM users  INNER JOIN votes ON users.user_id = votes.candidate INNER JOIN offices ON offices.office_id = votes.office) AS results GROUP BY candidate, office_name """
+            with Database() as conn:
+                curr = conn.cursor()
+                curr.execute(query,)
+                records = curr.fetchall()
+            results = []
+            column = ('candidate', 'office', 'results')
 
-        results = []
-        column = ('office', 'candidate', 'result')
+            if records:
+                for row in records:
+                    result = dict(zip(column, row))
+                    results.append(result)
 
-        if records:
-            for row in records:
-                record = (office_id,) + row
-                result = dict(zip(column, record))
-                results.append(result)
-
-        return results
+            return results
+        return 'Results for office {} are not ready'.format(office_id)
