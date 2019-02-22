@@ -50,5 +50,7 @@ class ResultsViews(MethodView):
     def get(cls, office_id):
         """ Sends get requests to the models to get results """
 
-        response = VoteModel.get_votes_for_office(office_id)
-        return Serializer.serialize(response, 200)
+        if OfficeModel.office_exists(office_id):
+            response = VoteModel.get_votes_for_office(office_id)
+            return Serializer.serialize(response, 200)
+        return Serializer.serialize('Results for office {} are not ready'.format(office_id), 404)

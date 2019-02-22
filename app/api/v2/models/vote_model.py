@@ -48,20 +48,17 @@ class VoteModel:
     def get_votes_for_office(cls, office_id):
         """ Retrieves all votes for a specific office """
 
-        if OfficeModel.office_exists(office_id):
+        query = """ SELECT candidate, office_name, COUNT (*) FROM (SELECT concat_ws(' ', firstname, lastname) AS candidate, offices.office_name, votes.created_on, votes.vote_id FROM users  INNER JOIN votes ON users.user_id = votes.candidate INNER JOIN offices ON offices.office_id = votes.office) AS results GROUP BY candidate, office_name """
+        with Database() as conn:
+            curr = conn.cursor()
+            curr.execute(query,)
+            records = curr.fetchall()
+        results = []
+        column = ('candidate', 'office', 'results')
 
-            query = """ SELECT candidate, office_name, COUNT (*) FROM (SELECT concat_ws(' ', firstname, lastname) AS candidate, offices.office_name, votes.created_on, votes.vote_id FROM users  INNER JOIN votes ON users.user_id = votes.candidate INNER JOIN offices ON offices.office_id = votes.office) AS results GROUP BY candidate, office_name """
-            with Database() as conn:
-                curr = conn.cursor()
-                curr.execute(query,)
-                records = curr.fetchall()
-            results = []
-            column = ('candidate', 'office', 'results')
+        if records:
+            for row in records:
+                result = dict(zip(column, row))
+                results.append(result)
 
-            if records:
-                for row in records:
-                    result = dict(zip(column, row))
-                    results.append(result)
-
-            return results
-        return 'Results for office {} are not ready'.format(office_id)
+        return results
