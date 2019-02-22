@@ -136,7 +136,13 @@ class Validators:
     @classmethod
     def internal_server_error(cls, error):
         """ Handles errors related to internal error servers """
-        return Serializer.serialize('The system broke down', 500, error)
+        return Serializer.serialize("We can't process your request at the moment. What are you trying to achieve1/",500 , error)
+
+    @classmethod
+    def uproccessable_entity(cls, error):
+        """ Handles errors related to internal error servers """
+        return Serializer.serialize("Your request seems strange. Can you ensure you are sending a valid request.",422 , error)
+
 
     @classmethod
     def method_not_allowed(cls, error):
