@@ -134,6 +134,25 @@ class PolitcianModel(UserModel):
             curr.execute(query, (candidate_id,),)
             record = curr.fetchone()
         return record[0]
+    
+    @classmethod
+    def retrieve_all_politicians(cls, office_id):
+        """ Retrieves all politicians from the database. """
+
+        query = """ SELECT party, politician FROM politicians WHERE office = %s """
+
+        with Database() as conn:
+            curr = conn.cursor()
+            curr.execute(query, (office_id,),)
+            records = curr.fetchall()
+        politicians = []
+        if records:
+            column = ('party_id', 'politician_reg_id')
+            for record in records:
+                politician = dict(zip(column, record))
+                politicians.append(politician)
+
+        return politicians
 
     @classmethod
     def candidate_being_voted_for_registered(cls, office_id, candidate_id):

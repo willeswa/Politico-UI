@@ -87,3 +87,20 @@ class CandidateViews(MethodView):
                 return Serializer.serialize(error.args[0], 400)
 
         return Serializer.serialize('You are not authorized to perfom this action', 401)
+    
+    @classmethod
+    def get(cls, office_id):
+        """ Sends a get request to the part models """
+        
+        response = PolitcianModel.retrieve_all_politicians(office_id)
+        return Serializer.serialize(response, 200)
+
+        # if PartyModel.party_exists(party_id):
+        #     response = PartyModel.get_specific_party(party_id)
+        #     result = Serializer.serialize(response, 200)
+        #     return result
+
+        # result = Serializer.serialize(
+        #     'Party {} is not found'.format(party_id), 404)
+        # return result
+
