@@ -1,8 +1,8 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/58dafbd4f2ef434ca483e5450ebfa716)](https://app.codacy.com/app/willeswa/politico-app?utm_source=github.com&utm_medium=referral&utm_content=willeswa/politico-app&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.com/willeswa/politico-app.svg?branch=develop)](https://travis-ci.com/willeswa/politico-app) [![Coverage Status](https://coveralls.io/repos/github/willeswa/politico-app/badge.svg?branch=develop)](https://coveralls.io/github/willeswa/politico-app?branch=develop) <br>
 Politico is an application that enables citizens to give their mandate to politicians running for different government offices while building trust in the process through transparency.
-
-## Required Features
+### Project Overview
+#### Required Features
 1. A user should be able to sign up to Politico 
 2. A user with an account should be able to log into Politico
 3. An administrator should be able to crete a political party in Politico
@@ -14,11 +14,25 @@ Politico is an application that enables citizens to give their mandate to politi
 9. A user should be able to log out of Politico
 10. Admin should be able to edit a party information
 
+#### Built with..
+1. Server-Side Framework:[Flask](http://flask.pocoo.org/)
+2. Linting Library:[Pylint](https://www.pylint.org/)
+3. Style Guide:[PEP8 ](https://www.python.org/dev/peps/pep-0008/)
+4. Testing Framework:[PyTest](https://docs.pytest.org/en/latest/)
+
 # Installation and Setup
+This setup assumes you have the following tools installed:
+1. Python 3.6
+2. Pip
+3. Virtualenv
+4. Postgres
+
 Clone the repository.
 ```
 https://github.com/willeswa/politico-app.git
 ```
+## Create a database for your project
+Create a database that you will use to connect with the application.
 
 ## Create a virtual environment
 
