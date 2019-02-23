@@ -59,7 +59,7 @@ class TestsAuthCases(TestBaseClass):
     def test_register_candidate(self):
         """ Tests if creating politician works as expected. """
 
-        response = self.client.post('/api/v2/office/1/register',
+        response = self.client.post('/api/v2/office/1/politicians',
                                     data=json.dumps(self.demo_candidate2),
                                     content_type='application/json',
                                     headers=self.super_headers
@@ -69,7 +69,7 @@ class TestsAuthCases(TestBaseClass):
     def test_non_auth_candidate(self):
         """ Tests if creating politician works as expected. """
 
-        response = self.client.post('/api/v2/office/1/register',
+        response = self.client.post('/api/v2/office/1/politicians',
                                     data=json.dumps(self.demo_candidate2),
                                     content_type='application/json'
                                     )
@@ -94,3 +94,9 @@ class TestsAuthCases(TestBaseClass):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 400)
+    
+    def test_get_all_candidates(self):
+        """ Tests the response when getting all candidates """
+
+        response = self.client.get('/api/v2/office/1/politicians')
+        self.assertEqual(response.status_code, 200)

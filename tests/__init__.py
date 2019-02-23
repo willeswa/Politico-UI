@@ -60,7 +60,7 @@ class TestBaseClass(unittest.TestCase):
                          headers=self.super_headers
                          )
 
-        self.client.post('/api/v2/office/1/register',
+        self.client.post('/api/v2/office/1/politicians',
                          data=json.dumps(self.demo_candidate),
                          content_type='application/json',
                          headers=self.super_headers
