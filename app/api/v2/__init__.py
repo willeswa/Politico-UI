@@ -27,8 +27,8 @@ def define_routes(view, endpoint, url, identifier=None, identifier_type='int'):
                     view_func=view_func, methods=['GET'])
     V2.add_url_rule('%s/<%s:%s>/name' % (url, identifier_type, identifier),
                     view_func=view_func, methods=['PUT'])
-    V2.add_url_rule('%s<%s:%s>/register' % (url, identifier_type, identifier),
-                    view_func=view_func, methods=['POST'])
+    V2.add_url_rule('%s<%s:%s>/politicians' % (url, identifier_type, identifier),
+                    view_func=view_func, methods=['POST', 'GET',])
     V2.add_url_rule('%s/<%s:%s>' % (url, identifier_type,
                                     identifier), view_func=view_func, methods=['DELETE'])
 
