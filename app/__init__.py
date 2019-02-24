@@ -24,6 +24,7 @@ def create_app(config_name='development'):
 
     # Create tables and super user
     database = Database()
+    database.drop_tables()
     database.create_tables()
     database.create_admin()
 
