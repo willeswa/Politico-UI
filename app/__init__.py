@@ -24,7 +24,6 @@ def create_app(config_name='development'):
 
     # Create tables and super user
     database = Database()
-    database.create_tables()
     database.create_admin()
 
     # Register blueprints and errors
