@@ -1,6 +1,13 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/58dafbd4f2ef434ca483e5450ebfa716)](https://app.codacy.com/app/willeswa/politico-app?utm_source=github.com&utm_medium=referral&utm_content=willeswa/politico-app&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.com/willeswa/politico-app.svg?branch=develop)](https://travis-ci.com/willeswa/politico-app) [![Coverage Status](https://coveralls.io/repos/github/willeswa/politico-app/badge.svg?branch=develop)](https://coveralls.io/github/willeswa/politico-app?branch=develop) <br>
 Politico is an application that enables citizens to give their mandate to politicians running for different government offices while building trust in the process through transparency.
+
+Checkout the documentation here: [politiko-api documentation](https://app.swaggerhub.com/apis-docs/willeswa/politiko-api/v2.0)
+
+Or test the live version here [politiko-api heroku](https://politiko-api.herokuapp.com/api/v2/offices)
+
+A possible UI to fetch the api can be found here: [politiko ui](https://willeswa.github.io/politico-app/UI/)
+
 ### Project Overview
 #### Required Features
 1. A user should be able to sign up to Politico 

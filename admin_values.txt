@@ -1,1 +1,0 @@
-('Godfrey', 'Wanjala', 'Willies', %s, %s, '0721175171', 'http://@wanjala', True)
