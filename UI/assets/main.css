@@ -30,6 +30,12 @@ nav{
     box-shadow: none;
 }
 
+.container {
+    background: #E4E9F0;
+    width: 100%;
+    padding: 2%;
+}
+
 .brand-name {
     font-weight: bold;
     font-size: 1.5em;
@@ -77,19 +83,6 @@ footer p {
 }
 
 
-footer .logo {
-    text-align: center;
-}
-
-footer .logo p {
-    font-size: 8.5em;
-    margin: 5% 0;
-}
-
-footer .logo a {
-    font-size: 1.5em;
-}
-
 footer h3 {
     border-bottom: #ffffff 1px solid;
 }
@@ -135,9 +128,12 @@ footer h3 {
 
 .form {
     width: 25%;
-    margin: 5% auto;
+    margin: 0 auto;
     padding: 0;
     background: #E4E9F0;
+    -webkit-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
+-moz-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
+box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);   
 }
 
 .form h2 {
@@ -155,6 +151,7 @@ footer h3 {
     border-left: none;
     border-right: none;
     padding: 5px 10px;
+    background: rgb(248, 251, 255);
     border-bottom: #1F2354 1px solid;
 }
 
@@ -170,10 +167,71 @@ footer h3 {
 }
 
 .meta {
-    padding: 15px 25px;
+    padding: 25px 25px;
     font-size: 1.2em;
 }
 
 .meta a {
     text-decoration: underline;
+}
+
+.offices {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.office {
+    margin-bottom: 2%;
+    background: #ffffff;
+    -webkit-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
+-moz-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
+box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);  
+}
+
+.stripe {
+    background: #1F2354;
+    display: flex;
+    padding: 25px 15px;
+    color: #ffffff;
+}
+
+.stripe p {
+    text-align: right;
+    padding: 0 25px;    
+    font-weight: bold;
+
+}
+
+.stripe p, .stripe h2 {
+    width: 50%;
+}
+
+.candidates {
+    width: 100%;
+    padding: 0 2%;
+}
+
+.candidate img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.candidate {
+    display: inline-block;
+    width: 31%;
+    margin: 2% 1%;
+    line-height: 25px;
+    -webkit-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
+    -moz-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
+    box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
+}
+
+.candidate:hover {
+    background: #E3E6F0;
+    cursor: initial;
+}
+
+.candidates .info {
+    padding: 15px 20px;
 }
