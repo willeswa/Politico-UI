@@ -15,6 +15,8 @@ nav{
     background: #ffffff;
     padding: 10px 0px;
     border-bottom: #1F2354 solid 1px;
+    position: sticky;
+    top: 0px;
 }
 
 *{

@@ -76,6 +76,7 @@ footer p {
     padding:  0;
 }
 
+
 footer .logo {
     text-align: center;
 }
@@ -89,18 +90,30 @@ footer .logo a {
     font-size: 1.5em;
 }
 
-.logo, .contact {
-    width: 50%;
+footer h3 {
+    border-bottom: #ffffff 1px solid;
 }
 
-.contact {
+.find-us, .contact, .contribute {
+    width: 30%;
     padding: 50px 0;
-    line-height: 70px;
+    line-height: 40px;
+    font-size: 1.1em;
     text-align: center;
+}
+
+.find-us, .contribute {
+    border-right: 1px solid #ffffff;
+    padding: 50px;
+}
+
+.find-us a:hover, .contribute a:hover {
+    text-decoration: underline;
 }
 
 .contact p {
     font-size: 2em;
+    margin-bottom: 7%;
 }
 
 .email-us {
