@@ -7,6 +7,7 @@ import os
 from flask import Flask
 from dotenv import load_dotenv
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 # Local imports
 from app.config import APP_CONFIG
@@ -21,6 +22,7 @@ def create_app(config_name='development'):
     app.config.from_object(APP_CONFIG[config_name])
     app.config.from_pyfile('config.py')
     JWTManager(app)
+    CORS(app)
 
     # Create tables and super user
     database = Database()
