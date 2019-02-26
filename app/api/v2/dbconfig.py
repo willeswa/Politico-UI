@@ -86,7 +86,7 @@ class Database:
 
             return 'Successfuly created tables'
         except Exception as e:
-            return print(e)
+            return e
 
     @classmethod
     def create_admin(cls):
