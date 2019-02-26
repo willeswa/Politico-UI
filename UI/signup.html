@@ -38,7 +38,7 @@
     </nav>
     <div class="container">
         <div class="form">
-            <h2>USER LOGIN</h2>
+            <h2>VOTER REGISTRATION</h2>
             <form action="dashboard.html">
                 <div class="group-control">
                     <div class="group-input">
@@ -57,45 +57,57 @@
                 </div>
                 <div class="group-control">
                     <div class="group-input">
-                        <input type="lastname" name="lastname" id="lastname" placeholder="lastname" required>
+                        <input type="email" name="email" id="email" placeholder="Voter Email" required>
                     </div>
                 </div>
                 <div class="group-control">
                     <div class="group-input">
-                        <input type="firstname" name="firstname" id="firstname" placeholder="firstname" required>
+                        <input type="password" name="password" id="password" placeholder="Voter Password" required>
                     </div>
                 </div>
                 <div class="group-control">
                     <div class="group-input">
-                        <input type="lastname" name="lastname" id="lastname" placeholder="lastname" required>
+                        <input type="tel" name="phone_number" id="phone_number" placeholder="Voter Phone Number"
+                            required>
                     </div>
                 </div>
-                <button type="submit" class="button">LOGIN</button>
+
+                <input type="url" name="lastname" id="lastname" placeholder="image" required>
+
+
+                <button type="submit" class="button">SIGN UP</button>
                 <div class="meta">
-                    <p>Not yet registered? <a href="signup.html">register here</a>
+                    <p>Already a voter? <a href="signin.html">Exercise your right</a>
                 </div>
             </form>
         </div>
     </div>
 
+
     <footer>
         <div class="find-us">
-            <h4>Want to learn more?</h4>
+            <h3>Want to learn more?</h3>
             <ul>
-                <a href="#"><li>About the developer</li></a>
+                <a href="#">
+                    <li>About the developer</li>
+                </a>
                 <a href="#">About the project</a>
             </ul>
         </div>
-        <div>
-            <h4>Contribute to the project</h4>
+        <div class="contribute">
+            <h3>Contribute to the project</h3>
             <ul>
-                <a href="#"><li>GitHub Repository</li></a>
-                <a href="#"><li>The Politiko API</li></a>
+                <a href="#">
+                    <li>GitHub Repository</li>
+                </a>
+                <a href="#">
+                    <li>The Politiko API</li>
+                </a>
             </ul>
         </div>
         <div class="contact">
             <p>Have questsions?</p>
-            <a class="firstname-us" href="#">Send us an firstname</a>
+            <a class="email-us" href="#">Send us an email</a>
         </div>
     </footer>
     <footer class="copyright">
