@@ -56,10 +56,10 @@ register.onclick = (event) => {
             }
         })
         .catch(error => {
-            // let error_p = document.getElementById('error');
-            // error_p.innerHTML = error;
-            // error_p.className += "error";
-            // console.log(error)
+            let error_p = document.getElementById('error');
+            error_p.innerHTML = error;
+            error_p.className += "error";
+            console.log(error)
         })
 
 }
