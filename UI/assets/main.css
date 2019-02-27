@@ -1,5 +1,5 @@
 body {
-    background: #FCFCFC;
+    background: #E4E9F0;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin: 0;
     font-size: 13px;
@@ -310,4 +310,82 @@ box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
     text-align: center;
     padding: 15px 25px;
     color: rgb(197, 15, 15);
+}
+
+.admin {
+    display: flex;
+    width: 100%;
+}
+
+.nav-link {
+    display: block;
+    padding: 20px 25px;
+    border-bottom: #E4E9F0 solid 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #1F2354;
+}
+
+.nav-link:hover {
+    background: #1F2354;
+    color: #ffffff;
+}
+
+.nav-link:last-child{
+    border-bottom: none;
+}
+
+.right-panel {
+    width: 32%;
+    background: #ffffff;
+    position: sticky;
+    top: 0px;
+
+}
+
+.main-panel {
+    width: 66%;
+    margin-left: 2%;
+}
+
+.lower-main-panel {
+    background: #ffffff;
+    margin-top: 2%;
+    
+}
+
+#selector {
+    padding: 20px 25px;
+    border-bottom: #1F2354 solid  1px;
+    
+}
+
+#add-party {
+    border: #1F2354 1px solid;
+    width: 18%;
+    text-align: center;
+    
+    padding: 10px 15px;
+}
+
+#add-party:hover {
+    background: #1F2354;
+    color: #ffffff;
+}
+
+#entity li {
+    padding: 15px 20px;
+    list-style: decimal;
+    list-style-position: inside;
+    border-bottom: #E4E9F0 1px solid;
+}
+
+#entity a {
+    color: rgb(17, 66, 17);
+    font-weight: bold;
+}
+
+#entity li:hover{
+    background: #EEEEEE;
+    text-decoration: underline;
 }
