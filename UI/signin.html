@@ -30,14 +30,9 @@
                 <li>VOTE NOW</li>
             </a>
         </ul>
-        <ul class="navbar navbar-right">
-            <a class="nav-item" href="signin.html">
-                <li>LOGOUT</li>
-            </a>
-        </ul>
     </nav>
     <div class="container">
-        <p class="success">Successfully registered! Now login to exercise your right.</p>
+        <p id="success"></p>
         <div class="form">
             <h2>VOTER LOGIN</h2>
             <form action="dashboard.html">
@@ -51,7 +46,7 @@
                         <input type="password" name="password" id="password" placeholder="Password" required>
                     </div>
                 </div>
-                <button type="submit" class="button">LOGIN</button>
+                <button id="login" type="submit" class="button">LOGIN</button>
                 <div class="meta">
                     <p>Not yet registered? <a href="signup.html">Become a voter</a>
                 </div>
@@ -66,7 +61,7 @@
                 <a href="https://github.com/willeswa">
                     <li>About the developer</li>
                 </a>
-                <a href="#">About the project</a>
+                <a href="https://drive.google.com/file/d/1xnHLdlXMMUjwFYCnYHAQBEjYCmyxA3Lw/view?usp=sharing">About the project</a>
             </ul>
         </div>
         <div class="contribute">
@@ -88,7 +83,7 @@
     <footer class="copyright">
         <span>Copyright &#9400;2019 Politico. All Rights Reserved</span>
     </footer>
-
+    <script src="scripts/signin.js"></script>
 </body>
 
 </html>
