@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/main.css">
     <title>POLITIKO | Admin Panel</title>
 </head>
@@ -51,7 +53,7 @@
             </div>
             <div class="main-panel">
                 <div class="top-main-panel">
-                    <a id="entity-link" class="add-party" href="#">
+                    <a id="create-entity" class="add-party" href="#">
                         <h3 id="add-entity"></h3>
                     </a>
                 </div>
@@ -59,8 +61,29 @@
                     <div class="top-strip">
                         <h3 id="selector"></h3>
                         <ol id="entity">
-                          
+
                         </ol>
+                    </div>
+                    <div id="new-entity-form">
+                        <div class="form-header">
+                            <span id="response"></span>
+                            <h2>Register a new party</h2><i id="close" class="fas fa-times"></i>
+                        </div>
+                        <form action="admin.html">
+                            <div class="group-input">
+                                <input type="text" name="party_name" id="party-name" placeholder="Party Name" required>
+                            </div>
+
+                            <div class="group-input">
+                                <input type="text" name="hq_address" id="hq_address" placeholder="Party Head Quaters" required>
+                            </div>
+
+                            <div class="group-input">
+                                <input type="url" name="party_logo" id="logo-url" placeholder="Party Logo" required>
+                            </div>
+
+                            <button id="create-party-but" type="submit">Create Party</button>
+                        </form>
                     </div>
                 </div>
             </div>
