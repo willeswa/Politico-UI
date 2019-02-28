@@ -49,6 +49,8 @@ nav{
     background: #1F2354;
     padding: 20px 25px;
     color: #ffffff;
+    margin-left: 75%;
+    text-align: right;
 }
 
 .navbar {
@@ -82,6 +84,7 @@ nav{
     border: 1px solid #ffffff;
     width: 100%;
     padding: 13px 35px;
+    font-weight: bold;
 }
 
 .get-started:hover{

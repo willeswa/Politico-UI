@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/main.css">
-    <title>POLITIKO | Signup</title>
+    <title>POLITIKO | Login</title>
 </head>
 
 <body>
@@ -27,61 +27,29 @@
                 <li>POLITICIANS</li>
             </a>
         </ul>
-        <ul class="navbar navbar-right">
-            <a id="log-link" class="nav-item">
-                <li id="logbut"></li>
-            </a>
-        </ul>
     </nav>
     <div class="container">
-        <p id="error"></p>
+        <p id="success"></p>
         <div class="form">
-            <h2>VOTER REGISTRATION</h2>
-            <p id="error-message"></p>
+            <h2>ADMINSTRATOR LOGIN</h2>
             <form action="dashboard.html">
                 <div class="group-control">
                     <div class="group-input">
-                        <input type="text" name="firstname" id="firstname" placeholder="Firstname" required>
+                        <input type="email" name="email" id="email" placeholder="Email" required>
                     </div>
                 </div>
                 <div class="group-control">
                     <div class="group-input">
-                        <input type="text" name="lastname" id="lastname" placeholder="Lastname" required>
+                        <input type="password" name="password" id="password" placeholder="Password" required>
                     </div>
                 </div>
-                <div class="group-control">
-                    <div class="group-input">
-                        <input type="text" name="othername" id="othername" placeholder="Othername" required>
-                    </div>
-                </div>
-                <div class="group-control">
-                    <div class="group-input">
-                        <input type="email" name="email" id="email" placeholder="Voter Email" required>
-                    </div>
-                </div>
-                <div class="group-control">
-                    <div class="group-input">
-                        <input type="password" name="password" id="password" placeholder="Voter Password" required>
-                    </div>
-                </div>
-                <div class="group-control">
-                    <div class="group-input">
-                        <input type="tel" name="phone_number" id="phone_number" placeholder="Voter Phone Number"
-                            required>
-                    </div>
-                </div>
-
-                <input type="url" name="lastname" id="passport_url" placeholder="image" required>
-
-
-                <button id="register" type="submit" class="button">SIGN UP</button>
+                <button id="login" type="submit" class="button">LOGIN</button>
                 <div class="meta">
-                    <p>Already a voter? <a href="signin.html">Exercise your right</a>
+                    <p>Not an admin? <a href="signin.html">Sign in as a voter</a>
                 </div>
             </form>
         </div>
     </div>
-
 
     <footer>
         <div class="find-us">
@@ -112,8 +80,7 @@
     <footer class="copyright">
         <span>Copyright &#9400;2019 Politico. All Rights Reserved</span>
     </footer>
-
-    <script src="scripts/signup.js"></script>
+    <script src="scripts/signin.js"></script>
 </body>
 
 </html>

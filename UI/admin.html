@@ -18,18 +18,12 @@
             <a class="nav-item" href="index.html">
                 <li>HOME</li>
             </a>
-            <a class="nav-item" href="parties.html">
-                <li>ALL PARTIES</li>
-            </a>
-            <a class="nav-item" href="offices.html">
-                <li>POLITICIANS</li>
-            </a>
-            <a class="nav-item" href="vote.html">
-                <li>VOTE NOW</li>
+            <a class="nav-item" href="signin.html">
+                <li>NEW ADMIN</li>
             </a>
         </ul>
         <ul class="navbar navbar-right">
-            <a class="nav-item" href="signin.html">
+            <a class="nav-item" id="logout">
                 <li>LOGOUT</li>
             </a>
         </ul>
@@ -38,32 +32,34 @@
         <div class="admin">
             <div class="right-panel">
                 <ul class="nav">
-                    <a class="nav-link" href="#">
-                        <li>All Parties</li>
+                    <a id="parties" class="nav-link">
+                        <li>Parties</li>
                     </a>
-                    <a class="nav-link" href="#">
-                        <li>All Candidates</li>
+                    <a id="candidates" class="nav-link">
+                        <li>Candidates</li>
                     </a>
-                    <a class="nav-link" href="#">
-                        <li>Available offices</li>
+                    <a id="offices" class="nav-link">
+                        <li>Offices</li>
                     </a>
                     <a class="nav-link" href="#">
                         <li>Pending Applications</li>
+                    </a>
+                    <a id="danger-zone" class="nav-link" href="#">
+                        <li>Danger Zone</li>
                     </a>
                 </ul>
             </div>
             <div class="main-panel">
                 <div class="top-main-panel">
-                    <a class="add-party" href="#">
-                        <h3 id="add-party">Add Party</h3>
+                    <a id="entity-link" class="add-party" href="#">
+                        <h3 id="add-entity"></h3>
                     </a>
                 </div>
                 <div class="lower-main-panel">
                     <div class="top-strip">
-                        <h3 id="selector">All Parties</h3>
+                        <h3 id="selector"></h3>
                         <ol id="entity">
-                            <a href="#"><li>Orange Democratic Party</li></a>
-                            <a href="#"><li>Orange Democratic Party</li></a>
+                          
                         </ol>
                     </div>
                 </div>
@@ -71,6 +67,10 @@
         </div>
 
     </div>
+    <footer id="admin-footer" class="copyright">
+        <span>Copyright &#9400;2019 Politico. All Rights Reserved</span>
+    </footer>
+    <script src="scripts/admin.js"></script>
 </body>
 
 </html>
