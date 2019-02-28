@@ -1,71 +1,44 @@
-const edit = 'https://politiko-api.herokuapp.com/api/v2/parties/1/name',
+const editPartyUrl = 'https://politiko-api.herokuapp.com/api/v2/parties/1/name',
     offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
     parties = 'https://politiko-api.herokuapp.com/api/v2/parties',
     candidates = 'https://politiko-api.herokuapp.com/api/v2/office/1/politicians',
     parties_nav = document.getElementById('parties'),
     offices_nav = document.getElementById('offices'),
-    entityLink = document.getElementById('entity-link'),
+    createEntity = document.getElementById('create-entity'),
     candidates_nav = document.getElementById('candidates'),
-    addParty = document.getElementById('add-entity'),
+    addEntity = document.getElementById('add-entity'),
     logout = document.getElementById('logout'),
     headingSelector = document.getElementById('selector'),
-    ol = document.getElementById('entity');
+    ol = document.getElementById('entity'),
+    close = document.getElementById('close'),
+    entityForm = document.getElementById('new-entity-form'),
+    party_but = document.getElementById('create-party-but');
 
 if (window.localStorage.getItem('is_admin')) {
-    addParty.classList = 'add-entity';
-    addParty.innerHTML = 'Add Party';
+    getParties();
+    addEntity.classList = 'add-entity';
+    addEntity.innerHTML = 'Add Party';
     headingSelector.innerHTML = 'All Parties'
 
     offices_nav.onclick = (event) => {
         event.preventDefault();
-        let addOffice = document.getElementById('add-entity');
-        entityLink.setAttribute('href', 'new_office.html');
-        addOffice.classList = 'add-entity'
-        addOffice.innerHTML = 'Add Office';
+        createEntity.setAttribute('href', 'new_office.html');
+        addEntity.classList = 'add-entity'
+        addEntity.innerHTML = 'Add Office';
         headingSelector.innerHTML = 'All Offices';
 
-        fetch(offices)
-            .then(response => response.json())
-            .then(all_offices => {
-                let all_off = all_offices.data;
-                let a = createNode('a'),
-                    li = createNode('li'),
-                    span1 = createNode('span'),
-                    span2 = createNode('span'),
-                    h3 = createNode('h3');
-                if (all_off.length > 0) {
-                    all_off.map(office => {
+        getOffices()
 
-                        h3.innerHTML = `${office.office_name}`
-                        span1.innerHTML = `${office.created_on}`
-                        span2.innerHTML = `${office.office_type}`
-
-                        append(li, span1)
-                        append(li, span2)
-                        append(li, h3)
-                        append(a, li)
-                        append(ol, a)
-                    })
-                } else {
-                    console.log(all_off)
-                    h3.innerHTML = 'There are no open positions for vying! Create one by clicking the Add Office button above';
-                    append(li, h3)
-                    append(ol, li)
-                }
-
-            })
-            .catch(error => {
-                console.log(error)
-            })
     }
 
     parties_nav.onclick = (event) => {
         event.preventDefault();
-        let addParty = document.getElementById('add-entity');
-        addParty.classList = 'add-entity';
-        addParty.innerHTML = 'Add Party';
-        entityLink.setAttribute('href', 'new_party.html');
+        let addEntity = document.getElementById('add-entity');
+        addEntity.classList = 'add-entity';
+        addEntity.innerHTML = 'Add Party';
+        createEntity.setAttribute('href', 'new_party.html');
         headingSelector.innerHTML = 'All Parties';
+        getParties();
     }
 
 
@@ -73,7 +46,7 @@ if (window.localStorage.getItem('is_admin')) {
         event.preventDefault();
         let addCandidate = document.getElementById('add-entity');
         addCandidate.classList.remove('add-entity')
-        addParty.innerHTML = '';
+        addEntity.innerHTML = '';
         headingSelector.innerHTML = 'All Candidates';
     }
 
@@ -83,7 +56,61 @@ if (window.localStorage.getItem('is_admin')) {
         window.location.replace('index.html')
     }
 } else {
-    window.location.replace('auth_admin.html')
+    window.location.replace('index.html')
+}
+
+
+createEntity.onclick = (event) => {
+    event.preventDefault();
+    entityForm.style.display = 'block';
+}
+
+close.onclick = (event) => {
+    event.preventDefault();
+    entityForm.style.display = 'none';
+}
+
+party_but.onclick = (event) => {
+    event.preventDefault();
+    token = window.localStorage.getItem('token');
+
+    let partyName = document.getElementById('party-name').value,
+        hqAddress = document.getElementById('hq_address').value,
+        logoUrl = document.getElementById('logo-url').value;
+
+    partyData = JSON.stringify(
+        {
+            party_name: partyName,
+            hq_address: hqAddress,
+            logo_url: logoUrl
+        }
+    )
+
+    let newPartyData = {
+        method: 'POST',
+        body: partyData,
+        headers: new Headers(
+            {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        )
+    }
+
+    fetch(parties, newPartyData)
+        .then(response => response.json())
+        .then(result => {
+            let success = result['data'],
+                error = result['error'];
+
+            if (success) {
+                window.location.reload()
+            } else if (error) {
+                let span = document.getElementById('response');
+                span.innerHTML = error;
+                span.className += "admin-error";
+            }
+        })
 }
 
 function createNode(element) {
@@ -92,4 +119,84 @@ function createNode(element) {
 
 function append(parent, element) {
     return parent.appendChild(element);
+}
+
+function getOffices() {
+    return fetch(offices)
+        .then(response => response.json())
+        .then(all_offices => {
+            let all_off = all_offices.data;
+            if (all_off.length > 0) {
+                all_off.map(office => {
+                    let a = createNode('a'),
+                        li = createNode('li'),
+                        span1 = createNode('span'),
+                        span2 = createNode('span'),
+                        h3 = createNode('h3');
+
+                    h3.innerHTML = `${office.office_name}`;
+                    span1.innerHTML = `${office.created_on}`;
+                    span2.innerHTML = `${office.office_type}`;
+
+                    append(li, span1)
+                    append(li, span2)
+                    append(li, h3)
+                    append(a, li)
+                    append(ol, a)
+
+                })
+            } else {
+                let li = createNode('li'),
+                    h3 = createNode('h3');
+                h3.innerHTML = "You have not declared any open offices for vying at the moment. Click the Add Office button above to create a new office.";
+                append(li, h3);
+                append(ol, li);
+            }
+
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+function getParties() {
+    return fetch(parties)
+        .then(response => response.json())
+        .then(all_parties => {
+            let all_part = all_parties.data;
+            if (all_part.length > 0) {
+                all_part.map(party => {
+                    let a = createNode('a'),
+                        li = createNode('li'),
+                        img = createNode('img'),
+                        span2 = createNode('span'),
+                        span1 = createNode('span'),
+                        h3 = createNode('h3');
+
+
+                    h3.innerHTML = `${party.party_name}`;
+                    span1.innerHTML = `${party.created_on}`;
+                    span2.innerHTML = `${party.hq_address}`;
+                    img.src = party.logo_url
+
+                    append(li, span1)
+                    append(li, span2)
+                    append(li, h3)
+                    append(li, img)
+                    append(a, li)
+                    append(ol, a)
+
+                })
+            } else {
+                let li = createNode('li'),
+                    h3 = createNode('h3');
+                h3.innerHTML = "There are no parties in the system at the moment. Click the Add Party button above to create a new party.";
+                append(li, h3);
+                append(ol, li);
+            }
+
+        })
+        .catch(error => {
+            console.log(error)
+        })
 }
