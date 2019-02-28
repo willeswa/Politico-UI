@@ -7,7 +7,6 @@ if (window.localStorage.getItem('email') !== null) {
     p.innerHTML = 'Successfully registered! Now login to exercise your right.';
     p.className += 'success';
 }
-
 login.onclick = (event) => {
     event.preventDefault();
     let email = document.getElementById('email').value,
