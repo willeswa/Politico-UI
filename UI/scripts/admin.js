@@ -1,5 +1,4 @@
-const editPartyUrl = 'https://politiko-api.herokuapp.com/api/v2/parties/1/name',
-    offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
+const offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
     parties = 'https://politiko-api.herokuapp.com/api/v2/parties',
     candidates = 'https://politiko-api.herokuapp.com/api/v2/office/1/politicians',
     parties_nav = document.getElementById('parties'),
@@ -113,6 +112,9 @@ party_but.onclick = (event) => {
         })
 }
 
+
+
+
 function createNode(element) {
     return document.createElement(element);
 }
@@ -143,8 +145,9 @@ function getOffices() {
                     append(li, h3)
                     append(a, li)
                     append(ol, a)
-
+                    
                 })
+
             } else {
                 let li = createNode('li'),
                     h3 = createNode('h3');
@@ -152,7 +155,6 @@ function getOffices() {
                 append(li, h3);
                 append(ol, li);
             }
-
         })
         .catch(error => {
             console.log(error)
@@ -166,26 +168,54 @@ function getParties() {
             let all_part = all_parties.data;
             if (all_part.length > 0) {
                 all_part.map(party => {
-                    let a = createNode('a'),
+                    let div2 = createNode('div'),
+                        div3 = createNode('div'),
+                        div4 = createNode('div'),
+                        div1 = createNode('div'),
                         li = createNode('li'),
                         img = createNode('img'),
                         span2 = createNode('span'),
                         span1 = createNode('span'),
-                        h3 = createNode('h3');
+                        h3 = createNode('h3'),
+                        i1 = createNode('i'),
+                        i2 = createNode('i');
 
 
                     h3.innerHTML = `${party.party_name}`;
                     span1.innerHTML = `${party.created_on}`;
                     span2.innerHTML = `${party.hq_address}`;
-                    img.src = party.logo_url
+                    img.src = party.logo_url;
+                    div2.style.width = '20%';
+                    li.style.display = 'flex';
+                    div4.className += 'entity-info';
+                    img.className += 'thumbnail';
+                    i1.className += 'far fa-edit';
+                    i2.className += 'far fa-trash-alt';
+                    div3.className += 'edit-delete';
 
-                    append(li, span1)
-                    append(li, span2)
-                    append(li, h3)
-                    append(li, img)
-                    append(a, li)
-                    append(ol, a)
+                    append(div1, span1)
+                    append(div1, span2)
+                    append(div1, h3)
+                    append(div3, i1)
+                    append(div3, i2)
+                    append(div2, img)
+                    append(div4, div1)
+                    append(div4, div3)
+                    append(li, div2)
+                    append(li, div4)
+                    append(ol, li)
 
+                    const dels_party = document.getElementsByClassName('fa-trash-alt');
+                        let i = 0
+                        while (i < dels_party.length) {
+                            dels_party[i].onclick = (event) => {
+                                event.preventDefault();
+                                window.localStorage.setItem('party_id', party.party_id)
+                                console.log(dels_party)
+                            }
+
+                            i++;
+                        }
                 })
             } else {
                 let li = createNode('li'),
