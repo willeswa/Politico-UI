@@ -421,7 +421,7 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     margin-top: 170px;
 }
 
-#new-entity-form {
+#new-entity-form, #edit-entity-form {
     display: none;
     position: fixed;
     z-index: 9;
@@ -434,15 +434,15 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     background: #ffffff;
 }
 
-#new-entity-form label {
+#new-entity-form label, #edit-entity-form label {
     font-size: 1.1em;
 }
 
-#new-entity-form h2 {
+#new-entity-form h2, #edit-entity-form h2 {
     margin-bottom: 5%;
 }
 
-#new-entity-form input {
+#new-entity-form input, #edit-entity-form input {
     width: 100%;
     height: 40px;
     margin-bottom: 5%;
@@ -451,7 +451,7 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     padding: 5px 10px;
 }
 
-#new-entity-form button {
+#new-entity-form button, #edit-entity-form button {
     padding: 10px 15px;
     border: #1F2354 1px solid;
     color: #1F2354;
@@ -460,7 +460,7 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 
 }
 
-#new-entity-form button:hover {
+#new-entity-form button:hover, #edit-entity-form button:hover {
     background: #1F2354;
     color: #ffffff;
 }
@@ -493,6 +493,8 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     text-transform: capitalize;
     border-bottom: #1F2354 1px solid;
 }
+
+
 
 .thumbnail {
     width: 100%;

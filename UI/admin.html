@@ -85,6 +85,27 @@
                             <button id="create-party-but" type="submit">Create Party</button>
                         </form>
                     </div>
+                    <div id="edit-entity-form">
+                        <div class="form-header">
+                            <span id="response1"></span>
+                            <h2>Update Party Name</h2><i id="eclose" class="fas fa-times"></i>
+                        </div>
+                        <form action="admin.html">
+                            <div class="group-input">
+                                <input type="text" name="party_name" id="eparty-name" placeholder="Party Name" required>
+                            </div>
+
+                            <div class="group-input">
+                                <input type="text" name="hq_address" id="ehq_address" placeholder="Party Head Quaters" readonly>
+                            </div>
+
+                            <div class="group-input">
+                                <input type="url" name="party_logo" id="elogo-url" placeholder="Party Logo" readonly>
+                            </div>
+
+                            <button id="edit-party-but" type="submit">Update Party</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -10,7 +10,9 @@ const offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
     headingSelector = document.getElementById('selector'),
     ol = document.getElementById('entity'),
     close = document.getElementById('close'),
+    eClose = document.getElementById('eclose'),
     entityForm = document.getElementById('new-entity-form'),
+    editEntityForm = document.getElementById('edit-entity-form'),
     party_but = document.getElementById('create-party-but');
 
 
@@ -71,6 +73,11 @@ close.onclick = (event) => {
     entityForm.style.display = 'none';
 }
 
+eClose.onclick = (event) => {
+    event.preventDefault();
+    editEntityForm.style.display = 'none';
+}
+
 party_but.onclick = (event) => {
     event.preventDefault();
 
@@ -101,14 +108,18 @@ party_but.onclick = (event) => {
     fetch(parties, newPartyData)
         .then(response => response.json())
         .then(result => {
+            console.log(result)
             let success = result['data'],
-                error = result['error'];
-
+                error = result['error'],
+                span = document.getElementById('response');
             if (success) {
+                span.innerHTML = success;
                 window.location.reload()
             } else if (error) {
-                let span = document.getElementById('response');
                 span.innerHTML = error;
+                span.className += "admin-error";
+            } else {
+                span.innerHTML = result['msg'] + '. Login again to continue!';
                 span.className += "admin-error";
             }
         })
@@ -211,6 +222,7 @@ function getParties() {
 
                     const del_id = document.getElementById(i2.id);
                     del_id.onclick = (event) => {
+                        alert('Are you sure you want to delete this party?')
                         event.preventDefault()
                         delReq = {
                             method: 'DELETE',
@@ -237,6 +249,70 @@ function getParties() {
                             })
                     }
 
+                    const edit_id = document.getElementById(i1.id);
+                    edit_id.onclick = (event) => {
+                        editEntityForm.style.display = 'block';
+                        event.preventDefault()
+                        newName = document.getElementById('eparty-name').value;
+
+                        let editReq = {
+                            method: 'PUT',
+                            body: JSON.stringify(
+                                {
+                                    party_name: newName
+                                }
+                            ),
+                            headers: new Headers(
+                                {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + token
+                                }
+                            )
+                        }
+                        fetch('https://politiko-api.herokuapp.com/api/v2/parties/' + party.party_id)
+                            .then(response => response.json())
+                            .then(data => {
+                                let success = data['data'],
+                                    error = data['error'];
+
+                                if (success) {
+                                    let logoUrl = document.getElementById('elogo-url'),
+                                        hqAddress = document.getElementById('ehq_address'),
+                                        editPartyBut = document.getElementById('edit-party-but');
+                                    logoUrl.value = party.logo_url;
+                                    hqAddress.value = party.hq_address;
+
+
+                                    editPartyBut.onclick = (event) => {
+                                        console.log(editReq)
+                                        event.preventDefault()
+                                        fetch('https://politiko-api.herokuapp.com/api/v2/parties/' + party.party_id + '/name', editReq)
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                let success = data['data'],
+                                                    error = data['error'],
+                                                    span = document.getElementById('response1');
+
+                                                if (success) {
+                                                    span.innerHTML = success;
+                                                    window.location.reload()
+                                                } else if (error) {
+                                                    span.innerHTML = error;
+                                                    span.className += "admin-error";
+                                                } else {
+                                                    span.innerHTML = data['msg'] + '. Login again to continue!';
+                                                    span.className += "admin-error";
+                                                }
+                                            })
+                                    }
+
+                                }
+                                else if (error) {
+                                    console.log(error)
+                                }
+                            })
+                    }
+
 
                 })
             } else {
@@ -252,3 +328,4 @@ function getParties() {
             console.log(error)
         })
 }
+
