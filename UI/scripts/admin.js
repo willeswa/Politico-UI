@@ -13,7 +13,9 @@ const offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
     entityForm = document.getElementById('new-entity-form'),
     party_but = document.getElementById('create-party-but');
 
+
 if (window.localStorage.getItem('is_admin')) {
+    token = window.localStorage.getItem('token');
     getParties();
     addEntity.classList = 'add-entity';
     addEntity.innerHTML = 'Add Party';
@@ -71,7 +73,7 @@ close.onclick = (event) => {
 
 party_but.onclick = (event) => {
     event.preventDefault();
-    token = window.localStorage.getItem('token');
+
 
     let partyName = document.getElementById('party-name').value,
         hqAddress = document.getElementById('hq_address').value,
@@ -145,7 +147,7 @@ function getOffices() {
                     append(li, h3)
                     append(a, li)
                     append(ol, a)
-                    
+
                 })
 
             } else {
@@ -191,6 +193,8 @@ function getParties() {
                     img.className += 'thumbnail';
                     i1.className += 'far fa-edit';
                     i2.className += 'far fa-trash-alt';
+                    i1.id = 'edit' + party.party_id
+                    i2.id = 'del' + party.party_id
                     div3.className += 'edit-delete';
 
                     append(div1, span1)
@@ -205,17 +209,35 @@ function getParties() {
                     append(li, div4)
                     append(ol, li)
 
-                    const dels_party = document.getElementsByClassName('fa-trash-alt');
-                        let i = 0
-                        while (i < dels_party.length) {
-                            dels_party[i].onclick = (event) => {
-                                event.preventDefault();
-                                window.localStorage.setItem('party_id', party.party_id)
-                                console.log(dels_party)
-                            }
-
-                            i++;
+                    const del_id = document.getElementById(i2.id);
+                    del_id.onclick = (event) => {
+                        event.preventDefault()
+                        delReq = {
+                            method: 'DELETE',
+                            path: party.party_id,
+                            headers: new Headers(
+                                {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + token
+                                }
+                            )
                         }
+                        fetch('https://politiko-api.herokuapp.com/api/v2/parties/' + party.party_id, delReq)
+                            .then(response => response.json())
+                            .then(data => {
+                                let success = data['data'],
+                                    error = data['error'];
+
+                                if (success) {
+                                    window.location.reload();
+                                }
+                                else if (error) {
+                                    console.log(error)
+                                }
+                            })
+                    }
+
+
                 })
             } else {
                 let li = createNode('li'),
