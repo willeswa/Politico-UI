@@ -365,7 +365,16 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 
 .top-main-panel {
     width: 100%;
+    display: flex;
 }
+
+.top-main-panel span {
+    margin-left: 10%;
+    padding: 10px 15px;
+    font-weight: bold;
+}
+
+
 
 .lower-main-panel {
     background: #ffffff;
@@ -525,7 +534,7 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     color: rgb(121, 35, 35);
 }
 
-.edit-delete :nth-child(2):hover{
+.del:hover, .edit-delete :nth-child(2):hover{
     color: rgb(192, 6, 6);
 }
 
@@ -538,4 +547,24 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     font-size: 1.3em;
     padding: 20px 25px;
     line-height: 30px;
+}
+
+.del {
+    font-size: 1.5em;
+    padding: 5px;
+    color: rgb(121, 35, 35);
+    display: block;
+    cursor: pointer;
+}
+
+.colorit {
+    color: #1F2354;
+}
+
+.success {
+    color: rgb(1, 172, 1);
+}
+
+.error-text {
+    color: rgb(243, 8, 8);
 }
