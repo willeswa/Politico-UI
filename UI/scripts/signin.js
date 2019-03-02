@@ -2,7 +2,6 @@ const url = 'https://politiko-api.herokuapp.com/api/v2/auth/signin';
 let login = document.getElementById('login');
 
 if (window.localStorage.getItem('email') !== null) {
-    console.log(window.localStorage.getItem('email'))
     let p = document.getElementById('success')
     p.innerHTML = 'Successfully registered! Now login to exercise your right.';
     p.className += 'success';
@@ -36,6 +35,7 @@ login.onclick = (event) => {
                 is_admin = data['data'][0]['user']['is_admin']
                 token = data['data'][0]['token']
                 window.localStorage.setItem('token', token)
+                window.localStorage.setItem('email', email)
                 window.localStorage.setItem('is_admin', is_admin)
                 if (is_admin) {
                     window.location.replace('admin.html')
