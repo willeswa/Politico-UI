@@ -1,5 +1,4 @@
-const editPartyUrl = 'https://politiko-api.herokuapp.com/api/v2/parties/1/name',
-    offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
+const offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
     parties = 'https://politiko-api.herokuapp.com/api/v2/parties',
     candidates = 'https://politiko-api.herokuapp.com/api/v2/office/1/politicians',
     parties_nav = document.getElementById('parties'),
@@ -11,10 +10,14 @@ const editPartyUrl = 'https://politiko-api.herokuapp.com/api/v2/parties/1/name',
     headingSelector = document.getElementById('selector'),
     ol = document.getElementById('entity'),
     close = document.getElementById('close'),
+    eClose = document.getElementById('eclose'),
     entityForm = document.getElementById('new-entity-form'),
+    editEntityForm = document.getElementById('edit-entity-form'),
     party_but = document.getElementById('create-party-but');
 
+
 if (window.localStorage.getItem('is_admin')) {
+    token = window.localStorage.getItem('token');
     getParties();
     addEntity.classList = 'add-entity';
     addEntity.innerHTML = 'Add Party';
@@ -70,9 +73,14 @@ close.onclick = (event) => {
     entityForm.style.display = 'none';
 }
 
+eClose.onclick = (event) => {
+    event.preventDefault();
+    editEntityForm.style.display = 'none';
+}
+
 party_but.onclick = (event) => {
     event.preventDefault();
-    token = window.localStorage.getItem('token');
+
 
     let partyName = document.getElementById('party-name').value,
         hqAddress = document.getElementById('hq_address').value,
@@ -100,18 +108,25 @@ party_but.onclick = (event) => {
     fetch(parties, newPartyData)
         .then(response => response.json())
         .then(result => {
+            console.log(result)
             let success = result['data'],
-                error = result['error'];
-
+                error = result['error'],
+                span = document.getElementById('response');
             if (success) {
+                span.innerHTML = success;
                 window.location.reload()
             } else if (error) {
-                let span = document.getElementById('response');
                 span.innerHTML = error;
+                span.className += "admin-error";
+            } else {
+                span.innerHTML = result['msg'] + '. Login again to continue!';
                 span.className += "admin-error";
             }
         })
 }
+
+
+
 
 function createNode(element) {
     return document.createElement(element);
@@ -145,6 +160,7 @@ function getOffices() {
                     append(ol, a)
 
                 })
+
             } else {
                 let li = createNode('li'),
                     h3 = createNode('h3');
@@ -152,7 +168,6 @@ function getOffices() {
                 append(li, h3);
                 append(ol, li);
             }
-
         })
         .catch(error => {
             console.log(error)
@@ -166,25 +181,137 @@ function getParties() {
             let all_part = all_parties.data;
             if (all_part.length > 0) {
                 all_part.map(party => {
-                    let a = createNode('a'),
+                    let div2 = createNode('div'),
+                        div3 = createNode('div'),
+                        div4 = createNode('div'),
+                        div1 = createNode('div'),
                         li = createNode('li'),
                         img = createNode('img'),
                         span2 = createNode('span'),
                         span1 = createNode('span'),
-                        h3 = createNode('h3');
+                        h3 = createNode('h3'),
+                        i1 = createNode('i'),
+                        i2 = createNode('i');
 
 
                     h3.innerHTML = `${party.party_name}`;
                     span1.innerHTML = `${party.created_on}`;
                     span2.innerHTML = `${party.hq_address}`;
-                    img.src = party.logo_url
+                    img.src = party.logo_url;
+                    div2.style.width = '20%';
+                    li.style.display = 'flex';
+                    div4.className += 'entity-info';
+                    img.className += 'thumbnail';
+                    i1.className += 'far fa-edit';
+                    i2.className += 'far fa-trash-alt';
+                    i1.id = 'edit' + party.party_id
+                    i2.id = 'del' + party.party_id
+                    div3.className += 'edit-delete';
 
-                    append(li, span1)
-                    append(li, span2)
-                    append(li, h3)
-                    append(li, img)
-                    append(a, li)
-                    append(ol, a)
+                    append(div1, span1)
+                    append(div1, span2)
+                    append(div1, h3)
+                    append(div3, i1)
+                    append(div3, i2)
+                    append(div2, img)
+                    append(div4, div1)
+                    append(div4, div3)
+                    append(li, div2)
+                    append(li, div4)
+                    append(ol, li)
+
+                    const del_id = document.getElementById(i2.id);
+                    del_id.onclick = (event) => {
+                        alert('Are you sure you want to delete this party?')
+                        event.preventDefault()
+                        delReq = {
+                            method: 'DELETE',
+                            path: party.party_id,
+                            headers: new Headers(
+                                {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + token
+                                }
+                            )
+                        }
+                        fetch('https://politiko-api.herokuapp.com/api/v2/parties/' + party.party_id, delReq)
+                            .then(response => response.json())
+                            .then(data => {
+                                let success = data['data'],
+                                    error = data['error'];
+
+                                if (success) {
+                                    window.location.reload();
+                                }
+                                else if (error) {
+                                    console.log(error)
+                                }
+                            })
+                    }
+
+                    const edit_id = document.getElementById(i1.id);
+                    edit_id.onclick = (event) => {
+                        event.preventDefault()
+                        editEntityForm.style.display = 'block';
+                        fetch('https://politiko-api.herokuapp.com/api/v2/parties/' + party.party_id)
+                            .then(response => response.json())
+                            .then(data => {
+                                let success = data['data'],
+                                    error = data['error'];
+
+                                if (success) {
+                                    let logoUrl = document.getElementById('elogo-url'),
+                                        hqAddress = document.getElementById('ehq_address'),
+                                        editPartyBut = document.getElementById('edit-party-but');
+                                    logoUrl.value = party.logo_url;
+                                    hqAddress.value = party.hq_address;
+
+
+                                    editPartyBut.onclick = (event) => {
+                                        newName = document.getElementById('eparty-name').value;
+                                        let editReq = {
+                                            method: 'PUT',
+                                            body: JSON.stringify(
+                                                {
+                                                    party_name: newName
+                                                }
+                                            ),
+                                            headers: new Headers(
+                                                {
+                                                    'Content-Type': 'application/json',
+                                                    'Authorization': 'Bearer ' + token
+                                                }
+                                            )
+                                        }
+                                        console.log(editReq)
+                                        event.preventDefault()
+                                        fetch('https://politiko-api.herokuapp.com/api/v2/parties/' + party.party_id + '/name', editReq)
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                let success = data['data'],
+                                                    error = data['error'],
+                                                    span = document.getElementById('response1');
+
+                                                if (success) {
+                                                    span.innerHTML = success;
+                                                    window.location.reload()
+                                                } else if (error) {
+                                                    span.innerHTML = error;
+                                                    span.className += "admin-error";
+                                                } else {
+                                                    span.innerHTML = data['msg'] + '. Login again to continue!';
+                                                    span.className += "admin-error";
+                                                }
+                                            })
+                                    }
+
+                                }
+                                else if (error) {
+                                    console.log(error)
+                                }
+                            })
+                    }
+
 
                 })
             } else {
@@ -200,3 +327,4 @@ function getParties() {
             console.log(error)
         })
 }
+

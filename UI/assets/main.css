@@ -187,9 +187,9 @@ box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
 .office {
     margin-bottom: 2%;
     background: #ffffff;
-    -webkit-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
+    /* -webkit-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
 -moz-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);  
+box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);   */
 }
 
 .stripe {
@@ -226,9 +226,9 @@ box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
     width: 31%;
     margin: 2% 1%;
     line-height: 25px;
-    -webkit-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
-    -moz-box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
-    box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
+    -webkit-box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
+-moz-box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
+box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 }
 
 .candidate:hover {
@@ -406,7 +406,7 @@ box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
 }
 
 #entity span:nth-of-type(2){
-    margin-left: 53%;
+    margin-left: 35%;
     font-weight: bold;
     color: #1F2354;
 }
@@ -416,15 +416,12 @@ box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
     font-weight: bold;
 }
 
-#entity li:hover{
-    background: #EEEEEE;
-}
 
 #admin-footer {
     margin-top: 170px;
 }
 
-#new-entity-form {
+#new-entity-form, #edit-entity-form {
     display: none;
     position: fixed;
     z-index: 9;
@@ -437,15 +434,15 @@ box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
     background: #ffffff;
 }
 
-#new-entity-form label {
+#new-entity-form label, #edit-entity-form label {
     font-size: 1.1em;
 }
 
-#new-entity-form h2 {
+#new-entity-form h2, #edit-entity-form h2 {
     margin-bottom: 5%;
 }
 
-#new-entity-form input {
+#new-entity-form input, #edit-entity-form input {
     width: 100%;
     height: 40px;
     margin-bottom: 5%;
@@ -454,7 +451,7 @@ box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
     padding: 5px 10px;
 }
 
-#new-entity-form button {
+#new-entity-form button, #edit-entity-form button {
     padding: 10px 15px;
     border: #1F2354 1px solid;
     color: #1F2354;
@@ -463,7 +460,7 @@ box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
 
 }
 
-#new-entity-form button:hover {
+#new-entity-form button:hover, #edit-entity-form button:hover {
     background: #1F2354;
     color: #ffffff;
 }
@@ -495,4 +492,41 @@ box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);
     color: rgb(197, 15, 15);
     text-transform: capitalize;
     border-bottom: #1F2354 1px solid;
+}
+
+
+
+.thumbnail {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.entity-info {
+    width: 80%;
+    padding: 10px 15px;
+    color: #1F2354;
+}
+
+.edit-delete {
+    padding: 10px 15px;
+    font-size: 1.5em;
+    padding: 0 0 0 75%;
+}
+
+.edit-delete :nth-child(1):hover{
+    color: rgb(4, 184, 4);
+}
+
+.edit-delete :nth-child(2) {
+    margin-left: 10%;
+    color: rgb(121, 35, 35);
+}
+
+.edit-delete :nth-child(2):hover{
+    color: rgb(192, 6, 6);
+}
+
+.far {
+    cursor: pointer;
 }

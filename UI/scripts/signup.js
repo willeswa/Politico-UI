@@ -4,7 +4,7 @@ let register = document.getElementById('register');
 window.localStorage.clear()
 if (window.localStorage.getItem('email') == null) {
     document.getElementById('logbut').innerHTML = 'LOGIN';
-    document.getElementById('log-link').setAttribute('href', 'signin.html')
+    document.getElementById('log-link').setAttribute('href', 'signin.html');
 }
 
 register.onclick = (event) => {
