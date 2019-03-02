@@ -207,21 +207,65 @@ function getOffices() {
             let all_off = all_offices.data;
             if (all_off.length > 0) {
                 all_off.map(office => {
-                    let a = createNode('a'),
-                        li = createNode('li'),
+                    let li = createNode('li'),
                         span1 = createNode('span'),
                         span2 = createNode('span'),
-                        h3 = createNode('h3');
+                        h3 = createNode('h3'),
+                        div1 = createNode('div'),
+                        div2 = createNode('div'),
+                        o2 = createNode('i')
+                        div3 = createNode('div');
 
                     h3.innerHTML = `${office.office_name}`;
                     span1.innerHTML = `${office.created_on}`;
                     span2.innerHTML = `${office.office_type}`;
+                    o2.className += 'far fa-trash-alt';
+                    o2.id = 'del' + office.office_id;
+                    div3.style.display = 'flex';
+                    div1.style.width = '90%';
+                    div2.className += 'del';
+                    li.className += 'colorit';
 
-                    append(li, span1)
-                    append(li, span2)
-                    append(li, h3)
-                    append(a, li)
-                    append(ol, a)
+                    append(div1, span1)
+                    append(div1, span2)
+                    append(div1, h3)
+                    append(div2, o2)
+                    append(div3, div1)
+                    append(div3, div2)
+                    append(li, div3)
+                    append(ol, li)
+
+                    const del_id = document.getElementById(o2.id);
+                    del_id.onclick = (event) => {
+                        event.preventDefault();
+                        alert('Are you sure you want to delete "' + office.office_name+'"');
+                        delReq = {
+                            method: 'DELETE',
+                            path: office.office_id,
+                            headers: new Headers(
+                                {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + token
+                                }
+                            )
+                        }
+                        fetch('https://politiko-api.herokuapp.com/api/v2/offices/' + office.office_id, delReq)
+                            .then(response => response.json())
+                            .then(data => {
+                                let success = data['data'],
+                                    error = data['error'],
+                                    msg = data['msg'];
+
+                                if (success) {
+                                    window.location.reload();
+                                }
+                                else if (error) {
+                                    console.log(error)
+                                } else {
+                                    console.log(msg)
+                                }
+                            })
+                    }
 
                 })
 
@@ -302,13 +346,17 @@ function getParties() {
                             .then(response => response.json())
                             .then(data => {
                                 let success = data['data'],
-                                    error = data['error'];
+                                    error = data['error'],
+                                    defaultResponse = document.getElementById('creation-response');
 
                                 if (success) {
                                     window.location.reload();
                                 }
                                 else if (error) {
-                                    console.log(error)
+                                    defaultResponse.innerHTML = error;
+                                } else {
+                                    defaultResponse.innerHTML = data['msg'] + '! Please login to continue.';;
+                                    defaultResponse.className += 'error-text';
                                 }
                             })
                     }
@@ -358,7 +406,7 @@ function getParties() {
 
                                                 if (success) {
                                                     span.innerHTML = success;
-                                                    window.location.reload()
+                                                    window.location.reload(true)
                                                 } else if (error) {
                                                     span.innerHTML = error;
                                                     span.className += "admin-error";
@@ -371,7 +419,9 @@ function getParties() {
 
                                 }
                                 else if (error) {
-                                    console.log(error)
+                                    let defaultResponse = document.getElementById('creation-response');
+                                    defaultResponse.innerHTML = error;
+                                    defaultResponse.className += 'error-text';
                                 }
                             })
                     }
@@ -390,7 +440,7 @@ function getParties() {
         .catch(error => {
             console.log(error)
         })
-}
+}error
 
 function clearNode() {
     while (ol.firstChild) {
