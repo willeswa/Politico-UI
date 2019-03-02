@@ -251,24 +251,8 @@ function getParties() {
 
                     const edit_id = document.getElementById(i1.id);
                     edit_id.onclick = (event) => {
-                        editEntityForm.style.display = 'block';
                         event.preventDefault()
-                        newName = document.getElementById('eparty-name').value;
-
-                        let editReq = {
-                            method: 'PUT',
-                            body: JSON.stringify(
-                                {
-                                    party_name: newName
-                                }
-                            ),
-                            headers: new Headers(
-                                {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': 'Bearer ' + token
-                                }
-                            )
-                        }
+                        editEntityForm.style.display = 'block';
                         fetch('https://politiko-api.herokuapp.com/api/v2/parties/' + party.party_id)
                             .then(response => response.json())
                             .then(data => {
@@ -284,6 +268,21 @@ function getParties() {
 
 
                                     editPartyBut.onclick = (event) => {
+                                        newName = document.getElementById('eparty-name').value;
+                                        let editReq = {
+                                            method: 'PUT',
+                                            body: JSON.stringify(
+                                                {
+                                                    party_name: newName
+                                                }
+                                            ),
+                                            headers: new Headers(
+                                                {
+                                                    'Content-Type': 'application/json',
+                                                    'Authorization': 'Bearer ' + token
+                                                }
+                                            )
+                                        }
                                         console.log(editReq)
                                         event.preventDefault()
                                         fetch('https://politiko-api.herokuapp.com/api/v2/parties/' + party.party_id + '/name', editReq)
