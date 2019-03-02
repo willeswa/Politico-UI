@@ -3,31 +3,39 @@ const offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
     candidates = 'https://politiko-api.herokuapp.com/api/v2/office/1/politicians',
     parties_nav = document.getElementById('parties'),
     offices_nav = document.getElementById('offices'),
-    createEntity = document.getElementById('create-entity'),
     candidates_nav = document.getElementById('candidates'),
     addEntity = document.getElementById('add-entity'),
+    addOfficeEntity = document.getElementById('add-office-entity'),
+    creationResponse = document.getElementById('creation-response'),
     logout = document.getElementById('logout'),
     headingSelector = document.getElementById('selector'),
     ol = document.getElementById('entity'),
     close = document.getElementById('close'),
     eClose = document.getElementById('eclose'),
+    oClose = document.getElementById('oclose'),
+    newOfficeBut = document.getElementById('new-office-but'),
     entityForm = document.getElementById('new-entity-form'),
     editEntityForm = document.getElementById('edit-entity-form'),
+    newOfficeForm = document.getElementById('office-entity-form'),
     party_but = document.getElementById('create-party-but');
 
 
 if (window.localStorage.getItem('is_admin')) {
     token = window.localStorage.getItem('token');
-    getParties();
     addEntity.classList = 'add-entity';
     addEntity.innerHTML = 'Add Party';
-    headingSelector.innerHTML = 'All Parties'
+    headingSelector.innerHTML = 'All Parties';
+
+    getParties();
 
     offices_nav.onclick = (event) => {
         event.preventDefault();
-        createEntity.setAttribute('href', 'new_office.html');
-        addEntity.classList = 'add-entity'
-        addEntity.innerHTML = 'Add Office';
+
+        clearNode()
+        addOfficeEntity.classList = 'add-entity'
+        addOfficeEntity.innerHTML = 'Add Office';
+        addEntity.innerHTML = " "
+        addEntity.classList.remove('add-entity');
         headingSelector.innerHTML = 'All Offices';
 
         getOffices()
@@ -36,10 +44,12 @@ if (window.localStorage.getItem('is_admin')) {
 
     parties_nav.onclick = (event) => {
         event.preventDefault();
+        clearNode()
         let addEntity = document.getElementById('add-entity');
         addEntity.classList = 'add-entity';
         addEntity.innerHTML = 'Add Party';
-        createEntity.setAttribute('href', 'new_party.html');
+        addOfficeEntity.innerHTML = " ";
+        addOfficeEntity.classList.remove('add-entity');
         headingSelector.innerHTML = 'All Parties';
         getParties();
     }
@@ -47,9 +57,13 @@ if (window.localStorage.getItem('is_admin')) {
 
     candidates_nav.onclick = (event) => {
         event.preventDefault();
+        clearNode()
         let addCandidate = document.getElementById('add-entity');
         addCandidate.classList.remove('add-entity')
         addEntity.innerHTML = '';
+        addEntity.classList.remove('add-entity');
+        addOfficeEntity.classList.remove('add-entity');
+        addOfficeEntity.innerHTML = " ";
         headingSelector.innerHTML = 'All Candidates';
     }
 
@@ -63,9 +77,14 @@ if (window.localStorage.getItem('is_admin')) {
 }
 
 
-createEntity.onclick = (event) => {
+addEntity.onclick = (event) => {
     event.preventDefault();
     entityForm.style.display = 'block';
+}
+
+addOfficeEntity.onclick = (event) => {
+    event.preventDefault();
+    newOfficeForm.style.display = 'block';
 }
 
 close.onclick = (event) => {
@@ -76,6 +95,11 @@ close.onclick = (event) => {
 eClose.onclick = (event) => {
     event.preventDefault();
     editEntityForm.style.display = 'none';
+}
+
+oClose.onclick = (event) => {
+    event.preventDefault();
+    newOfficeForm.style.display = 'none';
 }
 
 party_but.onclick = (event) => {
@@ -108,25 +132,65 @@ party_but.onclick = (event) => {
     fetch(parties, newPartyData)
         .then(response => response.json())
         .then(result => {
-            console.log(result)
             let success = result['data'],
                 error = result['error'],
                 span = document.getElementById('response');
             if (success) {
-                span.innerHTML = success;
-                window.location.reload()
+                window.location.reload(true)
             } else if (error) {
                 span.innerHTML = error;
                 span.className += "admin-error";
             } else {
-                span.innerHTML = result['msg'] + '. Login again to continue!';
+                span.innerHTML = result['msg'] + '. Login to continue!';
                 span.className += "admin-error";
             }
         })
 }
 
 
+newOfficeBut.onclick = (event) => {
+    event.preventDefault();
 
+    let officeName = document.getElementById('office-name').value,
+        officeType = document.getElementById('office-type').value;
+
+    newOfficeData = JSON.stringify(
+        {
+            office_name: officeName,
+            office_type: officeType
+        }
+    )
+
+    let officeFetch = {
+        method: 'POST',
+        body: newOfficeData,
+        headers: new Headers(
+            {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        )
+    }
+
+    fetch(offices, officeFetch)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+            let success = result['data'],
+                error = result['error'],
+                span = document.getElementById('office-response');
+            if (success) {
+                window.location.reload(true)
+            } else if (error) {
+                span.innerHTML = error;
+                span.className += "admin-error";
+            } else {
+                span.innerHTML = result['msg'] + '. Login to continue!';
+                span.className += "admin-error";
+            }
+        })
+
+}
 
 function createNode(element) {
     return document.createElement(element);
@@ -328,3 +392,8 @@ function getParties() {
         })
 }
 
+function clearNode() {
+    while (ol.firstChild) {
+        ol.removeChild(ol.firstChild);
+    }
+}

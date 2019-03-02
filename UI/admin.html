@@ -53,9 +53,8 @@
             </div>
             <div class="main-panel">
                 <div class="top-main-panel">
-                    <a id="create-entity" class="add-party" href="#">
-                        <h3 id="add-entity"></h3>
-                    </a>
+                    <a id="add-entity" href="#"></a>
+                    <a id="add-office-entity" href="#"></a><span id="creation-response"></span>
                 </div>
                 <div class="lower-main-panel">
                     <div class="top-strip">
@@ -75,7 +74,8 @@
                             </div>
 
                             <div class="group-input">
-                                <input type="text" name="hq_address" id="hq_address" placeholder="Party Head Quaters" required>
+                                <input type="text" name="hq_address" id="hq_address" placeholder="Party Head Quaters"
+                                    required>
                             </div>
 
                             <div class="group-input">
@@ -96,7 +96,8 @@
                             </div>
 
                             <div class="group-input">
-                                <input type="text" name="hq_address" id="ehq_address" placeholder="Party Head Quaters" readonly>
+                                <input type="text" name="hq_address" id="ehq_address" placeholder="Party Head Quaters"
+                                    readonly>
                             </div>
 
                             <div class="group-input">
@@ -104,6 +105,24 @@
                             </div>
 
                             <button id="edit-party-but" type="submit">Update Party</button>
+                        </form>
+                    </div>
+                    <div id="office-entity-form">
+                        <div class="form-header">
+                            <span id="office-response"></span>
+                            <h2>Political Positions </h2><i id="oclose" class="fas fa-times"></i>
+                        </div>
+                        <form action="admin.html">
+                            <div class="group-input">
+                                <input type="text" name="office_name" id="office-name" placeholder="Position to Create"
+                                    required>
+                            </div>
+
+                            <div class="group-input">
+                                <input type="text" name="office_type" id="office-type" placeholder="Level of Government"
+                                    required>
+                            </div>
+                            <button id="new-office-but" type="submit">Create Position</button>
                         </form>
                     </div>
                 </div>
