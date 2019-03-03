@@ -440,7 +440,7 @@ function getParties() {
         .catch(error => {
             console.log(error)
         })
-}error
+}
 
 function clearNode() {
     while (ol.firstChild) {
