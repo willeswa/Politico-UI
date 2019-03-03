@@ -561,10 +561,24 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     color: #1F2354;
 }
 
-.success {
+.success-color {
     color: rgb(1, 172, 1);
+    border: rgb(1, 172, 1) 1px solid;
+    font-weight: bold;
+    padding: 10px 15px;
 }
 
 .error-text {
     color: rgb(243, 8, 8);
+}
+
+.user-office {
+    padding: 10px 15px;
+    line-height: 25px;
+    border-bottom: #E3E6F0 1px solid;
+}
+
+.office-span {
+    margin-left: 50%;
+    font-weight: bold;
 }

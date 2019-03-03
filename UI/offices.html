@@ -24,14 +24,14 @@
                 <li>ALL PARTIES</li>
             </a>
             <a class="nav-item" href="offices.html">
-                <li>POLITICIANS</li>
+                <li>OPEN POSITIONS</li>
             </a>
-            <a class="nav-item" href="vote.html">
+            <a class="nav-item" id="vote-now" href="vote.html">
                 <li>VOTE NOW</li>
             </a>
         </ul>
         <ul class="navbar navbar-right">
-            <a class="nav-item" href="signin.html">
+            <a class="nav-item" id="logout" href="signin.html">
                 <li>LOGOUT</li>
             </a>
         </ul>
@@ -40,98 +40,12 @@
         <div class="offices">
             <div class="office">
                 <div class="stripe">
-                    <h2>Office of the President</h2>
-                    <p>Federal</p>
+                    <h2>All Offices <span id="total-offices"></span></h2>
                 </div>
-                <div class="candidates">
-                    <div class="candidate">
-                        <div class="img">
-                            <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1390&q=80"
-                                alt="">
-                        </div>
-                        <div class="info">
-                            <h3>Rehema Jessicah Nekesa</h3>
-                            <p>Progressive Women Party</p>
-                        </div>
-                    </div>
-                    <div class="candidate">
-                        <div class="img">
-                            <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1390&q=80"
-                                alt="">
-                        </div>
-                        <div class="info">
-                            <h3>Rehema Jessicah Nekesa</h3>
-                            <p>Progressive Women Party</p>
-                        </div>
-                    </div>
-                    <div class="candidate">
-                        <div class="img">
-                            <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1390&q=80"
-                                alt="">
-                        </div>
-                        <div class="info">
-                            <h3>Rehema Jessicah Nekesa</h3>
-                            <p>Progressive Women Party</p>
-                        </div>
-                    </div>
-                    <div class="candidate">
-                        <div class="img">
-                            <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1390&q=80"
-                                alt="">
-                        </div>
-                        <div class="info">
-                            <h3>Rehema Jessicah Nekesa</h3>
-                            <p>Progressive Women Party</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="office">
-                <div class="stripe">
-                    <h2>Office of the President</h2>
-                    <p>Federal</p>
-                </div>
-                <div class="candidates">
-                    <div class="candidate">
-                        <div class="img">
-                            <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1390&q=80"
-                                alt="">
-                        </div>
-                        <div class="info">
-                            <h3>Rehema Jessicah Nekesa</h3>
-                            <p>Progressive Women Party</p>
-                        </div>
-                    </div>
-                    <div class="candidate">
-                        <div class="img">
-                            <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1390&q=80"
-                                alt="">
-                        </div>
-                        <div class="info">
-                            <h3>Rehema Jessicah Nekesa</h3>
-                            <p>Progressive Women Party</p>
-                        </div>
-                    </div>
-                    <div class="candidate">
-                        <div class="img">
-                            <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1390&q=80"
-                                alt="">
-                        </div>
-                        <div class="info">
-                            <h3>Rehema Jessicah Nekesa</h3>
-                            <p>Progressive Women Party</p>
-                        </div>
-                    </div>
-                    <div class="candidate">
-                        <div class="img">
-                            <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1390&q=80"
-                                alt="">
-                        </div>
-                        <div class="info">
-                            <h3>Rehema Jessicah Nekesa</h3>
-                            <p>Progressive Women Party</p>
-                        </div>
-                    </div>
+                <div>
+                   <ol id="main-node">
+
+                   </ol>
                 </div>
             </div>
         </div>
@@ -141,19 +55,20 @@
         <div class="find-us">
             <h3>Want to learn more?</h3>
             <ul>
-                <a href="#">
+                <a href="https://github.com/willeswa">
                     <li>About the developer</li>
                 </a>
-                <a href="#">About the project</a>
+                <a href="https://drive.google.com/file/d/1xnHLdlXMMUjwFYCnYHAQBEjYCmyxA3Lw/view?usp=sharing">About the
+                    project</a>
             </ul>
         </div>
         <div class="contribute">
             <h3>Contribute to the project</h3>
             <ul>
-                <a href="#">
+                <a href="https://github.com/willeswa/politico-app">
                     <li>GitHub Repository</li>
                 </a>
-                <a href="#">
+                <a href="https://app.swaggerhub.com/apis-docs/willeswa/politiko-api/v2.0">
                     <li>The Politiko API</li>
                 </a>
             </ul>
@@ -166,7 +81,7 @@
     <footer class="copyright">
         <span>Copyright &#9400;2019 Politico. All Rights Reserved</span>
     </footer>
-
+    <script src="scripts/offices.js"></script>
 </body>
 
 </html>
