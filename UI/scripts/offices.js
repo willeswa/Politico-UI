@@ -2,31 +2,16 @@ const offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
     ol = document.getElementById('main-node'),
     logout = document.getElementById('logout'),
     voteNow = document.getElementById('vote-now'),
-<<<<<<< Updated upstream
     homeBut = document.getElementById('home'),
     homeLink = document.getElementById('home-a');
-=======
-    myAccountLink = document.getElementById('my-account-a'),
-    myAccountNav = document.getElementById('my-account');
->>>>>>> Stashed changes
 
 
     
     if(window.localStorage.getItem('email') === null) {
         logout.innerHTML = 'LOGIN';
         voteNow.style.display = 'none';
-<<<<<<< Updated upstream
         homeBut.innerHTML = 'HOME';
         homeLink.setAttribute('href', 'index.html');
-=======
-        myAccountNav.innerHTML = 'HOME';
-        myAccountLink.setAttribute('href', 'index.html');
-
-        logout.onclick = (event) => {
-            event.preventDefault()
-            window.location.replace('signin.html');
-        }
->>>>>>> Stashed changes
     }
 
 getOffices()
@@ -34,11 +19,7 @@ getOffices()
 logout.onclick = (event) => {
     event.preventDefault();
     window.localStorage.clear()
-<<<<<<< Updated upstream
     window.location.replace('signin.html')
-=======
-    window.location.replace('index.html');
->>>>>>> Stashed changes
 }
 
 function getOffices() {

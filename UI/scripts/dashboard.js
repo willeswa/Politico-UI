@@ -9,11 +9,13 @@ logout()
 
 if (window.localStorage.getItem('token') !== null) {
 
+    
 
     editProfileBut.onclick = (event) => {
         event.preventDefault()
         profile.style.display = 'none';
         editForm.style.display = 'block';
+        
     }
 
     submitEdit.onclick = (event) => {

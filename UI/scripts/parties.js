@@ -1,6 +1,6 @@
 const parties_url = 'https://politiko-api.herokuapp.com/api/v2/parties',
     voteNavItem = document.getElementById('vote-nav-item'),
-    logBut = document.getElementById('log-but'),
+    logoutBut = document.getElementById('log-but'),
     totalParties = document.getElementById('total-parties'),
     partiesParentNode = document.getElementById('main-node'),
     homeBut = document.getElementById('home'),
@@ -8,12 +8,14 @@ const parties_url = 'https://politiko-api.herokuapp.com/api/v2/parties',
 
 if (window.localStorage.getItem('email') == null) {
     voteNavItem.style.display = 'none';
-    logBut.innerHTML = 'LOGIN';
+    logoutBut.innerHTML = 'LOGIN';
     homeBut.innerHTML = 'HOME';
     homeLink.setAttribute('href', 'index.html');
 }
 
 getParties()
+
+logout()
 
 function getParties() {
     return fetch(parties_url)
@@ -67,4 +69,12 @@ function createNode(element) {
 
 function append(parent, element) {
     return parent.appendChild(element);
+}
+
+function logout() {
+    logoutBut   .onclick = (event) => {
+        event.preventDefault();
+        window.localStorage.clear();
+        window.location.replace('signin.html');
+    }
 }
