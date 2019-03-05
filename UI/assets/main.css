@@ -71,6 +71,10 @@ a, button {
     background: #EEEEEE;
 }
 
+.active {
+    border-bottom: #1F2354 2px solid;
+    background: #EEEEEE;
+}
 
 
 footer {
