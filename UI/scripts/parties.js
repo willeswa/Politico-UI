@@ -2,12 +2,15 @@ const parties_url = 'https://politiko-api.herokuapp.com/api/v2/parties',
     voteNavItem = document.getElementById('vote-nav-item'),
     logBut = document.getElementById('log-but'),
     totalParties = document.getElementById('total-parties'),
-    partiesParentNode = document.getElementById('main-node');
+    partiesParentNode = document.getElementById('main-node'),
+    homeBut = document.getElementById('home'),
+    homeLink = document.getElementById('home-a');
 
 if (window.localStorage.getItem('email') == null) {
     voteNavItem.style.display = 'none';
     logBut.innerHTML = 'LOGIN';
-    logBut.setAttribute('href', 'signin.html')
+    homeBut.innerHTML = 'HOME';
+    homeLink.setAttribute('href', 'index.html');
 }
 
 getParties()

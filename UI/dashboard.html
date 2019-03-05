@@ -10,118 +10,107 @@
 </head>
 
 <body>
-        <nav>
-                <ul class="navbar">
-                    <a class="nav-item brand-name" href="index.html">
-                        <li>POLITIKO</li>
-                    </a>
-                    <a class="nav-item" href="index.html">
-                        <li>HOME</li>
-                    </a>
-                    <a class="nav-item" href="parties.html">
-                        <li>ALL PARTIES</li>
-                    </a>
-                    <a class="nav-item" href="offices.html">
-                        <li>OPEN POSITIONS</li>
-                    </a>
-                    <a class="nav-item" href="vote.html">
-                        <li>VOTE NOW</li>
-                    </a>
-                </ul>
-                <ul class="navbar navbar-right">
-                    <a class="nav-item" href="signin.html">
-                        <li>LOGOUT</li>
-                    </a>
-                </ul>
-            </nav>
+    <nav>
+        <ul class="navbar">
+            <a class="nav-item brand-name" href="index.html">
+                <li>POLITIKO</li>
+            </a>
+            <a class="nav-item active" href="dashboard.html">
+                <li>MY ACCOUNT</li>
+            </a>
+            <a class="nav-item" href="parties.html">
+                <li>ALL PARTIES</li>
+            </a>
+            <a class="nav-item" href="offices.html">
+                <li>OPEN POSITIONS</li>
+            </a>
+
+            <a class="nav-item" href="vote.html">
+                <li>VOTE NOW</li>
+            </a>
+        </ul>
+        <ul class="navbar navbar-right">
+            <a class="nav-item">
+                <li id="logout">LOGOUT</li>
+            </a>
+            <a class="nav-item prof-item">
+                <li>
+                    <div class="prof-icon">
+                        <img src="https://avatars1.githubusercontent.com/u/38868860?s=460&v=4" alt="">
+                    </div>
+                </li>
+            </a>
+        </ul>
+    </nav>
     <div class="container">
         <div class="dashboard">
-            <div class="right-panel">
-                <ul>
-                    <a href="#personal-info">
-                        <li class="link-item">Personal Information</li>
-                    </a>
-                    <a href="#election-history">
-                        <li class="link-item">My Election Activities</li>
-                    </a>
-                    <a href="reset_password.html" class="reset">
-                        <li class="link-item">Reset Password</li>
-                    </a>
-                </ul>
-            </div>
-            <div class="main-panel">
-                <div id="personal-info">
-                    <h2><span>My Account</span> <a href="new_candidacy.html">Declare Candidacy</a></h2>
-                    <ul>
-                        <li class="link-item"><span>Name: </span>Godfrey Willies Wanjala</li>
-                        <li class="link-item"><span>ID NO:</span> 32563250</li>
-                        <li class="link-item"><span>Gender:</span> Male</li>
-                        <li class="link-item"><span>Email:</span> gwiliez@gmail.com</li>
-                        <li class="link-item"><span>Residence:</span>Nairobi</li>
-                    </ul>
+            <div class="right-panel dash-right">
+                <div class="user-passport">
+                    <img src="https://avatars1.githubusercontent.com/u/38868860?s=460&v=4" alt="">
                 </div>
+                <ul id="profile" class="caption">
+                    <li id="name" class="link-item">Godfrey Willies Wanjala</li>
+                    <li id="email" class="link-item">gwiliez@gmail.com</li>
+                    <li id="phone-number" class="link-item">0721175171</li>
+                    <li><button id="edit-prof">Edit Profile</button></li>
+                </ul>
+                <div id="edit-form" class="caption hide">
+                    <form action="">
+                        <li id="edit-prof-name" class="link-item">Godfrey Willies Wanjala</li>
+                        <input type="email" name="email" id="email" placeholder="New Email">
+                        <input type="url" name="passport_url" id="passport-url" placeholder="New Passport Url">
+                        <input type="tel" name="phone_number" id="tel" placeholder="New Phone Number">
+                        <button type="submit" id="submit-edit">Submit</button>
+                        <button id="cancel">Cancel</button>
+                    </form>
+                </div>
+            </div>
+            <div class="main-dash-panel">
+
                 <div id="election-history">
-                    <h2>Election History</h2>
+                    <div class="stripe">
+                        <h2>Election History</h2>
+                    </div>
                     <ul>
-                        <li class="hist-item">
-                            <div class="deets">
-                                <h3>The Presidency, Animal Republic</h3>
-                                <p> <span>Voted For:</span> Mr. Brian Griffins</p>
-                                <p> <span>Party:</span><a href="#">The Cartwalking Animal Party</a></p>
-                            </div>
-                            <div class="img">
-                                <img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1320&q=80"
-                                    alt="" srcset="">
-                            </div>
-                        </li>
-                        <li class="hist-item">
-                            <div class="deets">
-                                <h3>The Presidency, Animal Republic</h3>
-                                <p> <span>Voted For:</span> Mr. Brian Griffins</p>
-                                <p> <span>Party:</span><a href="#">The Cartwalking Animal Party</a></p>
-                            </div>
-                            <div class="img">
-                                <img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1320&q=80"
-                                    alt="" srcset="">
-                            </div>
+                        <li class="result">
+                            <h2>Office of the President</h2>
+                            <ol>
+                                <li>
+                                    <h3>Leone Kioko</h3>
+                                    <p>25 Votes</p>
+                                </li>
+                                <li>
+                                    <h3>Leone Kioko</h3>
+                                    <p>25 Votes</p>
+                                </li>
+                                <li>
+                                    <h3>Leone Kioko</h3>
+                                    <p>25 Votes</p>
+                                </li>
+                                <li>
+                                    <h3>Leone Kioko</h3>
+                                    <p>25 Votes</p>
+                                </li>
+                                <li>
+                                    <h3>Leone Kioko</h3>
+                                    <p>25 Votes</p>
+                                </li>
+                                <li>
+                                    <h3>Leone Kioko</h3>
+                                    <p>25 Votes</p>
+                                </li>
+                            </ol>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <footer>
-        <div class="upper-div">
-            <ul class="panel">
-                <li class="footer-item">
-                    <h3>ADDRESS</h3>
-                </li>
-                <li class="footer-item">Chenjeni, Quahog Towers</li>
-                <li class="footer-item"> P.O Box 294 - 00517, Nairobi.</li>
-                <li class="footer-item">Tel No: +254 (721) 175171</li>
-                <li class="footer-item">Email Address: gwiliez@gmail.com</li>
-            </ul>
-            <ul class="panel mid-nav">
-                <li class="footer-item">
-                    <h3>ABOUT POLITICO</h3>
-                </li>
-                <li class="footer-item"><a href="#">The mandate</a></li>
-                <li class="footer-item"><a href="#">The commission</a></li>
-                <li class="footer-item"><a href="#">Vission and Mission</a></li>
-            </ul>
-            <ul class="panel">
-                <li class="footer-item">
-                    <h3>EXTERNAL LINKS AND RESOURCES</h3>
-                </li>
-                <li class="footer-item"><a href="#">Electio fraud</a></li>
-                <li class="footer-item"><a href="#">Why you should vote</a></li>
-            </ul>
-        </div>
-        <div class="lower-div">
-            <span>Copyright &#9400;2019 Politico. All Rights Reserved</span>
-        </div>
 
+    <footer class="copyright">
+        <span>Copyright &#9400;2019 Politico. All Rights Reserved</span>
     </footer>
+    <script src="scripts/dashboard.js"></script>
 </body>
 
 </html>

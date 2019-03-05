@@ -46,17 +46,16 @@ a, button {
 }
 
 .navbar {
-    width: 80%;
     padding: 1% 5%;
+    width: 70%; 
 }
 
 .navbar-right{
-    width: 20%;
-    margin: auto;
+    width: 30%;
 }
 
 .navbar-right .nav-item {
-    float: right;
+    float: right;   
 }
 
 .nav-item {
@@ -581,4 +580,125 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 .office-span {
     margin-left: 50%;
     font-weight: bold;
+}
+.active {
+    border-bottom: #1F2354 2px solid;
+    background: #EEEEEE;
+}
+
+.dash-right {
+    width: 30%;
+    height: 340px;
+    top: 160px;
+    position: sticky;
+}
+
+.user-passport {
+    width: 100%;
+    text-align: center;
+    padding: 15px 15px 5px 15px;
+}
+
+.user-passport img {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    object-fit: cover;
+    align-items: center;
+    border-radius: 100%;
+}
+
+.user-passport img:hover {
+    opacity: 0.5;
+}
+
+.dashboard {
+    width: 70%;
+    margin: 0 auto 60px auto;
+    display: flex;
+}
+
+
+.caption li {
+    padding: 10px 15px;
+    font-weight: bold;
+    color: #1F2354;
+    border-bottom: 1px solid #EEEEEE; 
+    font-size: 1.2em;
+}
+
+.caption li:nth-child(4){
+    border-bottom: none;
+}
+
+.caption button {
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+.caption input {
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+.hide {
+    padding: 10px 15px;
+    display: none;
+}
+
+.display-block {
+    padding: 10px 15px;
+    display: none;
+}
+
+#cancel {
+    color: rgb(251, 6, 6);
+}
+
+.prof-icon {
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    margin: 0;
+}
+
+.prof-icon img{
+    height: 100%;
+    border-radius: 50%;
+}
+
+.main-dash-panel {
+    width:  68%;
+    margin-left: 2%;
+    background: #ffffff;
+    margin-bottom: 50px;
+    height: auto;
+}
+
+.result {
+    padding: 15px 20px;
+    line-height: 25px;
+    color: #1F2354;
+}
+.result h2 {
+    padding:  0 0 10px  0;
+    border-bottom: #1F2354 1px solid;
+}
+
+.result ul {
+    margin: 0;
+    padding: 0;
+}
+
+.result li {
+    font-weight: bold;
+    display: flex;
+    padding: 15px 20px;
+    border-bottom: 1px solid #EEEEEE;
+    font-size: 1.1em;
+    
+}
+
+.result li h3 {
+    width: 70%;
 }
