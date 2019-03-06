@@ -10,6 +10,7 @@ from app.api.utils.serializer import Serializer
 from app.api.v2.models.vote_model import VoteModel
 from app.api.v2.models.office_models import OfficeModel
 from app.api.v2.models.user_models import PolitcianModel
+from app.api.v2.models.user_models import UserModel
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
@@ -54,3 +55,16 @@ class ResultsViews(MethodView):
             response = VoteModel.get_votes_for_office(office_id)
             return Serializer.serialize(response, 200)
         return Serializer.serialize('Results for office {} are not ready'.format(office_id), 404)
+
+
+class ResultsView(MethodView):
+    """ Handles methos to pass request for user specific results """
+
+    @classmethod
+    def get(cls, user_id):
+        """ Passes request for user specific results to the models """
+
+        if UserModel.user_exists_id(user_id):
+            response = VoteModel.get_votes_by_specific_user_id(user_id)
+            return Serializer.serialize(response, 200)
+        return Serializer.serialize('User does not exist.', 404)

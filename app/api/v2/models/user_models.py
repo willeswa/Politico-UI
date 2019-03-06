@@ -86,14 +86,14 @@ class UserModel:
         return user
 
     @classmethod
-    def user_exists_id(cls, candidate_id):
+    def user_exists_id(cls, user_id):
         """ Checks if a candidate exists """
 
         query = """ SELECT EXISTS (SELECT * FROM users WHERE user_id = %s) """
 
         with Database() as conn:
             curr = conn.cursor()
-            curr.execute(query, (candidate_id,),)
+            curr.execute(query, (user_id,),)
             record = curr.fetchone()
         return record[0]
 
