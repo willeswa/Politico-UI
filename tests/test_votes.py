@@ -50,3 +50,9 @@ class TestVoteCases(TestBaseClass):
 
         response = self.client.get('/api/v2/office/1/result')
         self.assertEqual(response.status_code, 200)
+
+    def test_voting_results(self):
+        """ Tests the route for voter history """
+
+        response = self.client.get('/api/v2/users/1/history')
+        self.assertEqual(response.status_code, 200)
