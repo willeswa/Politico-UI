@@ -95,12 +95,3 @@ class CandidateViews(MethodView):
         response = PolitcianModel.retrieve_all_politicians(office_id)
         return Serializer.serialize(response, 200)
 
-        # if PartyModel.party_exists(party_id):
-        #     response = PartyModel.get_specific_party(party_id)
-        #     result = Serializer.serialize(response, 200)
-        #     return result
-
-        # result = Serializer.serialize(
-        #     'Party {} is not found'.format(party_id), 404)
-        # return result
-
