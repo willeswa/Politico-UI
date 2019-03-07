@@ -67,7 +67,7 @@ class VoteModel:
                 result = dict(zip(column, row))
                 results.append(result)
 
-        return results
+        return sorted(results, key=lambda k:k['candidate'])
 
     @classmethod
     def get_votes_by_specific_user_id(cls, user_id):
