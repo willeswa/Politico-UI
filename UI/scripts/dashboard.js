@@ -9,7 +9,8 @@ const logoutBut = document.getElementById('logout'),
     loggedEmail = document.getElementById('loggedin-email'),
     loggedPhoneNumber = document.getElementById('loggedin-phone-number'),
     loggedinPassport = document.getElementById('loggedin-passport'),
-    profIcon = document.getElementById('prof-icon');
+    profIcon = document.getElementById('prof-icon'),
+    editProfName = document.getElementById('edit-prof-name');
 
 logout()
 
@@ -24,10 +25,13 @@ if (window.localStorage.getItem('token') !== null) {
         userPassport = window.localStorage.getItem('passport_url'),
         phoneNumber = window.localStorage.getItem('phone_number');
 
-        loggedInName.innerHTML = user_firstname + ' ' + user_othername + ' ' + user_lastname;
+        userNames = user_firstname + ' ' + user_othername + ' ' + user_lastname;
+
+        loggedInName.innerHTML = userNames;
         loggedEmail.innerHTML = user_email;
         loggedPhoneNumber.innerHTML = phoneNumber;
         loggedinPassport.setAttribute('src', userPassport);
+        editProfName.innerHTML = userNames;
         // profIcon.setAttribute('src', userPassport);
 
     editProfileBut.onclick = (event) => {
