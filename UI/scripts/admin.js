@@ -1,6 +1,5 @@
 const offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
     parties = 'https://politiko-api.herokuapp.com/api/v2/parties',
-    candidates = 'https://politiko-api.herokuapp.com/api/v2/office/1/politicians',
     parties_nav = document.getElementById('parties'),
     offices_nav = document.getElementById('offices'),
     candidates_nav = document.getElementById('candidates'),
@@ -214,7 +213,7 @@ function getOffices() {
                         div1 = createNode('div'),
                         div2 = createNode('div'),
                         o2 = createNode('i')
-                        div3 = createNode('div');
+                    div3 = createNode('div');
 
                     h3.innerHTML = `${office.office_name}`;
                     span1.innerHTML = `${office.created_on}`;
@@ -238,7 +237,7 @@ function getOffices() {
                     const del_id = document.getElementById(o2.id);
                     del_id.onclick = (event) => {
                         event.preventDefault();
-                        alert('Are you sure you want to delete "' + office.office_name+'"');
+                        alert('Are you sure you want to delete "' + office.office_name + '"');
                         delReq = {
                             method: 'DELETE',
                             path: office.office_id,
@@ -446,4 +445,38 @@ function clearNode() {
     while (ol.firstChild) {
         ol.removeChild(ol.firstChild);
     }
+}
+
+function createCandidate() {
+    let officeId = document.getElementById('office-id').value,
+        partyId = document.getElementById('party-id'),
+        candidateId = document.getElementById('candidate-id');
+58
+    let candidateData = JSON.stringify({
+        candidate_id: candidateId,
+        party_id: partyId
+    });
+
+    let fetchCandidate = {
+        method: 'POST',
+        body: candidateData,
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        })
+    }
+
+    fetch('https://politiko-api.herokuapp.com/api/v2/office/' + officeId + '/politicians', fetchCandidate)
+        .then(response => response.json())
+        .then(result => {
+            let success = result['data'],
+                error = result['error'];
+
+            if (success) {
+                console.log(success)
+            } else if (error) {
+                console.log(error)
+            }
+        })
+
 }

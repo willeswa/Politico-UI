@@ -1,18 +1,17 @@
 const offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
     ol = document.getElementById('main-node'),
     logout = document.getElementById('logout'),
-    voteNow = document.getElementById('vote-now');
+    voteNow = document.getElementById('vote-now'),
+    homeBut = document.getElementById('home'),
+    homeLink = document.getElementById('home-a');
 
 
     
-    if(window.localStorage.getItem('email') == null) {
+    if(window.localStorage.getItem('email') === null) {
         logout.innerHTML = 'LOGIN';
         voteNow.style.display = 'none';
-
-        logout.onclick = (event) => {
-            event.preventDefault()
-            window.location.replace('signin.html');
-        }
+        homeBut.innerHTML = 'HOME';
+        homeLink.setAttribute('href', 'index.html');
     }
 
 getOffices()
@@ -20,7 +19,7 @@ getOffices()
 logout.onclick = (event) => {
     event.preventDefault();
     window.localStorage.clear()
-    window.location.replace('index.html')
+    window.location.replace('signin.html')
 }
 
 function getOffices() {
