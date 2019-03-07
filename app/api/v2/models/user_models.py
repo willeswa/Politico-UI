@@ -40,18 +40,27 @@ class UserModel:
         """ Approves user sign in given the email and password are correct """
 
         with Database() as conn:
-            query = """ SELECT  user_id, password, is_admin FROM users where email = %s """
+            query = """ SELECT  * FROM users where email = %s """
             curr = conn.cursor()
             curr.execute(query, (email,),)
             record = curr.fetchone()
 
-        if check_password_hash(record[1], password):
+        if check_password_hash(record[5], password):
             token = create_access_token(
                 {'user_id': record[0], 'is_admin': record[2]})
             result = [
                 {
                     "token": token,
-                    "user": {'user_id': record[0], 'is_admin': record[2]}
+                    "user": {
+                        'user_id': record[0],
+                        'firstname': record[1],
+                        'lastname': record[2],
+                        'othername': record[3],
+                        'email': record[4],
+                        'phone_number': record[6],
+                        'passport_url': record[7], 
+                        'is_admin': record[8]
+                        }
                 }
             ]
             return result
