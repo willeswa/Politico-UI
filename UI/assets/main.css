@@ -4,6 +4,7 @@ body {
     margin: 0;
     font-size: 13px;
     padding: 0;
+    color: #1F2354;
 }
 
 html, body {
@@ -675,7 +676,6 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     width:  68%;
     margin-left: 2%;
     background: #ffffff;
-    margin-bottom: 50px;
     height: auto;
 }
 
@@ -687,6 +687,7 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 .result h2 {
     padding:  0 0 10px  0;
     border-bottom: #1F2354 1px solid;
+    color: rgb(10, 12, 29);
 }
 
 .result ul {
@@ -696,6 +697,7 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 
 .result li {
     font-weight: bold;
+    font-style: italic;
     display: flex;
     padding: 15px 20px;
     border-bottom: 1px solid #EEEEEE;
@@ -705,4 +707,22 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 
 .result li h3 {
     width: 70%;
+}
+
+.no-results-display {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 150px;
+}
+
+.admin-footer {
+    margin-top: 30px;
+}
+
+#prof-icon {
+    width: 40px;
+    height: 40px;
+    border: #1F2354 2px solid;
+    object-fit: cover;
+    object-position: center;
 }

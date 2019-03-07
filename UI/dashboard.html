@@ -33,25 +33,25 @@
             <a class="nav-item">
                 <li id="logout">LOGOUT</li>
             </a>
-            <a class="nav-item prof-item">
+            <!-- <a class="nav-item prof-item">
                 <li>
                     <div class="prof-icon">
-                        <img src="https://avatars1.githubusercontent.com/u/38868860?s=460&v=4" alt="">
+                        <img id="prof-icon" alt="">
                     </div>
                 </li>
-            </a>
+            </a> -->
         </ul>
     </nav>
     <div class="container">
         <div class="dashboard">
             <div class="right-panel dash-right">
                 <div class="user-passport">
-                    <img src="https://avatars1.githubusercontent.com/u/38868860?s=460&v=4" alt="">
+                    <img id="loggedin-passport" alt="">
                 </div>
                 <ul id="profile" class="caption">
-                    <li id="name" class="link-item">Godfrey Willies Wanjala</li>
-                    <li id="email" class="link-item">gwiliez@gmail.com</li>
-                    <li id="phone-number" class="link-item">0721175171</li>
+                    <li id="loggedin-name" class="link-item"></li>
+                    <li id="loggedin-email" class="link-item"></li>
+                    <li id="loggedin-phone-number" class="link-item"></li>
                     <li><button id="edit-prof">Edit Profile</button></li>
                 </ul>
                 <div id="edit-form" class="caption hide">
@@ -71,43 +71,15 @@
                     <div class="stripe">
                         <h2>Election History</h2>
                     </div>
-                    <ul>
-                        <li class="result">
-                            <h2>Office of the President</h2>
-                            <ol>
-                                <li>
-                                    <h3>Leone Kioko</h3>
-                                    <p>25 Votes</p>
-                                </li>
-                                <li>
-                                    <h3>Leone Kioko</h3>
-                                    <p>25 Votes</p>
-                                </li>
-                                <li>
-                                    <h3>Leone Kioko</h3>
-                                    <p>25 Votes</p>
-                                </li>
-                                <li>
-                                    <h3>Leone Kioko</h3>
-                                    <p>25 Votes</p>
-                                </li>
-                                <li>
-                                    <h3>Leone Kioko</h3>
-                                    <p>25 Votes</p>
-                                </li>
-                                <li>
-                                    <h3>Leone Kioko</h3>
-                                    <p>25 Votes</p>
-                                </li>
-                            </ol>
-                        </li>
+                    <ul id="vote-node">
+                       
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="copyright">
+    <footer class="copyright admin-footer">
         <span>Copyright &#9400;2019 Politico. All Rights Reserved</span>
     </footer>
     <script src="scripts/dashboard.js"></script>
