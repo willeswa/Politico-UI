@@ -54,6 +54,7 @@
             <div class="main-panel">
                 <div class="top-main-panel">
                     <a id="add-entity" href="#"></a>
+                    <a id="add-candidate-entity" href="#"></a>
                     <a id="add-office-entity" href="#"></a><span id="creation-response"></span>
                 </div>
                 <div class="lower-main-panel">
@@ -123,6 +124,26 @@
                                     required>
                             </div>
                             <button id="new-office-but" type="submit">Create Position</button>
+                        </form>
+                    </div>
+                    <div id="candidate-entity-form">
+                        <div class="form-header">
+                            <span id="candidate-response"></span>
+                            <h2>Political Positions </h2><i id="cclose" class="fas fa-times"></i>
+                        </div>
+                        <form action="admin.html">
+                            <div class="group-input">
+                                <input type="number" name="candidate-id" id="candidate-id" placeholder="Candidate ID"
+                                    required>
+                            </div>
+
+                            <div class="group-input">
+                                <input type="number" name="party-id" id="party-id" placeholder="Party ID" required>
+                            </div>
+                            <div class="group-input">
+                                <input type="number" name="office-id" id="office-id" placeholder="Office ID" required>
+                            </div>
+                            <button id="new-candidate-but" type="submit">Create Candidate</button>
                         </form>
                     </div>
                 </div>

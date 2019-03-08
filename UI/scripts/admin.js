@@ -5,6 +5,9 @@ const offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
     candidates_nav = document.getElementById('candidates'),
     addEntity = document.getElementById('add-entity'),
     addOfficeEntity = document.getElementById('add-office-entity'),
+    addCandidateEntity = document.getElementById('add-candidate-entity'),
+    newCandidateForm = document.getElementById('candidate-entity-form'),
+    createCandidateBut = document.getElementById('new-candidate-but'),
     creationResponse = document.getElementById('creation-response'),
     logout = document.getElementById('logout'),
     headingSelector = document.getElementById('selector'),
@@ -12,12 +15,14 @@ const offices = 'https://politiko-api.herokuapp.com/api/v2/offices',
     close = document.getElementById('close'),
     eClose = document.getElementById('eclose'),
     oClose = document.getElementById('oclose'),
+    cClose = document.getElementById('cclose'),
     newOfficeBut = document.getElementById('new-office-but'),
     entityForm = document.getElementById('new-entity-form'),
     editEntityForm = document.getElementById('edit-entity-form'),
     newOfficeForm = document.getElementById('office-entity-form'),
-    party_but = document.getElementById('create-party-but');
-
+    party_but = document.getElementById('create-party-but'),
+    res = document.getElementById('candidate-response'),
+    defaultResponse = document.getElementById('creation-response');
 
 if (window.localStorage.getItem('is_admin')) {
     token = window.localStorage.getItem('token');
@@ -30,10 +35,14 @@ if (window.localStorage.getItem('is_admin')) {
     offices_nav.onclick = (event) => {
         event.preventDefault();
 
+        defaultResponse.innerHTML = " ";
+
         clearNode()
         addOfficeEntity.classList = 'add-entity'
         addOfficeEntity.innerHTML = 'Add Office';
-        addEntity.innerHTML = " "
+        addEntity.innerHTML = " ";
+        addCandidateEntity.innerHTML = " ";
+        addCandidateEntity.classList.remove('add-entity');
         addEntity.classList.remove('add-entity');
         headingSelector.innerHTML = 'All Offices';
 
@@ -48,7 +57,9 @@ if (window.localStorage.getItem('is_admin')) {
         addEntity.classList = 'add-entity';
         addEntity.innerHTML = 'Add Party';
         addOfficeEntity.innerHTML = " ";
+        addCandidateEntity.innerHTML = " ";
         addOfficeEntity.classList.remove('add-entity');
+        addCandidateEntity.classList.remove('add-entity');
         headingSelector.innerHTML = 'All Parties';
         getParties();
     }
@@ -57,12 +68,13 @@ if (window.localStorage.getItem('is_admin')) {
     candidates_nav.onclick = (event) => {
         event.preventDefault();
         clearNode()
-        let addCandidate = document.getElementById('add-entity');
-        addCandidate.classList.remove('add-entity')
-        addEntity.innerHTML = '';
+        fetchCandidates()
+        addOfficeEntity.classList.remove('add-entity')
         addEntity.classList.remove('add-entity');
-        addOfficeEntity.classList.remove('add-entity');
         addOfficeEntity.innerHTML = " ";
+        addEntity.innerHTML = " ";
+        addCandidateEntity.classList = 'add-entity';
+        addCandidateEntity.innerHTML = "Add Candidate";
         headingSelector.innerHTML = 'All Candidates';
     }
 
@@ -86,6 +98,12 @@ addOfficeEntity.onclick = (event) => {
     newOfficeForm.style.display = 'block';
 }
 
+addCandidateEntity.onclick = event => {
+    event.preventDefault()
+    newCandidateForm.style.display = 'block';
+
+}
+
 close.onclick = (event) => {
     event.preventDefault();
     entityForm.style.display = 'none';
@@ -99,6 +117,11 @@ eClose.onclick = (event) => {
 oClose.onclick = (event) => {
     event.preventDefault();
     newOfficeForm.style.display = 'none';
+}
+
+cClose.onclick = (event) => {
+    event.preventDefault();
+    newCandidateForm.style.display = 'none';
 }
 
 party_but.onclick = (event) => {
@@ -144,6 +167,13 @@ party_but.onclick = (event) => {
                 span.className += "admin-error";
             }
         })
+}
+
+
+createCandidateBut.onclick = event => {
+    event.preventDefault();
+    res.innerHTML = " ";
+    createCandidate()
 }
 
 
@@ -237,7 +267,7 @@ function getOffices() {
                     const del_id = document.getElementById(o2.id);
                     del_id.onclick = (event) => {
                         event.preventDefault();
-                        alert('Are you sure you want to delete "' + office.office_name + '"');
+                        alert('Are you sure you want to createCdelete "' + office.office_name + '"');
                         delReq = {
                             method: 'DELETE',
                             path: office.office_id,
@@ -345,8 +375,7 @@ function getParties() {
                             .then(response => response.json())
                             .then(data => {
                                 let success = data['data'],
-                                    error = data['error'],
-                                    defaultResponse = document.getElementById('creation-response');
+                                    error = data['error'];
 
                                 if (success) {
                                     window.location.reload();
@@ -448,10 +477,9 @@ function clearNode() {
 }
 
 function createCandidate() {
-    let officeId = document.getElementById('office-id').value,
-        partyId = document.getElementById('party-id'),
-        candidateId = document.getElementById('candidate-id');
-58
+    let officeId = parseInt(document.getElementById('office-id').value),
+        partyId = parseInt(document.getElementById('party-id').value),
+        candidateId = parseInt(document.getElementById('candidate-id').value);
     let candidateData = JSON.stringify({
         candidate_id: candidateId,
         party_id: partyId
@@ -473,10 +501,54 @@ function createCandidate() {
                 error = result['error'];
 
             if (success) {
-                console.log(success)
+                window.location.reload()
             } else if (error) {
-                console.log(error)
+                res.innerHTML = error;
+                res.classList.add('admin-error');
             }
         })
 
+}
+
+
+function fetchCandidates() {
+    fetch('https://politiko-api.herokuapp.com/api/v2/offices')
+        .then(response => response.json())
+        .then(data => {
+            let success = data['data'],
+                error = data['error'];
+
+            if (success) {
+                
+                let offices = data.data;
+                if (offices.length > 0) {
+                    offices.map(office => {
+                        officeId = office.office_id;
+
+                        fetch('https://politiko-api.herokuapp.com/api/v2/office/' + officeId + '/politicians')
+                            .then(response => response.json())
+                            .then(data => {
+                                let candidates = data.data;
+
+                                if (candidates.length > 0) {
+
+                                    candidates.map(candidate => {
+                                        let span1 = createNode('p'),
+                                            span2 = createNode('p'),
+                                            li = createNode('li');
+
+                                            span1.innerHTML = 'Candidate User ID: ' + candidate.politician_reg_id;
+                                            span2.innerHTML = 'Candidate Party ID: ' + candidate.party_id;
+                                            li.className += 'padit';
+
+                                            append(li, span1)
+                                            append(li, span2)
+                                            append(ol, li)
+                                    })
+                                }
+                            })
+                    })
+                }
+            }
+        })
 }
