@@ -25,14 +25,13 @@ if (window.localStorage.getItem('token') !== null) {
         userPassport = window.localStorage.getItem('passport_url'),
         phoneNumber = window.localStorage.getItem('phone_number');
 
-        userNames = user_firstname + ' ' + user_othername + ' ' + user_lastname;
+    userNames = user_firstname + ' ' + user_othername + ' ' + user_lastname;
 
-        loggedInName.innerHTML = userNames;
-        loggedEmail.innerHTML = user_email;
-        loggedPhoneNumber.innerHTML = phoneNumber;
-        loggedinPassport.setAttribute('src', userPassport);
-        editProfName.innerHTML = userNames;
-        // profIcon.setAttribute('src', userPassport);
+    loggedInName.innerHTML = userNames;
+    loggedEmail.innerHTML = user_email;
+    loggedPhoneNumber.innerHTML = phoneNumber;
+    loggedinPassport.setAttribute('src', userPassport);
+    editProfName.innerHTML = userNames;
 
     editProfileBut.onclick = (event) => {
         event.preventDefault()
