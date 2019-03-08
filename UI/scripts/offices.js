@@ -45,8 +45,9 @@ function getOffices() {
                     span2.innerHTML = `${office.office_type}`;
                     span2.className += 'office-span';
                     vie.innerHTML = 'Apply';
-                    vie.id = 'vie';
+                    vie.id = 'vie'+ office.office_id;
                     vie.className += 'success-color';
+                    vie.style.display = 'none';
                     div3.style.display = 'flex';
                     div1.style.width = '90%';
                     li.className += 'colorit user-office';
@@ -59,6 +60,8 @@ function getOffices() {
                     append(div3, div2)
                     append(li, div3)
                     append(ol, li)
+
+                    
                 })
             }
         })

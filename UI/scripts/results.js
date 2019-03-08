@@ -15,12 +15,15 @@ if (window.localStorage.getItem('email') == null) {
     homeLink.setAttribute('href', 'index.html');
 }
 
+document.title = 'POLITIKO | Results'
+
 getOffices()
 
 rclose.onclick = event => {
     event.preventDefault()
     clearNode()
     resultsSlip.style.display = 'none';
+    document.title = 'POLITIKO | Results'
 }
 
 function clearNode() {
@@ -40,7 +43,7 @@ function getOffices() {
                 let resultDiv = createNode('div'),
                     ul = createNode('ul'),
                     li = createNode('li'),
-                    h3 = createNode('h3'),
+                    h3 = createNode('h4'),
                     button = createNode('button');
 
                 button.innerHTML = 'View Results';
@@ -67,6 +70,7 @@ function getOffices() {
                     fetch('https://politiko-api.herokuapp.com/api/v2/office/' + office.office_id + '/result')
                         .then(response => response.json())
                         .then(data => {
+                            document.title = office.office_name;
                             success = data['data'];
                             error = data['error'];
                             if (success) {
