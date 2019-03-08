@@ -26,7 +26,6 @@ function getOffices() {
     return fetch(offices)
         .then(response => response.json())
         .then(all_offices => {
-            console.log(all_offices)
             let all_off = all_offices.data;
             document.title = 'POLITIKO | ' + all_off.length+ ' Positions';
             if (all_off.length > 0) {
