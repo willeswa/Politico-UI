@@ -436,7 +436,7 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     margin-top: 170px;
 }
 
-#new-entity-form, #edit-entity-form, #office-entity-form  {
+#new-entity-form, #edit-entity-form, #office-entity-form, #result-slip  {
     display: none;
     position: fixed;
     z-index: 9;
@@ -449,11 +449,18 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     background: #ffffff;
 }
 
+#result-slip {
+    width: 50%;
+    top: 180px;
+    left: 300px;
+    overflow: scroll;
+}
+
 #office-entity-form {
     bottom: 200px;
 }
 
-#new-entity-form h2, #edit-entity-form h2, #office-entity-form h2 {
+#new-entity-form h2, #edit-entity-form h2, #office-entity-form h2, #result-slip h2 {
     margin-bottom: 5%;
 }
 
@@ -726,3 +733,39 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     object-fit: cover;
     object-position: center;
 }
+
+.border-bottom {
+    border-bottom: #EEEEEE solid 1px;
+    display: flex;
+    color: rgb(29, 28, 28);
+}
+
+.result-count {
+    margin-left: 40%;
+    font-style: italic;
+}
+
+#rh2 {
+    width: 90%;
+}
+
+#rclose {
+    font-size: 1.5em;
+}
+
+.result-heading {
+    border-bottom: #1F2354 1px solid;
+    display: flex;
+    padding: 0;
+    height: 40px;
+    width: 100%;
+}
+
+#h3 {
+    width: 80%;
+}
+
+i:hover {
+    cursor: pointer;
+}
+

@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/main.css">
     <link rel="stylesheet" href="assets/main.css">
     <title></title>
 </head>
@@ -18,16 +21,16 @@
             <a class="nav-item" id="home-a" href="dashboard.html">
                 <li id="home">MY ACCOUNT</li>
             </a>
-            <a class="nav-item active" href="parties.html">
+            <a class="nav-item " href="parties.html">
                 <li>ALL PARTIES</li>
             </a>
             <a class="nav-item" href="offices.html">
                 <li>OPEN POSITIONS</li>
             </a>
-            <a class="nav-item" href="results.html">
+            <a class="nav-item active" href="results.html">
                 <li>RESULTS</li>
             </a>
-            <a id="vote-nav-item" class="nav-item" href="vote.html">
+            <a id="vote-nav-item" class="nav-item " href="vote.html">
                 <li>VOTE NOW</li>
             </a>
         </ul>
@@ -41,12 +44,22 @@
         <div class="offices">
             <div class="office">
                 <div class="stripe">
-                    <h2>All Parties <span id="total-parties"></span></h2>
+                    <h2>All Results <span id="total-parties"></span></h2>
                 </div>
                 <div class="candidates" id="main-node">
                    
                 </div>
 
+            </div>
+            <div id="result-slip">
+                <div class="result-heading">
+                    <h2 id="rh2"></h2><i id="rclose" class="fas fa-times"></i>
+                </div>
+                <div>
+                    <ul id="office-result-list">
+                        
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -80,7 +93,7 @@
     <footer class="copyright">
         <span>Copyright &#9400;2019 Politico. All Rights Reserved</span>
     </footer>
-    <script src="scripts/parties.js"></script>
+    <script src="scripts/results.js"></script>
 </body>
 
 </html>
