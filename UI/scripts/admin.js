@@ -239,21 +239,25 @@ function getOffices() {
                     let li = createNode('li'),
                         span1 = createNode('span'),
                         span2 = createNode('span'),
-                        h3 = createNode('h3'),
+                        span3 = createNode('span'),
+                        h3 = createNode('h4'),
                         div1 = createNode('div'),
                         div2 = createNode('div'),
-                        o2 = createNode('i')
-                    div3 = createNode('div');
+                        o2 = createNode('i'),
+                        div3 = createNode('div');
 
                     h3.innerHTML = `${office.office_name}`;
                     span1.innerHTML = `${office.created_on}`;
                     span2.innerHTML = `${office.office_type}`;
                     o2.className += 'far fa-trash-alt';
                     o2.id = 'del' + office.office_id;
-                    div3.style.display = 'flex';
+                    li.style.display = 'flex';
+                    div3.classList.add('office-inf')
                     div1.style.width = '90%';
                     div2.className += 'del';
                     li.className += 'colorit';
+                    span3.classList.add('id-style')
+                    span3.innerHTML = `${office.office_id}`;
 
                     append(div1, span1)
                     append(div1, span2)
@@ -261,39 +265,43 @@ function getOffices() {
                     append(div2, o2)
                     append(div3, div1)
                     append(div3, div2)
+                    append(li, span3)
                     append(li, div3)
                     append(ol, li)
 
                     const del_id = document.getElementById(o2.id);
                     del_id.onclick = (event) => {
                         event.preventDefault();
-                        alert('Are you sure you want to createCdelete "' + office.office_name + '"');
-                        delReq = {
-                            method: 'DELETE',
-                            path: office.office_id,
-                            headers: new Headers(
-                                {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': 'Bearer ' + token
-                                }
-                            )
-                        }
-                        fetch('https://politiko-api.herokuapp.com/api/v2/offices/' + office.office_id, delReq)
-                            .then(response => response.json())
-                            .then(data => {
-                                let success = data['data'],
-                                    error = data['error'],
-                                    msg = data['msg'];
+                        deleteOff = confirm('Are you sure you want to delete "' + office.office_name + '"');
 
-                                if (success) {
-                                    window.location.reload();
-                                }
-                                else if (error) {
-                                    console.log(error)
-                                } else {
-                                    console.log(msg)
-                                }
-                            })
+                        if (deleteOff) {
+                            delReq = {
+                                method: 'DELETE',
+                                path: office.office_id,
+                                headers: new Headers(
+                                    {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': 'Bearer ' + token
+                                    }
+                                )
+                            }
+                            fetch('https://politiko-api.herokuapp.com/api/v2/offices/' + office.office_id, delReq)
+                                .then(response => response.json())
+                                .then(data => {
+                                    let success = data['data'],
+                                        error = data['error'],
+                                        msg = data['msg'];
+
+                                    if (success) {
+                                        window.location.reload();
+                                    }
+                                    else if (error) {
+                                        console.log(error)
+                                    } else {
+                                        console.log(msg)
+                                    }
+                                })
+                        }
                     }
 
                 })
@@ -328,12 +336,13 @@ function getParties() {
                         span1 = createNode('span'),
                         h3 = createNode('h3'),
                         i1 = createNode('i'),
-                        i2 = createNode('i');
+                        i2 = createNode('i'),
+                        i3 = createNode('span');
 
 
                     h3.innerHTML = `${party.party_name}`;
-                    span1.innerHTML = `${party.created_on}`;
-                    span2.innerHTML = `${party.hq_address}`;
+                    span1.innerHTML = `${party.created_on} ${party.party_id}`;
+                    span2.innerHTML = `${party.hq_address} `;
                     img.src = party.logo_url;
                     div2.style.width = '20%';
                     li.style.display = 'flex';
@@ -343,6 +352,8 @@ function getParties() {
                     i2.className += 'far fa-trash-alt';
                     i1.id = 'edit' + party.party_id
                     i2.id = 'del' + party.party_id
+                    i3.innerHTML = party.party_id;
+                    i3.id = 'spanid';
                     div3.className += 'edit-delete';
 
                     append(div1, span1)
@@ -350,6 +361,7 @@ function getParties() {
                     append(div1, h3)
                     append(div3, i1)
                     append(div3, i2)
+                    append(div3, i3)
                     append(div2, img)
                     append(div4, div1)
                     append(div4, div3)
@@ -359,34 +371,37 @@ function getParties() {
 
                     const del_id = document.getElementById(i2.id);
                     del_id.onclick = (event) => {
-                        alert('Are you sure you want to delete this party?')
                         event.preventDefault()
-                        delReq = {
-                            method: 'DELETE',
-                            path: party.party_id,
-                            headers: new Headers(
-                                {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': 'Bearer ' + token
-                                }
-                            )
-                        }
-                        fetch('https://politiko-api.herokuapp.com/api/v2/parties/' + party.party_id, delReq)
-                            .then(response => response.json())
-                            .then(data => {
-                                let success = data['data'],
-                                    error = data['error'];
+                        deleteEnt = confirm('Are you sure you want to delete this party?')
 
-                                if (success) {
-                                    window.location.reload();
-                                }
-                                else if (error) {
-                                    defaultResponse.innerHTML = error;
-                                } else {
-                                    defaultResponse.innerHTML = data['msg'] + '! Please login to continue.';;
-                                    defaultResponse.className += 'error-text';
-                                }
-                            })
+                        if (deleteEnt) {
+                            delReq = {
+                                method: 'DELETE',
+                                path: party.party_id,
+                                headers: new Headers(
+                                    {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': 'Bearer ' + token
+                                    }
+                                )
+                            }
+                            fetch('https://politiko-api.herokuapp.com/api/v2/parties/' + party.party_id, delReq)
+                                .then(response => response.json())
+                                .then(data => {
+                                    let success = data['data'],
+                                        error = data['error'];
+
+                                    if (success) {
+                                        window.location.reload();
+                                    }
+                                    else if (error) {
+                                        defaultResponse.innerHTML = error;
+                                    } else {
+                                        defaultResponse.innerHTML = data['msg'] + '! Please login to continue.';;
+                                        defaultResponse.className += 'error-text';
+                                    }
+                                })
+                        }
                     }
 
                     const edit_id = document.getElementById(i1.id);
@@ -519,7 +534,7 @@ function fetchCandidates() {
                 error = data['error'];
 
             if (success) {
-                
+
                 let offices = data.data;
                 if (offices.length > 0) {
                     offices.map(office => {
@@ -537,13 +552,13 @@ function fetchCandidates() {
                                             span2 = createNode('p'),
                                             li = createNode('li');
 
-                                            span1.innerHTML = 'Candidate User ID: ' + candidate.politician_reg_id;
-                                            span2.innerHTML = 'Candidate Party ID: ' + candidate.party_id;
-                                            li.className += 'padit';
+                                        span1.innerHTML = 'Candidate User ID: ' + candidate.politician_reg_id;
+                                        span2.innerHTML = 'Candidate Party ID: ' + candidate.party_id;
+                                        li.className += 'padit';
 
-                                            append(li, span1)
-                                            append(li, span2)
-                                            append(ol, li)
+                                        append(li, span1)
+                                        append(li, span2)
+                                        append(ol, li)
                                     })
                                 }
                             })

@@ -216,7 +216,6 @@ box-shadow: 0px 0px 8px -2px rgba(43,0,86,1);   */
 
 .candidates {
     width: 100%;
-    padding: 0 2%;
 }
 
 .candidate img {
@@ -421,7 +420,7 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 }
 
 #entity span:nth-of-type(2){
-    margin-left: 35%;
+    margin-left: 5%;
     font-weight: bold;
     color: #1F2354;
 }
@@ -562,8 +561,16 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 .padit {
     font-weight: bold;
     font-size: 1.3em;
-    padding: 20px 25px;
+    padding: 10px 25px;
     line-height: 30px;
+}
+
+#entity li, #main-node li {
+    border-left: #ffffff 3px solid;
+}
+
+#entity li:hover, #main-node li:hover {
+    border-left: #1F2354 3px solid;
 }
 
 .del {
@@ -593,6 +600,11 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     padding: 10px 15px;
     line-height: 25px;
     border-bottom: #E3E6F0 1px solid;
+}
+
+.user-office span {
+    opacity: 0.5;
+    font-style: italic;
 }
 
 .office-span {
@@ -647,6 +659,10 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 
 .caption li:nth-child(4){
     border-bottom: none;
+}
+
+#main-node h4{
+    opacity: 0.9;
 }
 
 .caption button {
@@ -775,3 +791,40 @@ i:hover {
     cursor: pointer;
 }
 
+.id-style, #spanid {
+    border: #1F2354 1px solid;
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: bold;
+    width: 45px;
+    border-radius: 50%;
+    background: #1F2354;
+}
+
+#spanid {
+    height: 24px;
+    font-size: 12px;
+    width: 24px;
+    margin-left: 8%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.office-inf  {
+    display: flex;
+    width: 80%;
+    margin-left: 2%;
+    padding-left: 15px;
+    border-left: #1F2354 1px solid;
+}
+
+.office-inf span {
+    opacity: 0.5;
+    font-style: italic;
+}
+
+
+
+#entity .id-style, .edit-delete #spanid {
+    color: #ffffff;
+}
