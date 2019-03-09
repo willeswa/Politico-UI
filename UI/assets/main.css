@@ -55,6 +55,10 @@ a, button {
     width: 30%;
 }
 
+.caption .link-item {
+    font-size: inherit;
+}
+
 .navbar-right .nav-item {
     float: right;   
 }
@@ -401,6 +405,9 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     display: block;
 }
 
+#add-candidate-entity {
+    width: 150px;
+}
 
 .add-entity:hover {
     background: #1F2354;
@@ -560,7 +567,7 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 
 .padit {
     font-weight: bold;
-    font-size: 1.3em;
+    /* font-size: 1.3em; */
     padding: 10px 25px;
     line-height: 30px;
 }
@@ -730,7 +737,6 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     display: flex;
     padding: 15px 20px;
     border-bottom: 1px solid #EEEEEE;
-    font-size: 1.1em;
     
 }
 
@@ -740,7 +746,7 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 
 .no-results-display {
     font-weight: bold;
-    font-size: 1.3em;
+    /* font-size: 0.8; */
     margin-bottom: 150px;
 }
 
@@ -763,8 +769,13 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 }
 
 .result-count {
-    margin-left: 40%;
+    margin-left: 30%;
     font-style: italic;
+    width: 200px;
+}
+
+#result-slip h {
+    font-size: 14px;
 }
 
 #rh2 {
@@ -785,6 +796,7 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
 
 #h3 {
     width: 80%;
+    font-size: 13px;
 }
 
 i:hover {
