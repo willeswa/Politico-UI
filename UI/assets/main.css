@@ -414,19 +414,19 @@ box-shadow: 0px 3px 4px -1px rgba(227,230,240,1);
     color: #ffffff;
 }
 
-#entity li {
+#entity li, #main-node li {
     padding: 15px 20px;
     border-bottom: #E4E9F0 1px solid;
 }
 
-#entity span {
+#entity span, #main-node span {
     font-weight: normal;
     color: initial;
     padding: 5px 0;
     display: inline-block;
 }
 
-#entity span:nth-of-type(2){
+#entity span:nth-of-type(2), #main-node span:nth-child(2){
     margin-left: 5%;
     font-weight: bold;
     color: #1F2354;
@@ -837,6 +837,11 @@ i:hover {
 
 
 
-#entity .id-style, .edit-delete #spanid {
+#entity .id-style, .edit-delete #spanid, #main-node .id-style{
     color: #ffffff;
+}
+
+.padbut {
+    padding: 0px 5px;
+    height: 30px;
 }

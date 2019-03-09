@@ -72,20 +72,20 @@ if (window.localStorage.getItem('token') !== null) {
                     let voteNode = document.getElementById('vote-node');
 
                     voteHistory.map(voteHistory => {
-                        let h2 = createNode('h2'),
+                        let h3 = createNode('h3'),
                             parentLi = createNode('li'),
                             ol = createNode('ol'),
                             childLi = createNode('li'),
-                            h3 = createNode('h3'),
+                            p1 = createNode('p'),
                             p = createNode('p');
-                        h2.innerHTML = voteHistory.office;
-                        h3.innerHTML = 'Voted: ' + voteHistory.candidate;
+                        h3.innerHTML = voteHistory.office;
+                        p1.innerHTML = 'Voted: ' + voteHistory.candidate;
                         parentLi.className += ('result');
 
-                        append(childLi, h3)
+                        append(childLi, p1)
                         append(childLi, p)
                         append(ol, childLi)
-                        append(parentLi, h2)
+                        append(parentLi, h3)
                         append(parentLi, ol)
                         append(voteNode, parentLi)
 
@@ -97,7 +97,7 @@ if (window.localStorage.getItem('token') !== null) {
         })
 
 } else {
-    window.location.replace('index.html');
+    window.location.replace('signin.html');
 }
 
 function logout() {
