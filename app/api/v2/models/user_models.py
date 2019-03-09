@@ -58,9 +58,9 @@ class UserModel:
                         'othername': record[3],
                         'email': record[4],
                         'phone_number': record[6],
-                        'passport_url': record[7], 
+                        'passport_url': record[7],
                         'is_admin': record[8]
-                        }
+                    }
                 }
             ]
             return result
@@ -143,12 +143,15 @@ class PolitcianModel(UserModel):
             curr.execute(query, (candidate_id,),)
             record = curr.fetchone()
         return record[0]
-    
+
     @classmethod
     def retrieve_all_politicians(cls, office_id):
         """ Retrieves all politicians from the database. """
 
-        query = """ SELECT party, politician FROM politicians WHERE office = %s """
+        query = """ SELECT concat_ws(' ', firstname, othername, lastname) AS candidate, parties.party_name AS party, offices.office_name AS office, politicians.politician_id AS candidate_id
+            FROM users INNER JOIN politicians ON users.user_id = politicians.politician
+            INNER JOIN parties ON parties.party_id = politicians.party
+            INNER JOIN offices ON offices.office_id = politicians.office WHERE office = %s """
 
         with Database() as conn:
             curr = conn.cursor()
@@ -156,7 +159,7 @@ class PolitcianModel(UserModel):
             records = curr.fetchall()
         politicians = []
         if records:
-            column = ('party_id', 'politician_reg_id')
+            column = ('candidate', 'party', 'office', 'candidate_id')
             for record in records:
                 politician = dict(zip(column, record))
                 politicians.append(politician)
