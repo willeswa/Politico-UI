@@ -41,7 +41,7 @@ if (window.localStorage.getItem('is_admin')) {
         addOfficeEntity.classList = 'add-entity'
         addOfficeEntity.innerHTML = 'Add Office';
         addEntity.innerHTML = " ";
-        addCandidateEntity.innerHTML = " ";
+        addCandidateEntity.style.display = 'none';
         addCandidateEntity.classList.remove('add-entity');
         addEntity.classList.remove('add-entity');
         headingSelector.innerHTML = 'All Offices';
@@ -74,6 +74,7 @@ if (window.localStorage.getItem('is_admin')) {
         addOfficeEntity.innerHTML = " ";
         addEntity.innerHTML = " ";
         addCandidateEntity.classList = 'add-entity';
+        addCandidateEntity.style.display = 'block';
         addCandidateEntity.innerHTML = "Add Candidate";
         headingSelector.innerHTML = 'All Candidates';
     }
@@ -307,10 +308,10 @@ function getOffices() {
                 })
 
             } else {
-                let li = createNode('li'),
-                    h3 = createNode('h3');
-                h3.innerHTML = "You have not declared any open offices for vying at the moment. Click the Add Office button above to create a new office.";
-                append(li, h3);
+                clearNode()
+                let li = createNode('li');
+                li.innerHTML = "You have not declared any open offices for vying at the moment. Click the Add Office button above to create a new office.";
+                li.className += 'padit';
                 append(ol, li);
             }
         })
@@ -411,6 +412,7 @@ function getParties() {
                         fetch('https://politiko-api.herokuapp.com/api/v2/parties/' + party.party_id)
                             .then(response => response.json())
                             .then(data => {
+                                defaultResponse.innerHTML = ' ';
                                 let success = data['data'],
                                     error = data['error'];
 
@@ -465,6 +467,9 @@ function getParties() {
                                     let defaultResponse = document.getElementById('creation-response');
                                     defaultResponse.innerHTML = error;
                                     defaultResponse.className += 'error-text';
+                                } else {
+                                    defaultResponse.className += 'error-text';
+                                    defaultResponse.innerHTML = data['msg'];
                                 }
                             })
                     }
@@ -472,10 +477,10 @@ function getParties() {
 
                 })
             } else {
-                let li = createNode('li'),
-                    h3 = createNode('h3');
-                h3.innerHTML = "There are no parties in the system at the moment. Click the Add Party button above to create a new party.";
-                append(li, h3);
+                clearNode()
+                let li = createNode('li');
+                li.innerHTML = "There are no parties in the system at the moment. Click the Add Party button above to create a new party.";
+                li.className = 'padit';
                 append(ol, li);
             }
 
@@ -544,26 +549,69 @@ function fetchCandidates() {
                             .then(response => response.json())
                             .then(data => {
                                 let candidates = data.data;
-
+                                console.log(candidates)
                                 if (candidates.length > 0) {
-
                                     candidates.map(candidate => {
-                                        let span1 = createNode('p'),
-                                            span2 = createNode('p'),
-                                            li = createNode('li');
 
-                                        span1.innerHTML = 'Candidate User ID: ' + candidate.politician_reg_id;
-                                        span2.innerHTML = 'Candidate Party ID: ' + candidate.party_id;
-                                        li.className += 'padit';
+                                        let li = createNode('li'),
+                                            span1 = createNode('span'),
+                                            span2 = createNode('span'),
+                                            span3 = createNode('span'),
+                                            h3 = createNode('h4'),
+                                            div1 = createNode('div'),
+                                            div2 = createNode('div'),
+                                            div3 = createNode('div');
 
-                                        append(li, span1)
-                                        append(li, span2)
+                                        h3.innerHTML = `${candidate.candidate_name}`;
+                                        span1.innerHTML = `${candidate.party}`;
+                                        span2.innerHTML = `${candidate.office}`;
+                                        li.style.display = 'flex';
+                                        div3.classList.add('office-inf')
+                                        div1.style.width = '90%';
+                                        div2.className += 'del';
+                                        li.className += 'colorit';
+                                        span3.classList.add('id-style')
+                                        span3.innerHTML = `${candidate.candidate_id}`;
+
+                                        append(div1, span1)
+                                        append(div1, span2)
+                                        append(div1, h3)
+                                        append(div3, div1)
+                                        append(div3, div2)
+                                        append(li, span3)
+                                        append(li, div3)
                                         append(ol, li)
+
+                                        // let span1 = createNode('p'),
+                                        //     span2 = createNode('p'),
+                                        //     li = createNode('li');
+
+                                        // span1.innerHTML = 'Candidate User ID: ' + candidate.politician_reg_id;
+                                        // span2.innerHTML = 'Candidate Party ID: ' + candidate.party_id;
+                                        // li.className += 'padit';
+
+                                        // append(li, span1)
+                                        // append(li, span2)
+                                        // append(ol, li)
                                     })
+                                } else {
+                                    clearNode()
+                                    let li = createNode('li');
+                                    li.innerHTML = 'There are no candidates at the moment. You can register recieved applications by clicking the Add Candidate button above.'
+                                    li.className += 'padit';
+
+                                    append(ol, li);
                                 }
                             })
                     })
+                } else {
+                    clearNode()
+                    let li = createNode('li');
+                    li.innerHTML = 'There are no offices for candidates to vie for at the moment. Add offices first.'
+                    li.className += 'padit';
+                    append(ol, li);
                 }
+
             }
         })
 }
