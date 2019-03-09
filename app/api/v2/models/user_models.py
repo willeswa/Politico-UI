@@ -148,7 +148,7 @@ class PolitcianModel(UserModel):
     def retrieve_all_politicians(cls, office_id):
         """ Retrieves all politicians from the database. """
 
-        query = """ SELECT concat_ws(' ', firstname, othername, lastname) AS candidate, parties.party_name AS party, offices.office_name AS office, politicians.politician_id AS candidate_id
+        query = """ SELECT concat_ws(' ', firstname, othername, lastname) AS candidate, user_id as related_userid, parties.party_name AS party, offices.office_name AS office, politicians.politician_id AS candidate_id
             FROM users INNER JOIN politicians ON users.user_id = politicians.politician
             INNER JOIN parties ON parties.party_id = politicians.party
             INNER JOIN offices ON offices.office_id = politicians.office WHERE office = %s """
@@ -159,7 +159,7 @@ class PolitcianModel(UserModel):
             records = curr.fetchall()
         politicians = []
         if records:
-            column = ('candidate', 'party', 'office', 'candidate_id')
+            column = ( 'candidate_name', 'related_userid', 'party', 'office', 'candidate_id')
             for record in records:
                 politician = dict(zip(column, record))
                 politicians.append(politician)
