@@ -19,6 +19,13 @@ document.title = 'POLITIKO | Results'
 
 getOffices()
 
+
+logoutBut.onclick = (event) => {
+    event.preventDefault();
+    window.localStorage.clear()
+    window.location.replace('signin.html')
+}
+
 rclose.onclick = event => {
     event.preventDefault()
     clearNode()

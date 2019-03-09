@@ -11,6 +11,7 @@ if (window.localStorage.getItem('email') == null) {
     logoutBut.innerHTML = 'LOGIN';
     homeBut.innerHTML = 'HOME';
     homeLink.setAttribute('href', 'index.html');
+
 }
 
 getParties()

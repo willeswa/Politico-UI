@@ -5,84 +5,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/main.css">
-    <title>Vote Now</title>
+    <title>New Political Party</title>
 </head>
 
 <body>
     <nav>
-
         <ul class="navbar">
             <a class="nav-item brand-name" href="index.html">
                 <li>POLITIKO</li>
             </a>
-            <a class="nav-item" href="index.html">
-                <li>HOME</li>
+            <a class="nav-item" id="home-a" href="dashboard.html">
+                <li id="home">MY ACCOUNT</li>
             </a>
             <a class="nav-item" href="parties.html">
                 <li>ALL PARTIES</li>
             </a>
             <a class="nav-item" href="offices.html">
-                <li>POLITICIANS</li>
+                <li>OPEN POSITIONS</li>
             </a>
-            <a class="nav-item" href="vote.html">
+            <a class="nav-item" href="results.html">
+                <li>RESULTS</li>
+            </a>
+            <a class="nav-item active" id="vote-now" href="vote.html">
                 <li>VOTE NOW</li>
             </a>
         </ul>
         <ul class="navbar navbar-right">
             <a class="nav-item" href="signin.html">
-                <li>LOGOUT</li>
+                <li id="logout">LOGOUT</li>
             </a>
         </ul>
     </nav>
     <div class="container">
-        <div class="vote-sheet">
-            <h3>PET COUNTY GUBERNATORIAL SEAT <span><i class="fas fa-vote-yea"></i></span></h3>
-            <div id="prefered">
-                <form action="" class="form2">
-                    <div class="choice">
-                        <label for="candidate1">
-                            Eric Cartman
-                        </label>
-                        <input type="radio" name="candidate1" id="candidate1">
-                    </div>
-                    <div class="choice">
-                        <label for="candidate2">
-                            Eric Cartman
-                        </label>
-                        <input type="radio" name="candidate1" id="candidate2">
-                    </div>
-                    <div class="choice">
-                        <label for="candidate3">
-                            Eric Cartman
-                        </label>
-                        <input type="radio" name="candidate1" id="candidate3">
-                    </div>
-                    <button>Vote</button>
-                </form>
+        <div class="offices">
+            <div class="office">
+                <div class="stripe">
+                    <h2>All Candidates <span id="total-offices"></span></h2>
+                </div>
+                <div>
+                   <ol id="main-node">
+
+                   </ol>
+                </div>
             </div>
         </div>
+    </div>
     </div>
     <footer>
         <div class="find-us">
             <h3>Want to learn more?</h3>
             <ul>
-                <a href="#">
+                <a href="https://github.com/willeswa">
                     <li>About the developer</li>
                 </a>
-                <a href="#">About the project</a>
+                <a href="https://drive.google.com/file/d/1xnHLdlXMMUjwFYCnYHAQBEjYCmyxA3Lw/view?usp=sharing">About the
+                    project</a>
             </ul>
         </div>
         <div class="contribute">
             <h3>Contribute to the project</h3>
             <ul>
-                <a href="#">
+                <a href="https://github.com/willeswa/politico-app">
                     <li>GitHub Repository</li>
                 </a>
-                <a href="#">
-                    <li>Politiko API Docs</li>
+                <a href="https://app.swaggerhub.com/apis-docs/willeswa/politiko-api/v2.0">
+                    <li>The Politiko API</li>
                 </a>
             </ul>
         </div>
@@ -94,7 +84,7 @@
     <footer class="copyright">
         <span>Copyright &#9400;2019 Politico. All Rights Reserved</span>
     </footer>
-
+    <script src="scripts/vote.js"></script>
 </body>
 
 </html>
